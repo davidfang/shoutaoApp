@@ -33,7 +33,10 @@ export default (rootReducer, rootSaga) => {
 
   // if Reactotron is enabled (default for __DEV__), we'll create the store through Reactotron
   const createAppropriateStore = Config.useReactotron ? console.tron.createStore : createStore
-  const store = createAppropriateStore(rootReducer, compose(...enhancers))
+  //const store = createAppropriateStore(rootReducer, compose(...enhancers))
+
+  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+  const store = createAppropriateStore(rootReducer, /* preloadedState, */ composeEnhancers(...enhancers))
 
   // kick off root saga
   let sagasManager = sagaMiddleware.run(rootSaga)
