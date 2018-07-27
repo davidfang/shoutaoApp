@@ -3,6 +3,14 @@ import { Colors } from '../../Themes/'
 
 export default StyleSheet.create({
   header: {
-    backgroundColor: Colors.backgroundColor
+    backgroundColor: Colors.background
+  },
+  icon: {
+    width: 24,
+    height: 24
+  },
+  headerTitleStyle: {
+    color: Colors.text,
+    alignSelf: 'center'
   }
 })

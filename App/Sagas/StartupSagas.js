@@ -2,6 +2,10 @@ import { put, select } from 'redux-saga/effects'
 import GithubActions, { GithubSelectors } from '../Redux/GithubRedux'
 import { is } from 'ramda'
 
+
+import BannerActions from '../Redux/BannerRedux'
+import TbActions from '../Redux/TbRedux'
+
 // exported to make available for tests
 export const selectAvatar = GithubSelectors.selectAvatar
 
@@ -37,4 +41,7 @@ export function * startup (action) {
   if (!is(String, avatar)) {
     yield put(GithubActions.userRequest('GantMan'))
   }
+  yield put(BannerActions.bannerRequest('swiper'))
+  yield put(BannerActions.bannerRequest('recommend'))
+  yield put(TbActions.tbIndexRecommendRequest(1))
 }

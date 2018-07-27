@@ -1,5 +1,6 @@
 const colors = {
-  background: '#1F0808',
+  background: '#f44336',
+  orange: '#ff6600',
   clear: 'rgba(0,0,0,0)',
   facebook: '#3b5998',
   transparent: 'rgba(0,0,0,0)',
@@ -19,9 +20,14 @@ const colors = {
   fire: '#e73536',
   drawer: 'rgba(30, 30, 29, 0.95)',
   eggplant: '#251a34',
-  border: '#483F53',
-  banner: '#5F3E63',
-  text: '#E0D7E5'
+  border: '#cccccc',
+  banner: '#e57373',
+  button: '#ff5252',
+  text: '#E0D7E5',
+  descText: '#a6a4b2',
+  selected: '#d32f2f',
+  disabledBackGround: '#eeeeee',
+  white:'#ffffff'
 }
 
 export default colors

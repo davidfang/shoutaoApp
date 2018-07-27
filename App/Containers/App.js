@@ -22,7 +22,11 @@ class App extends Component {
   componentDidMount() {
     // do stuff while splash screen is shown
     // After having done stuff (such as async tasks) hide the splash screen
+    // 隐藏启动页，如果不设置消失时间，在组件加载完启动页自动隐藏
     SplashScreen.hide();
+    // setTimeout(() => {
+    //   SplashScreen.hide();
+    // }, 5000);
   }
   render () {
     return (
