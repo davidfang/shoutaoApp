@@ -33,7 +33,7 @@ export default class ProductImages extends Component {
                   key={index}
                   style={styles.swiperImage}
                   source={{
-                    uri: item.imgUrl
+                    uri: item
                   }}
                   resizeMode='cover'
                 />

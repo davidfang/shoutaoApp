@@ -109,3 +109,11 @@ export function * getTbDetail (api, action) {
     yield put(TbActions.tbFailure(response.problem, response))
   }
 }
+
+export function * setTbDetail(api,action) {
+  const {num_iid,detail} = action
+
+  const response = yield call(api.setTbDetail,num_iid,detail)
+
+  yield put(TbActions.tbSetDetail(num_iid,detail))
+}

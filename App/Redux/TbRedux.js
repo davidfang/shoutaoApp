@@ -1,5 +1,6 @@
 import { createReducer, createActions } from 'reduxsauce'
 import Immutable from 'seamless-immutable'
+import lodash from 'lodash'
 import union from 'lodash/union'
 import { normalize, schema } from 'normalizr'
 /* ------------- Types and Action Creators ------------- */
@@ -16,8 +17,10 @@ const {Types, Creators} = createActions({
   tbChannelProductSuccess: ['channelId', 'payload'],
   tbSearchRequest: ['keyWord', 'sortId'],
   tbSearchSuccess: ['keyWord', 'payload'],
-  tbDetailRequest: ['goodsId'],
-  tbDetailSuccess: ['goodsId', 'smallImages', 'detailImages', 'guessLike', 'payload'],
+  tbSetDetailRequest: ['num_iid','detail'],
+  tbSetDetail: ['num_iid','detail'],
+  tbDetailRequest: ['num_iid'],
+  tbDetailSuccess: ['num_iid', 'smallImages', 'detailImages', 'guessLike', 'payload'],
   tbDetailFailure: ['error', 'payload']
 })
 
@@ -82,14 +85,14 @@ export const TbSelectors = {
     return state.searchResult.length ? state.searchResult.map(id => state.productLists[id]) : []
   },
   // 获得产品小图 轮播图
-  getSmallImages: (state, goodsId) => state.productSmallImages.hasOwnProperty(goodsId) ? state.productSmallImages[goodsId] : [],
+  getSmallImages: (state, num_iid) => state.productSmallImages.hasOwnProperty(num_iid) ? state.productSmallImages[num_iid] : [],
   // 获得产品详情图
-  getDetailImages: (state, goodsId) => state.productDetailImages.hasOwnProperty(goodsId) ? state.productDetailImages[goodsId] : [],
+  getDetailImages: (state, num_iid) => state.productDetailImages.hasOwnProperty(num_iid) ? state.productDetailImages[num_iid] : [],
   // 获得产品相关推荐产品的ID列表
-  getGuessLikeIds: (state, goodsId) => state.productGuessLike.hasOwnProperty(goodsId) ? state.productGuessLike[goodsId] : [],
+  getGuessLikeIds: (state, num_iid) => state.productGuessLike.hasOwnProperty(num_iid) ? state.productGuessLike[num_iid] : [],
   // 获得产品相关推荐产品的数据列表
-  getGuessLikePrds: (state, goodsId) => {
-    let ids = TbSelectors.getGuessLikeIds(state, goodsId)
+  getGuessLikePrds: (state, num_iid) => {
+    let ids = TbSelectors.getGuessLikeIds(state, num_iid)
     return ids.length ? ids.map(id => state.productLists[id]) : []
   },
   getProductInfo: (state, productId) => state.productLists.hasOwnProperty(productId) ? state.productLists[productId] : null
@@ -98,8 +101,7 @@ export const TbSelectors = {
 /* ------------- Reducers ------------- */
 
 // request the data from an api
-export const request = (state, {data}) =>
-  state.merge({fetching: true, data, payload: null})
+export const request = (state, {data}) => state.merge({fetching: true, data, payload: null})
 
 // successful api lookup
 export const success = (state, action) => {
@@ -119,7 +121,7 @@ export const indexRecommendRequest = (state) =>
 // successful api lookup
 export const indexRecommendSuccess = (state, action) => {
   const {payload} = action
-  const productSchema = new schema.Entity('items', {}, {idAttribute: 'goodsId'})
+  const productSchema = new schema.Entity('items', {}, {idAttribute: 'num_iid'})
   const productsData = normalize(payload, [productSchema])
   const {entities: {items}, result} = productsData
   const productLists = Object.assign({}, items, state.productLists)
@@ -142,7 +144,7 @@ export const channelProductRequest = (state, {channelId, sortId}) =>
 // successful api lookup
 export const channelProductSuccess = (state, action) => {
   const {channelId, payload} = action
-  const productSchema = new schema.Entity('items', {}, {idAttribute: 'goodsId'})
+  const productSchema = new schema.Entity('items', {}, {idAttribute: 'num_iid'})
   const productsData = normalize(payload, [productSchema])
   const {entities: {items}, result} = productsData
   const productLists = Object.assign({}, items, state.productLists)
@@ -180,7 +182,7 @@ export const searchRequest = (state, {keyWord, sortId}) => {
 // successful api lookup
 export const searchSuccess = (state, action) => {
   const {keyWord, payload} = action
-  const productSchema = new schema.Entity('items', {}, {idAttribute: 'goodsId'})
+  const productSchema = new schema.Entity('items', {}, {idAttribute: 'num_iid'})
   const productsData = normalize(payload, [productSchema])
   const {entities: {items}, result} = productsData
   const productLists = Object.assign({}, items, state.productLists)
@@ -200,15 +202,15 @@ export const indexRecommendFailure = (state, {payload, error}) =>
   state.merge({fetching: false, error, payload})
 
 // request the data from an api
-export const tbDetailRequest = (state, {goodsId}) =>
+export const tbDetailRequest = (state, {num_iid}) =>
   state.merge({fetching: true, payload: null})
 
 // successful api lookup
 export const tbDetailSuccess = (state, action) => {
-  const {payload, goodsId, smallImages, detailImages, guessLike} = action
+  const {payload, num_iid, smallImages, detailImages, guessLike} = action
 
   // 处理推荐产品
-  const productSchema = new schema.Entity('items', {}, {idAttribute: 'goodsId'})
+  const productSchema = new schema.Entity('items', {}, {idAttribute: 'num_iid'})
   const productsData = normalize(guessLike, [productSchema])
   const {entities: {items}, result} = productsData
   const productLists = Object.assign({}, items, state.productLists)
@@ -218,10 +220,22 @@ export const tbDetailSuccess = (state, action) => {
     error: null,
     payload,
     productLists,
-    productSmallImages: Object.assign({}, state.productSmallImages, {[goodsId]: smallImages}),
-    productDetailImages: Object.assign({}, state.productDetailImages, {[goodsId]: detailImages}),
-    productGuessLike: Object.assign({}, state.productGuessLike, {[goodsId]: result})
+    productSmallImages: Object.assign({}, state.productSmallImages, {[num_iid]: smallImages}),
+    productDetailImages: Object.assign({}, state.productDetailImages, {[num_iid]: detailImages}),
+    productGuessLike: Object.assign({}, state.productGuessLike, {[num_iid]: result})
   })
+}
+/**
+ * 设置产品详情
+ * @param state
+ * @param action
+ * @returns {*}
+ */
+export const tbSetDetail = (state, action) => {
+  const {num_iid,detail} = action
+  const productLists = lodash.defaultsDeep({[num_iid]:{detail:detail}},state.productLists)
+  return state.merge({fetching: false, error: null,productLists})
+  return lodash.defaultsDeep({fetching: false, error: null,productLists:{[num_iid]:{detail:detail}}},state)
 }
 
 // Something went wrong somewhere.
@@ -242,6 +256,8 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.TB_CHANNEL_PRODUCT_SUCCESS]: channelProductSuccess,
   [Types.TB_SEARCH_REQUEST]: searchRequest,
   [Types.TB_SEARCH_SUCCESS]: searchSuccess,
+  [Types.TB_SET_DETAIL_REQUEST]: request,
+  [Types.TB_SET_DETAIL]: tbSetDetail,
   [Types.TB_DETAIL_REQUEST]: tbDetailRequest,
   [Types.TB_DETAIL_SUCCESS]: tbDetailSuccess,
   [Types.TB_DETAIL_FAILURE]: tbDetailFailure

@@ -42,7 +42,7 @@ export const success = (state, action) => {
   const {data, banner_type} = action
 
   const bannerSchema = new schema.Entity('items')
-  const bannerData = normalize(data.items, [bannerSchema])
+  const bannerData = normalize(data, [bannerSchema])
   const {entities: {items}, result} = bannerData
   const resultItems = Object.assign({}, state.items, items)
   return state.merge({fetching: false, error: null, data, items: resultItems, [banner_type]: result, payload: null})

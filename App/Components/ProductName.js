@@ -24,14 +24,14 @@ export default class ProductName extends Component {
         <View style={styles.price}>
           <View style={styles.oldPrice}>
             <Text>券后价</Text>
-            <Text style={styles.salePrice}>￥{product.rebatePrice}</Text>
-            <Text style={styles.rprice}>￥{product.costPrice}</Text>
+            <Text style={styles.salePrice}>￥{product.zk_final_price_wap - product.coupon_info}</Text>
+            <Text style={styles.rprice}>￥{product.zk_final_price}</Text>
           </View>
           <View style={styles.coupon}>
             <Text style={styles.couponTitle}>券</Text>
-            <Text style={styles.couponInfo}>{product.couponPrice}</Text>
+            <Text style={styles.couponInfo}>{product.coupon_info}</Text>
           </View>
-          <Text >已售{product.purchaseNum}件</Text>
+          <Text >已售{product.volume}件</Text>
         </View>
         <Text
           style={styles.xiangguanatuijian}

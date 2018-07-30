@@ -10,6 +10,7 @@ import ScrollToTop from '../Components/ScrollToTop'
 import ProductImages from '../Components/ProductImages'
 import ProductName from '../Components/ProductName'
 import GuessLike from '../Components/GuessLike'
+import Empty from '../Components/Empty'
 // Styles
 import styles from './Styles/DetailScreenStyle'
 import {Metrics} from '../Themes'
@@ -44,12 +45,12 @@ class DetailScreen extends Component {
     //RNAlibcSdk.Show(goodsInfo.SPYHQTGLJ)
   }
 
-  _renderItem = ({item}) => {
+  _renderItem = ({item,index}) => {
     return (
-      <AutoImage
+      <AutoImage key={index}
         width={Metrics.screenWidth}
         style={styles.autoImage}
-        source={{uri: item.imgUrl}}
+        source={{uri: item}}
         resizeMode='cover'
       />
     )
@@ -60,7 +61,7 @@ class DetailScreen extends Component {
     let {smallImages, guessLike} = this.props
     return (
       <View>
-        <ProductImages source={smallImages}/>
+        <ProductImages source={goodsInfo.small_images}/>
         <ProductName product={goodsInfo}/>
         <GuessLike goods={guessLike} navigation={this.props.navigation}/>
         <View
@@ -82,12 +83,28 @@ class DetailScreen extends Component {
   componentDidMount() {
     const {smallImages, detailImages, guessLike} = this.props
     if (!smallImages.length && !detailImages.length && !guessLike.length) {
-      this.props.getTbDetail(this.state.goodsId)
+      //this.props.getTbDetail(this.state.goodsId)   暂时取消远程获取产品详情
+    }
+    let {goodsInfo} = this.state
+    let {productInfo} = this.props
+    if(productInfo.detail == null){//没有产品详情时
+
+      fetch('http://hws.m.taobao.com/cache/mtop.wdetail.getItemDescx/4.1/?data={"item_num_id":"'+ goodsInfo.num_iid +'"}')
+        .then(response => response.json())
+        .then(responseJson => {
+          //console.log(responseJson);
+          this.props.setTbDetailRequest(goodsInfo.num_iid,responseJson.data.images)
+
+        })
+        .catch(error => {
+          console.error(error);
+        });
     }
   }
 
   render() {
     let {goodsInfo} = this.state
+    let {productInfo} = this.props
     return (
       <View style={styles.container}>
         <TouchableOpacity style={styles.backIcon} onPress={() => this.props.navigation.goBack()}>
@@ -98,9 +115,11 @@ class DetailScreen extends Component {
           ref={flat => (this._flatList = flat)}
           onScroll={this._onScroll}
           ListHeaderComponent={this._renderHeader}
-          keyExtractor={(item, index) => index}
-          data={this.props.detailImages}
+          keyExtractor={(item, index) => index.toString()}
+          data={productInfo.detail}
+          ListEmptyComponent={<Empty text='~数据加载中~' />}
           renderItem={this._renderItem}
+          initialNumToRender={1}
         />
         <ScrollToTop isShow={this.state.scrollIsShow} scrollTo={this._scrollToTop}/>
         <TouchableOpacity
@@ -114,14 +133,14 @@ class DetailScreen extends Component {
             <Text
               style={styles.salePrice}
             >
-              {goodsInfo.rebatePrice}
+              {goodsInfo.zk_final_price_wap - goodsInfo.coupon_info}
             </Text>
           </Text>
           <View
             style={styles.coupon}
           >
             <Text style={{color: '#fff'}}>优惠券</Text>
-            <Text style={{color: '#fff'}}>{goodsInfo.couponPrice}元</Text>
+            <Text style={{color: '#fff'}}>{goodsInfo.coupon_info}元</Text>
           </View>
           <View style={styles.getCoupon}>
             <Text
@@ -143,13 +162,15 @@ const mapStateToProps = (state, props) => {
     smallImages: TbSelectors.getSmallImages(state.tb, params.goodsId),
     detailImages: TbSelectors.getDetailImages(state.tb, params.goodsId),
     guessLike: TbSelectors.getGuessLikePrds(state.tb, params.goodsId),
+    productInfo: TbSelectors.getProductInfo(state.tb,params.goodsId),
     ...params
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getTbDetail: (goodsId) => dispatch(TbActions.tbDetailRequest(goodsId))
+    getTbDetail: (goodsId) => dispatch(TbActions.tbDetailRequest(goodsId)),
+    setTbDetailRequest: (goodsId,detail) => dispatch(TbActions.tbSetDetailRequest(goodsId,detail))
   }
 }
 

@@ -16,7 +16,7 @@ import { GoodsCategoryTypes } from '../Redux/GoodsCategoryRedux'
 import { startup } from './StartupSagas'
 import { getUserAvatar } from './GithubSagas'
 import { getBanner } from './BannerSagas'
-import { getTbIndexRecommend,getTbChannelProduct,getTbSearch, getTbDetail } from './TbSagas'
+import { getTbIndexRecommend,getTbChannelProduct,getTbSearch,setTbDetail, getTbDetail } from './TbSagas'
 import { getGoodsCategory } from './GoodsCategorySagas'
 
 /* ------------- API ------------- */
@@ -39,6 +39,7 @@ export default function * root () {
     takeLatest(TbTypes.TB_INDEX_RECOMMEND_REQUEST, getTbIndexRecommend, api),
     takeLatest(TbTypes.TB_CHANNEL_PRODUCT_REQUEST, getTbChannelProduct, api),
     takeLatest(TbTypes.TB_SEARCH_REQUEST, getTbSearch, api),
+    takeLatest(TbTypes.TB_SET_DETAIL_REQUEST,setTbDetail,api),
     takeLatest(TbTypes.TB_DETAIL_REQUEST, getTbDetail, api)
   ])
 }

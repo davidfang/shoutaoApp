@@ -3,7 +3,6 @@ import apisauce from 'apisauce'
 import AppConfig from '../Config/AppConfig'
 
 // our "constructor"
-// const create = (baseURL = 'http://zg-api.zhicaikeji.com/') => {
 const create = (baseURL = AppConfig.apiUrl) => {
   // ------
   // STEP 1
@@ -60,19 +59,19 @@ const create = (baseURL = AppConfig.apiUrl) => {
   const getCaptcha = () => api.get('site/captcha', {refresh: 'refresh'}) // 获取图片验证码
   const checkCaptcha = (code) => api.get('site/check-captcha', {code}) // 校验图片验证码
   const getCode = (mobile, captcha) => api.get('sms-api/get-code', {mobile, id: 1, captcha}) // 获取手机验证码
-  const getBanner = (type) => api.get('v1/banner', {type}) // 获得轮播图
+  const getBanner = (type) => api.get('banner/index', {type}) // 获得轮播图
 
   const getProvince = (parentId) => api.get('v1/prov-city-area-street/index', {parentId}) // 获得省市区信息
 
   // ignite-jhipster-api-method-needle
   const uploadAvatar = (formData) => api.post('v1/profile/avatar-upload', formData) //上传图像
 
-  const getGoodsCategory = () => api.get('v1/goods-category/index') // 获得产品分类
-  const getTbIndexRecommend = (page) => api.get('v1/taobao/index', {page}) // 获得首页淘宝推荐产品
+  const getGoodsCategory = () => api.get('category') // 获得产品分类
+  const getTbIndexRecommend = (page) => api.get('goods', {page}) // 获得首页淘宝推荐产品
   const getTbChannelProduct = (channelId, sortId, page) => api.get('v1/taobao/channel', {channelId, sortId, page}) // 获得频道推荐产品
-  const getTbSearchKeyWord = (keyWord, page, sortId) => api.get('v1/taobao/search', {keyWord, page, sortId}) // 获得搜索产品
-  const getTbDetail = (goodsId) => api.get('v1/taobao/detail', {goodsId}) // 获得产品详情
-
+  const getTbSearchKeyWord = (keyWord, page, sortId) => api.get('search', {keyWord, page, sortId}) // 获得搜索产品
+  const getTbDetail = (goodsId) => api.get('goods/show/'+ goodsId) // 获得产品详情
+  const setTbDetail = (num_iid,detail) => api.post('goods/set-detail',{num_iid,detail}) // 设置产品详情
   // ------
   // STEP 3
   // ------
@@ -115,7 +114,8 @@ const create = (baseURL = AppConfig.apiUrl) => {
     getTbIndexRecommend,
     getTbChannelProduct,
     getTbSearchKeyWord,
-    getTbDetail
+    getTbDetail,
+    setTbDetail
   }
 }
 
