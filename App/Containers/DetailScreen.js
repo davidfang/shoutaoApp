@@ -3,6 +3,7 @@ import {Text, View, FlatList, TouchableOpacity} from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import AutoImage from 'react-native-scalable-image'
 import {connect} from 'react-redux'
+import MyMath from '../Lib/MyMath'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 import TbActions, {TbSelectors} from '../Redux/TbRedux'
 
@@ -119,7 +120,7 @@ class DetailScreen extends Component {
           data={productInfo.detail}
           ListEmptyComponent={<Empty text='~数据加载中~' />}
           renderItem={this._renderItem}
-          initialNumToRender={1}
+          initialNumToRender={2}
         />
         <ScrollToTop isShow={this.state.scrollIsShow} scrollTo={this._scrollToTop}/>
         <TouchableOpacity
@@ -133,7 +134,7 @@ class DetailScreen extends Component {
             <Text
               style={styles.salePrice}
             >
-              {goodsInfo.zk_final_price_wap - goodsInfo.coupon_info}
+              {MyMath.subtract(goodsInfo.zk_final_price, goodsInfo.coupon_info)}
             </Text>
           </Text>
           <View

@@ -17,19 +17,19 @@ export default class SortBar extends Component {
   sorts = [
     {
       id: 0,
-      name: '人气'
-    },
-    {
-      id: 1,
       name: '销量'
     },
     {
+      id: 1,
+      name: '价格'
+    },
+    {
       id: 2,
-      name: '到手价'
+      name: '券'
     },
     {
       id: 3,
-      name: '推荐'
+      name: '到手价'
     }
   ]
 

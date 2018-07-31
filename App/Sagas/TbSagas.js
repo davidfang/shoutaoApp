@@ -116,4 +116,5 @@ export function * setTbDetail(api,action) {
   const response = yield call(api.setTbDetail,num_iid,detail)
 
   yield put(TbActions.tbSetDetail(num_iid,detail))
+  console.log(response)
 }

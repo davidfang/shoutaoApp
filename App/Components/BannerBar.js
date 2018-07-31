@@ -25,8 +25,8 @@ export default class BannerBar extends Component {
             key={index}
             style={styles.item}
             onPress={() => {
-              const nav = item.nav != null ? item.nav : 'html'
-              console.log(navigate)
+              const nav = item.nav != null ? item.nav : 'WebScreen'
+              console.log(navigate,nav)
               navigate &&
               navigate(nav, {
                 title: item.title,

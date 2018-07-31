@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { View, Text } from 'react-native'
+import MyMath from '../Lib/MyMath'
 import styles from './Styles/ProductNameStyle'
 
 export default class ProductName extends Component {
@@ -24,7 +25,7 @@ export default class ProductName extends Component {
         <View style={styles.price}>
           <View style={styles.oldPrice}>
             <Text>券后价</Text>
-            <Text style={styles.salePrice}>￥{product.zk_final_price_wap - product.coupon_info}</Text>
+            <Text style={styles.salePrice}>￥{MyMath.subtract(product.zk_final_price , product.coupon_info)}</Text>
             <Text style={styles.rprice}>￥{product.zk_final_price}</Text>
           </View>
           <View style={styles.coupon}>

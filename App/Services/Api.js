@@ -67,8 +67,8 @@ const create = (baseURL = AppConfig.apiUrl) => {
   const uploadAvatar = (formData) => api.post('v1/profile/avatar-upload', formData) //上传图像
 
   const getGoodsCategory = () => api.get('category') // 获得产品分类
-  const getTbIndexRecommend = (page) => api.get('goods', {page}) // 获得首页淘宝推荐产品
-  const getTbChannelProduct = (channelId, sortId, page) => api.get('v1/taobao/channel', {channelId, sortId, page}) // 获得频道推荐产品
+  const getTbIndexRecommend = (page) => api.get('goods/recommend', {page}) // 获得首页淘宝推荐产品
+  const getTbChannelProduct = (channelId, sortId, page) => api.get('goods/category', {categoryId:channelId, sortId, page}) // 获得频道推荐产品
   const getTbSearchKeyWord = (keyWord, page, sortId) => api.get('search', {keyWord, page, sortId}) // 获得搜索产品
   const getTbDetail = (goodsId) => api.get('goods/show/'+ goodsId) // 获得产品详情
   const setTbDetail = (num_iid,detail) => api.post('goods/set-detail',{num_iid,detail}) // 设置产品详情

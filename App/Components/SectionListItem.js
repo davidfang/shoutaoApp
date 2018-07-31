@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Text, View, Image, TouchableOpacity } from 'react-native'
 import styles from './Styles/SectionListItemStyle'
 import { is, Map } from 'immutable'
+import MyMath from '../Lib/MyMath'
 
 export default class SectionListItem extends Component {
   // Prop type warnings
@@ -62,7 +63,7 @@ export default class SectionListItem extends Component {
               style={{flexDirection: 'row', alignItems: 'baseline', flex: 1}}
             >
               <Text>券后价</Text>
-              <Text style={styles.cprice}>￥{product.zk_final_price_wap - product.coupon_info}</Text>
+              <Text style={styles.cprice}>￥{MyMath.subtract(product.zk_final_price , product.coupon_info)}</Text>
             </View>
             <View
               style={{flexDirection: 'row', alignItems: 'baseline', flex: 1}}

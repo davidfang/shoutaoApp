@@ -24,7 +24,7 @@ const PrimaryNav = StackNavigator({
   HomeScreen: { screen: HomeScreen },
   UserInfoScreen: { screen: UserInfoScreen },
   LaunchScreen: { screen: LaunchScreen },
-
+  SearchScreen: { screen: SearchScreen },
 
 
   WebScreen: {

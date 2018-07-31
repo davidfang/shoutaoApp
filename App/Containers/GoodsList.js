@@ -91,19 +91,19 @@ export default class GoodsList extends React.PureComponent {
     let by
     switch (this.state.currentSort) {
       case  0:
-        by = R.descend(R.prop('costPrice'))
+        by = R.descend(R.prop('volume'))//销量
         return R.sort(by, data)
         break
       case  1:
-        by = R.descend(R.prop('purchaseNum'))
+        by = R.descend(R.prop('zk_final_price'))//价格
         return R.sort(by, data)
         break
       case  2:
-        by = R.descend(R.prop('rebatePrice'))
+        by = R.descend(R.prop('coupon_info'))//券
         return R.sort(by, data)
         break
       case  3:
-        by = R.descend(R.prop('couponPrice'))
+        by = R.descend(R.prop('zk_final_price_wap'))//到手价价
         return R.sort(by, data)
         break
       default:
@@ -124,7 +124,7 @@ export default class GoodsList extends React.PureComponent {
           maxToRenderPerBatch={10}
           onEndReachedThreshold={0.5}
           ref={flat => (this._flatList = flat)}
-          keyExtractor={(item, index) => item.goodsId.toString()}
+          keyExtractor={(item, index) => item.num_iid.toString()}
           ListEmptyComponent={<Empty/>}
           getItemLayout={this._itemLayout}
           onEndReached={this._onLoading}
