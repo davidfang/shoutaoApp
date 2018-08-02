@@ -1,5 +1,8 @@
 import React from 'react'
 import { StackNavigator } from 'react-navigation'
+import EditUserScreen from '../Containers/EditUserScreen'
+import RegisterScreen from '../Containers/RegisterScreen'
+import LoginScreen from '../Containers/LoginScreen'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import CircleList from '../Containers/CircleList'
 
@@ -21,6 +24,25 @@ import styles from './Styles/NavigationStyles'
 
 // Manifest of possible screens
 const PrimaryNav = StackNavigator({
+  EditUserScreen: { screen: EditUserScreen },
+  RegisterScreen: {
+    screen: RegisterScreen,
+    navigationOptions: ({navigation}) => {
+      const {state} = navigation
+      return {
+        title: '注册'
+      }
+    }
+  },
+  LoginScreen: {
+    screen: LoginScreen,
+    navigationOptions: ({navigation}) => {
+      const {state} = navigation
+      return {
+        title: '登录'
+      }
+    }
+  },
   HomeScreen: { screen: HomeScreen },
   UserInfoScreen: { screen: UserInfoScreen },
   LaunchScreen: { screen: LaunchScreen },

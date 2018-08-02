@@ -8,11 +8,11 @@ import {
   TouchableOpacity
 } from 'react-native'
 
-import Icon from 'react-native-vector-icons/Ionicons'
+import Icon from 'react-native-vector-icons/MaterialIcons'
 import { connect } from 'react-redux'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
-import LoginActions, { isLoggedIn } from '../Redux/LoginRedux'
+import LoginActions, { LoginSelector } from '../Redux/LoginRedux'
 import AccountActions from '../Redux/AccountRedux'
 // import ImagePicker from 'react-native-image-picker'
 
@@ -32,7 +32,11 @@ class UserInfoScreen extends Component {
   //   super(props)
   //   this.state = {}
   // }
-
+  _setting = () => {
+    const {navigation} = this.props
+    navigation.navigate &&
+    navigation.navigate('EditUserScreen')
+  }
   userHead = () => {
     const {loggedIn, username, avatar} = this.props
     if (loggedIn) {
@@ -56,11 +60,9 @@ class UserInfoScreen extends Component {
                   /></Text>
                 </View>
               </View>
-              <View style={styles.setting}>
-                <TouchableOpacity>
-                  <Icon name={Platform.OS === 'ios' ? 'ios-settings' : 'md-settiongs'} size={30} color={Colors.text}/>
-                </TouchableOpacity>
-              </View>
+              <TouchableOpacity style={styles.setting} onPress={this._setting}>
+                <Icon name='settings' size={30} color={Colors.text}/>
+              </TouchableOpacity>
               {/*
             <TouchableOpacity style={styles.introRight} onPress={() => this.props.navigation.navigate('SettingsScreen')}>
               <Text style={Fonts.style.h3}>{username}</Text>
@@ -203,20 +205,20 @@ class UserInfoScreen extends Component {
         </View>
         {this.props.loggedIn && (
           <View style={styles.rowItemGroup}>
-            <RowItem title='修改密码' icon='md-key' iconColor='lightskyblue'
+            <RowItem title='修改密码' icon='vpn-key' iconColor='lightskyblue'
                      onPress={() => this.props.navigation.navigate('ChangePasswordScreen')}/>
 
           </View>)
         }
         <View style={styles.rowItemGroup}>
-          <RowItem title='首页内容展示顺序' icon='md-reorder' iconColor='lightskyblue'/>
-          <RowItem title='主题颜色' icon='ios-color-palette' iconColor={Colors.fire}/>
+          <RowItem title='首页内容展示顺序' icon='reorder' iconColor='lightskyblue'/>
+          <RowItem title='主题颜色' icon='color-lens' iconColor={Colors.fire}/>
 
         </View>
         <View style={styles.rowItemGroup}>
-          <RowItem title='官方公告' icon='md-volume-up' iconColor='lightskyblue'/>
-          <RowItem title='反馈' icon='md-create' iconColor='lightskyblue'/>
-          <RowItem title='分享' icon='md-share' iconColor={Colors.fire}/>
+          <RowItem title='官方公告' icon='volume-up' iconColor='lightskyblue'/>
+          <RowItem title='反馈' icon='create' iconColor='lightskyblue'/>
+          <RowItem title='分享' icon='share' iconColor={Colors.fire}/>
 
         </View>
         <View/>
@@ -229,7 +231,7 @@ class UserInfoScreen extends Component {
 const mapStateToProps = (state) => {
   const {username, avatar} = state.account
   return {
-    loggedIn: isLoggedIn(state.login),
+    loggedIn: LoginSelector.isLoggedIn(state.login),
     username,
     avatar
   }

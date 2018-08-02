@@ -3,8 +3,8 @@ import Immutable from 'seamless-immutable'
 /* ------------- Types and Action Creators ------------- */
 
 const { Types, Creators } = createActions({
-  loginRequest: ['username', 'password'],
-  loginSuccess: ['authToken'],
+  loginRequest: ['mobile', 'password'],
+  loginSuccess: ['tokenInfo'],
   loginFailure: ['error'],
   loginLoad: null,
   loginLoadSuccess: null,
@@ -18,7 +18,7 @@ export default Creators
 /* ------------- Initial State ------------- */
 
 export const INITIAL_STATE = Immutable({
-  authToken: null,
+  tokenInfo: null,
   error: null,
   fetching: false,
   loading: false
@@ -31,8 +31,8 @@ export const request = (state) => state.merge({ fetching: true })
 
 // we've successfully logged in
 export const success = (state, data) => {
-  const { authToken } = data
-  return state.merge({ fetching: false, error: null, authToken })
+  const { tokenInfo } = data
+  return state.merge({ fetching: false, error: null, tokenInfo })
 }
 
 // we've had a problem logging in
@@ -63,4 +63,13 @@ export const reducer = createReducer(INITIAL_STATE, {
 
 /* ------------- Selectors ------------- */
 // Is the current user logged in?
-export const isLoggedIn = (loginState) => loginState.authToken !== null
+export const LoginSelector = {
+  isLoggedIn: (loginState) => {
+    let { tokenInfo } = loginState
+    if(tokenInfo == null){//没登录
+      return false
+    }else{//登录了 TODO
+      return true
+    }
+  }
+}

@@ -35,7 +35,7 @@ const create = (baseURL = AppConfig.apiUrl) => {
   // Since we can't hide from that, we embrace it by getting out of the
   // way at this level.
   //
-  const setAuthToken = (userAuth) => api.setHeader('Authorization', 'Bearer ' + userAuth) // 设置token
+  const setAuthToken = (tokenInfo) => api.setHeader('Authorization', tokenInfo.token_type + ' ' + tokenInfo.access_token) // 设置token
   const removeAuthToken = () => api.setHeader('Authorization', '') // 删除token
   const setFormData = () => api.setHeader('Content-Type', 'multipart/form-data;charset=utf-8') // 设置form data文件上传
   const getRoot = () => api.get('')
@@ -45,13 +45,13 @@ const create = (baseURL = AppConfig.apiUrl) => {
   // const login = (mobile, password) => api.post('v1/sign-in/login', {identity: mobile, password})
   // const login = (mobile, password) => api.post('api/v1/sign-in/login', {identity:mobile, password,type:'miliao'})
   //const login = (mobile, password) => api.post('api/v1/sign-in/login', userAuth)
-  const login = (userAuth) => api.post('v1/sign-in/login', userAuth)
-  const getSmsCode = (mobile) => api.get('sms/get-code', {mobile})
+  const login = (userAuth) => api.post('passport/login', userAuth)// 登录
+  const getVerifyCode = (mobile) => api.post('send-code', {mobile})// 获取手机验证码
 
-  const register = (user) => api.post('v1/sign-in/signup', user) // 注册
+  const getRegister = (user) => api.post('passport/register', user) // 注册
   const forgotPassword = (data) => api.post('v1/sign-in/reset-password', data) // 忘记密码
 
-  const getAccount = () => api.get('v1/profile/index') // 用户中心 获得用户信息
+  const getAccount = () => api.get('user/info') // 用户中心 获得用户信息
   const updateAccount = (account) => api.put('v1/profile/update', account) // 更新用户信息
   const resetPassword = (data) => api.post('v1/sign-in/reset-password', data) // 重置密码
   const changePassword = (data) => api.post('v1/profile/change-password', data) // 修改密码
@@ -94,10 +94,10 @@ const create = (baseURL = AppConfig.apiUrl) => {
     getUser,
     singUp,
     login,
-    getSmsCode,
+    getVerifyCode,
     getBanner,
 
-    register,
+    getRegister,
     forgotPassword,
     getAccount,
     updateAccount,

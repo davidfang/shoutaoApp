@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { View, Text, Platform, TouchableOpacity } from 'react-native'
-import Icon from 'react-native-vector-icons/Ionicons'
+import Icon from 'react-native-vector-icons/MaterialIcons'
 import styles from './Styles/RowItemStyle'
-import { Metrics, Fonts, Colors } from '../Themes'
+import { Colors } from '../Themes'
 export default class RowItem extends React.Component {
 
   render () {
@@ -19,13 +19,7 @@ export default class RowItem extends React.Component {
             <Text style={styles.title}>{title}</Text>
           </View>
           <View>
-            {Platform.OS === 'ios' ? <Icon name="ios-arrow-forward" color={Colors.charcoal} size={18}/>
-              : null
-            }
-            {Platform.OS === 'android' ? <Icon name="md-arrow-forward" color={Colors.charcoal} size={18}/>
-              : null
-            }
-
+             <Icon name="keyboard-arrow-right" color={Colors.charcoal} size={18}/>
           </View>
         </View>
       </TouchableOpacity>

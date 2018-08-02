@@ -1,4 +1,6 @@
 import { createStore, applyMiddleware, compose } from 'redux'
+import Rehydration from '../Services/Rehydration'
+import ReduxPersist from '../Config/ReduxPersist'
 import Config from '../Config/DebugConfig'
 import createSagaMiddleware from 'redux-saga'
 import ScreenTracking from './ScreenTrackingMiddleware'
@@ -38,6 +40,10 @@ export default (rootReducer, rootSaga) => {
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
   const store = createAppropriateStore(rootReducer, /* preloadedState, */ composeEnhancers(...enhancers))
 
+// configure persistStore and check reducer version number
+  if (ReduxPersist.active) {
+    Rehydration.updateReducers(store)
+  }
   // kick off root saga
   let sagasManager = sagaMiddleware.run(rootSaga)
 

@@ -3,7 +3,7 @@ import Immutable from 'seamless-immutable'
 /* ------------- Types and Action Creators ------------- */
 
 const {Types, Creators} = createActions({
-  accountRequest: ['access_token'],
+  accountRequest: null,
   accountUpdateRequest: ['account'],
   accountSuccess: ['account'],
   accountUpdateSuccess: ['account'],
