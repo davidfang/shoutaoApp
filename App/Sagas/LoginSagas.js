@@ -1,36 +1,64 @@
-import { call, put, select } from 'redux-saga/effects'
+import {call, put, select} from 'redux-saga/effects'
 import LoginActions from '../Redux/LoginRedux'
-import AccountActions from '../Redux/AccountRedux'
+import UserInfoActions from '../Redux/UserInfoRedux'
 //import { Actions as NavigationActions } from 'react-native-router-flux'
 export const selectTokenInfo = (state) => state.login.tokenInfo
 
+function* requestFaild(response) {
+  switch (response.problem) {
+    case 'CLIENT_ERROR'://400-499任何非特定的400系列错误
+      //yield put(LoginActions.loginFailure('400系列错误'))
+      let message = response.data.message
+      let msg = ''
+      console.log(typeof message)
+      if (typeof message == "object") {
+        for (let k in message) {
+          msg += message[k].toString() + '\n'
+        }
+      } else {
+        msg = message
+      }
+      yield put(LoginActions.loginFailure(msg))
+      break;
+    case 'SERVER_ERROR'://500-599任何500系列错误
+      yield put(LoginActions.loginFailure('500系列错误'))
+      break;
+    case 'TIMEOUT_ERROR'://服务器没有及时响应
+      yield put(LoginActions.loginFailure('服务器超时'))
+      break;
+    case 'CONNECTION_ERROR'://服务器不可用，坏dns
+      yield put(LoginActions.loginFailure('服务器不可用'))
+      break;
+    case 'NETWORK_ERROR'://网络不可用
+      yield put(LoginActions.loginFailure('网络不可用'))
+      break;
+    case 'CANCEL_ERROR'://请求已被取消
+      yield put(LoginActions.loginFailure('请求已被取消'))
+  }
+}
+
 // attempts to login
-export function * login (api, {mobile, password}) {
+export function* login(api, {mobile, password}) {
   const authObj = {mobile, password}
 
   const response = yield call(api.login, authObj)
 
-  // console.log(response)
+  console.log(response)
   // success?
   if (response.ok) { // 网络请求成功
     const data = response.data
-    if (data.status) { // 用户登录验证成功
-      yield call(api.setAuthToken, data.data)
-      yield put(LoginActions.loginSuccess(data.data))
-      yield put(AccountActions.accountRequest())
-      //NavigationActions.account()
-      yield put({type: 'RELOGIN_OK'})
-    } else {
-      yield put(LoginActions.loginFailure(response))
-      yield put(LoginActions.loginFailure('WRONG'))
-    }
+    // 用户登录验证成功
+    yield call(api.setAuthToken, data.data)
+    yield put(LoginActions.loginSuccess(data.data))
+    yield put(UserInfoActions.userInfoRequest())
+    //NavigationActions.account()
+    yield put({type: 'RELOGIN_OK'})
   } else { // 网络请求失败
-    yield put(LoginActions.loginFailure('NET_WRONG'))
-    yield put(LoginActions.loginFailure('网络请求失败'))
+    yield requestFaild(response)
   }
 }
 
-export function * loginRefresh (api) {
+export function* loginRefresh(api) {
   const authToken = yield select(selectTokenInfo)
   if (authToken !== null) {
     const authObj = 'refresh_token=' + authToken.refresh_token + '&grant_type=refresh_token'
@@ -47,32 +75,8 @@ export function * loginRefresh (api) {
     yield put(LoginActions.loginFailure('WRONG'))
   }
 }
-// loads the login
-export function * loginLoad (api) {
+
+export function* autoLogin(api) {
   const tokenInfo = yield select(selectTokenInfo)
-  // only set the token if we have it
-  if (tokenInfo !== null) {
-    yield call(api.setAuthToken, tokenInfo)
-    const response = yield call(api.getAccount)
-
-    if (response.ok) {
-      const data = response.data
-      if (data.status) { // 用户登录验证成功
-        // yield put(PasswordActions.changePasswordFailure(data))
-
-        yield call(api.setAuthToken, authToken)
-        yield put(LoginActions.loginLoadSuccess())
-        yield put(AccountActions.accountUpdateSuccess(response.data.data))
-      } else {
-        yield put(LoginActions.loginFailure('LOGIN-WRONG'))
-        // yield put(LoginActions.loginFailure(data))
-
-        yield put(LoginActions.logout())
-      }
-    } else {
-      yield put(LoginActions.loginFailure('NET-WRONG'))
-
-      yield put(LoginActions.logout())
-    }
-  }
+  yield call(api.setAuthToken, tokenInfo)
 }

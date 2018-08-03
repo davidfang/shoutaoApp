@@ -4,7 +4,7 @@ import {
   Text,
   View,
   Image,
-  Platform,
+  Clipboard,
   TouchableOpacity
 } from 'react-native'
 
@@ -14,8 +14,10 @@ import { connect } from 'react-redux'
 // import YourActions from '../Redux/YourRedux'
 import LoginActions, { LoginSelector } from '../Redux/LoginRedux'
 import AccountActions from '../Redux/AccountRedux'
+import UserInfoActions from '../Redux/UserInfoRedux'
 // import ImagePicker from 'react-native-image-picker'
 
+import Toast from '../Lib/Toast'
 import FullButton from '../Components/FullButton'
 import RoundedButton from '../Components/RoundedButton'
 import Avatar from '../Components/Avatar'
@@ -32,13 +34,22 @@ class UserInfoScreen extends Component {
   //   super(props)
   //   this.state = {}
   // }
+  componentDidMount () {
+    if(this.props.mobile == null){
+      this.props.getUserInfo()
+    }
+  }
   _setting = () => {
     const {navigation} = this.props
     navigation.navigate &&
     navigation.navigate('EditUserScreen')
   }
+  _copyInvitationCode = () =>{
+    Clipboard.setString('我在使用一个超级好用的优惠券APP，淘宝天猫购物之前先在此搜一下，领内部优惠券，还可以获得购物返利，邀请别人使用，还可以获得别人购物的返利。注册时记得填我的邀请码： ' + this.props.invitation_code)
+    Toast.showSuccess('邀请码已经复制到剪贴板，请发给好朋友一起赚钱吧！')
+  }
   userHead = () => {
-    const {loggedIn, username, avatar} = this.props
+    const {loggedIn, nickname,invitation_code,  avatar} = this.props
     if (loggedIn) {
       return (
         <View style={styles.top}>
@@ -46,14 +57,13 @@ class UserInfoScreen extends Component {
             <View style={styles.intro}>
               <View style={styles.introLeft}>
                 <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
-                  <Avatar width={60} name={username} avatar={avatar}/>
+                  <Avatar width={60} name={nickname} avatar={avatar}/>
                 </TouchableOpacity>
                 <View>
-                  <Text style={styles.nickName}>木有昵称<CustomButton //onPress={onPressLearnMore}
-                    text='超级会员'
-                    color={Colors.button}
-                    styles={styles.memberButton}/></Text>
-                  <Text style={styles.invitationCode}>邀请码:xxxxxx<CustomButton //onPress={onPressLearnMore}
+                  <Text style={styles.nickName}>{nickname}
+                    <View style={styles.memberButton}><Text >超级会员</Text></View>
+                  </Text>
+                  <Text style={styles.invitationCode}>邀请码:{invitation_code}<CustomButton onPress={this._copyInvitationCode}
                     text='复制'
                     color={Colors.text}
                     styles={styles.copyButton}
@@ -229,18 +239,25 @@ class UserInfoScreen extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const {username, avatar} = state.account
+  const {mobile,nickname,invitation_code, avatar} = state.userInfo
   return {
     loggedIn: LoginSelector.isLoggedIn(state.login),
-    username,
+
+    mobile,
+    nickname,
+    invitation_code,
     avatar
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    logout: () => dispatch(LoginActions.logout()),
-    uploadAvatar: (fileUrl, fileName) => dispatch(AccountActions.uploadAvatarRequest(fileUrl, fileName))
+    getUserInfo: () => dispatch(UserInfoActions.userInfoRequest()),
+    logout: () => {
+      dispatch(LoginActions.logout())
+      dispatch(UserInfoActions.userInfoLogout())
+    },
+    uploadAvatar: (fileUrl, fileName) => dispatch(UserInfoActions.uploadAvatarRequest(fileUrl, fileName))
   }
 }
 

@@ -1,14 +1,15 @@
-import { put, select } from 'redux-saga/effects'
+import { call ,put, select } from 'redux-saga/effects'
 import GithubActions, { GithubSelectors } from '../Redux/GithubRedux'
 import { is } from 'ramda'
-
+import LoginActions,{LoginSelector} from  '../Redux/LoginRedux'
 
 import BannerActions from '../Redux/BannerRedux'
 import TbActions from '../Redux/TbRedux'
 
 // exported to make available for tests
 export const selectAvatar = GithubSelectors.selectAvatar
-
+const selectLoggedInStatus = (state) => LoginSelector.isLoggedIn(state.login)
+const getTokenInfo = (state) => LoginSelector.tokenInfo(state.login)
 // process STARTUP actions
 export function * startup (action) {
   if (__DEV__ && console.tron) {
@@ -36,6 +37,12 @@ export function * startup (action) {
       }
     })
   }
+  const isLoggedIn = yield select(selectLoggedInStatus)
+  if (isLoggedIn) {//如果登录过了，设置一下token重新访问
+    yield put(LoginActions.autoLogin())
+
+  }
+
   const avatar = yield select(selectAvatar)
   // only get if we don't have it yet
   if (!is(String, avatar)) {

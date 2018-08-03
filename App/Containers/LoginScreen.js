@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import styles from './Styles/LoginScreenStyle'
 import { Images, Colors } from '../Themes'
 import LoginActions,{LoginSelector} from '../Redux/LoginRedux'
+import Toast from "../Lib/Toast";
 
 class LoginScreen extends React.Component {
 
@@ -29,17 +30,14 @@ class LoginScreen extends React.Component {
   }
 
   componentWillReceiveProps (newProps) {
-    this.forceUpdate()
     // Did the login attempt complete?
-    if (this.isAttempting && !newProps.fetching) {
-      if (newProps.error) {
-        if (newProps.error === 'WRONG') {
-          Alert.alert('Error', '用户名密码错误', [{text: 'OK'}])
-        }
-      } else {
-        this.props.navigation.navigate('MainStack')
-      }
+    if (newProps.error) {
+      Toast.showError(newProps.error,{})
     }
+    if(newProps.logged){
+      this.props.navigation.navigate('MainStack')
+    }
+
   }
 
   handlePressLogin = () => {
@@ -47,10 +45,6 @@ class LoginScreen extends React.Component {
     this.isAttempting = true
     // attempt a login - a saga is listening to pick it up from here.
     this.props.attemptLogin(mobile, password)
-  }
-  handlePressCancel = () => {
-    this.props.logout()
-    this.props.navigation.goBack()
   }
 
   handleChangeMobile = (text) => {

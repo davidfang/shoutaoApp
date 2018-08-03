@@ -83,6 +83,9 @@ export default StyleSheet.create({
     paddingVertical: 2,
     paddingHorizontal: 10
   },
+  memberText:{
+    color:Colors.fire
+  },
   copyButton: {
     borderRadius: 20,
     borderWidth: 1,

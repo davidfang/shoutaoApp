@@ -52,7 +52,9 @@ const create = (baseURL = AppConfig.apiUrl) => {
   const forgotPassword = (data) => api.post('v1/sign-in/reset-password', data) // 忘记密码
 
   const getAccount = () => api.get('user/info') // 用户中心 获得用户信息
-  const updateAccount = (account) => api.put('v1/profile/update', account) // 更新用户信息
+  const updateAccount = (user) => api.put('user/update', user) // 更新用户信息
+  const getUserInfo = () => api.get('user/info') // 用户中心 获得用户信息
+  const updateUserInfo = (user) => api.post('user/update', user) // 更新用户信息
   const resetPassword = (data) => api.post('v1/sign-in/reset-password', data) // 重置密码
   const changePassword = (data) => api.post('v1/profile/change-password', data) // 修改密码
 
@@ -99,6 +101,10 @@ const create = (baseURL = AppConfig.apiUrl) => {
 
     getRegister,
     forgotPassword,
+
+    getUserInfo,
+    updateUserInfo,
+
     getAccount,
     updateAccount,
     resetPassword,

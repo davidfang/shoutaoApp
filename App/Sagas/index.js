@@ -11,6 +11,7 @@ import {BannerTypes} from '../Redux/BannerRedux'
 import {RegisterTypes} from '../Redux/RegisterRedux'
 import {LoginTypes} from '../Redux/LoginRedux'
 import {VerifyCodeTypes} from '../Redux/VerifyCodeRedux'
+import {UserInfoTypes} from '../Redux/UserInfoRedux'
 import {AccountTypes} from '../Redux/AccountRedux'
 import {TbTypes} from '../Redux/TbRedux'
 import {GoodsCategoryTypes} from '../Redux/GoodsCategoryRedux'
@@ -20,8 +21,9 @@ import {GoodsCategoryTypes} from '../Redux/GoodsCategoryRedux'
 import {startup} from './StartupSagas'
 import {getUserAvatar} from './GithubSagas'
 import {getRegister} from './RegisterSagas'
-import {login, loginLoad} from './LoginSagas'
+import {login,autoLogin} from './LoginSagas'
 import {getVerifyCode} from './VerifyCodeSagas'
+import {getUserInfo,updateUserInfo} from './UserInfoSagas'
 import {getAccount} from './AccountSagas'
 import {getBanner} from './BannerSagas'
 import {getTbIndexRecommend, getTbChannelProduct, getTbSearch, setTbDetail, getTbDetail} from './TbSagas'
@@ -43,8 +45,11 @@ export default function* root() {
     // some sagas receive extra parameters in addition to an action
     takeLatest(RegisterTypes.REGISTER_REQUEST,getRegister,api),
     takeLatest(LoginTypes.LOGIN_REQUEST, login, api),
-    takeLatest(LoginTypes.LOGIN_LOAD, loginLoad, api),
+    takeLatest(LoginTypes.AUTO_LOGIN, autoLogin, api),
     takeLatest(VerifyCodeTypes.VERIFY_CODE_REQUEST, getVerifyCode, api),
+    takeLatest(UserInfoTypes.USER_INFO_REQUEST,getUserInfo,api),
+    takeLatest(UserInfoTypes.USER_INFO_UPDATE_REQUEST,updateUserInfo,api),
+
     takeLatest(AccountTypes.ACCOUNT_REQUEST, getAccount, api),
 
     takeLatest(GithubTypes.USER_REQUEST, getUserAvatar, api),

@@ -12,7 +12,7 @@
 
 import { call, put } from 'redux-saga/effects'
 import RegisterActions from '../Redux/RegisterRedux'
-import AccountActions from '../Redux/AccountRedux'
+import UserInfoActions from '../Redux/UserInfoRedux'
 import LoginActions from '../Redux/LoginRedux'
 // import { RegisterSelectors } from '../Redux/RegisterRedux'
 
@@ -32,7 +32,7 @@ export function * getRegister (api, action) {
       yield put(RegisterActions.registerSuccess(data))
       yield call(api.setAuthToken, data)
       yield put(LoginActions.loginSuccess(data))
-      yield put(AccountActions.accountRequest())
+      yield put(UserInfoActions.userInfoRequest())
 
       yield put({type: 'RELOGIN_OK'})
     } else {
@@ -46,8 +46,12 @@ export function * getRegister (api, action) {
         yield put(RegisterActions.registerFailure('400系列错误'))
         let message = response.data.message
         let msg = ''
-        for (let k in message){
-          msg += message[k].toString() + '\n'
+        if(typeof message == Object) {
+          for (let k in message) {
+            msg += message[k].toString() + '\n'
+          }
+        }else{
+          msg = message
         }
         yield put(RegisterActions.registerFailure(msg))
         break;
