@@ -60,6 +60,7 @@ const ApplicationStyles = {
     },
     button: {
       height: 36,
+      flex:1,
       backgroundColor: Colors.button,
       borderColor: Colors.button,
       borderRadius: 15,
@@ -106,6 +107,10 @@ const ApplicationStyles = {
       paddingVertical: Metrics.marginHorizontal,
       backgroundColor: Colors.button,
       marginTop: Metrics.doubleBaseMargin
+    },
+    formButtonText:{
+      color: Colors.white,
+      fontSize: 17
     }
   },
   darkLabelContainer: {

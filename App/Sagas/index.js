@@ -21,9 +21,9 @@ import {GoodsCategoryTypes} from '../Redux/GoodsCategoryRedux'
 import {startup} from './StartupSagas'
 import {getUserAvatar} from './GithubSagas'
 import {getRegister} from './RegisterSagas'
-import {login,autoLogin} from './LoginSagas'
+import {login,autoLogin,loginByMobileVerifyCode} from './LoginSagas'
 import {getVerifyCode} from './VerifyCodeSagas'
-import {getUserInfo,updateUserInfo} from './UserInfoSagas'
+import {getUserInfo,updateUserInfo,changePassword,setPassword} from './UserInfoSagas'
 import {getAccount} from './AccountSagas'
 import {getBanner} from './BannerSagas'
 import {getTbIndexRecommend, getTbChannelProduct, getTbSearch, setTbDetail, getTbDetail} from './TbSagas'
@@ -45,10 +45,13 @@ export default function* root() {
     // some sagas receive extra parameters in addition to an action
     takeLatest(RegisterTypes.REGISTER_REQUEST,getRegister,api),
     takeLatest(LoginTypes.LOGIN_REQUEST, login, api),
+    takeLatest(LoginTypes.LOGIN_MOBILE_VERIFY_CODE_REQUEST, loginByMobileVerifyCode, api),
     takeLatest(LoginTypes.AUTO_LOGIN, autoLogin, api),
     takeLatest(VerifyCodeTypes.VERIFY_CODE_REQUEST, getVerifyCode, api),
     takeLatest(UserInfoTypes.USER_INFO_REQUEST,getUserInfo,api),
     takeLatest(UserInfoTypes.USER_INFO_UPDATE_REQUEST,updateUserInfo,api),
+    takeLatest(UserInfoTypes.USER_INFO_CHANGE_PASSWORD_REQUEST,changePassword,api),
+    takeLatest(UserInfoTypes.USER_INFO_SET_PASSWORD_REQUEST,setPassword,api),
 
     takeLatest(AccountTypes.ACCOUNT_REQUEST, getAccount, api),
 

@@ -3,43 +3,12 @@ import {ApplicationStyles, Colors, Metrics} from '../../Themes'
 
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
+  ...ApplicationStyles.form,
   container: {
     paddingTop: 70,
     // marginTop: Metrics.doubleBaseMargin,
     height: Metrics.screenHeight,
     backgroundColor: Colors.white
-  },
-  form: {
-    backgroundColor: Colors.snow,
-    margin: Metrics.baseMargin,
-    borderRadius: 4,
-    borderColor: Colors.steel,
-    borderWidth: 1
-  },
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingVertical: Metrics.doubleBaseMargin,
-    paddingHorizontal: Metrics.doubleBaseMargin
-  },
-  rowLabel: {
-    fontSize: 18,
-    color: Colors.charcoal,
-    flex: 2
-  },
-  textInput: {
-    marginLeft: Metrics.baseMargin,
-    flex: 8,
-    height: 40,
-    color: Colors.coal,
-    borderColor: Colors.steel,
-    borderWidth: .5
-  },
-  textInputReadonly: {
-    flex: 1,
-    height: 40,
-    color: Colors.steel
   },
   loginRow: {
     paddingBottom: Metrics.doubleBaseMargin,
@@ -66,9 +35,28 @@ export default StyleSheet.create({
     width: Metrics.screenWidth
   },
   viewWrap: {
-    marginTop: 20,
+    marginTop: 10,
     marginLeft: 20,
-    marginRight: 20
-  }
+    marginRight: 20,
+    display:'flex',
+    flexDirection:'row'
+  },
+  button: {
+    height: 26,
+    flex:1,
+    backgroundColor: Colors.button,
+    borderColor: Colors.button,
+    borderRadius: 8,
+    marginBottom: 10,
+    marginLeft: 10,
+    marginRight: 10,
+    alignSelf: 'stretch',
+    justifyContent: 'center'
+  },
+  buttonText: {
+    fontSize: 14,
+    color: 'white',
+    alignSelf: 'center'
+  },
 })
 

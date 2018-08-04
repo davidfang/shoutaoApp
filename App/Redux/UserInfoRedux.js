@@ -9,6 +9,9 @@ const { Types, Creators } = createActions({
   userInfoFailure: ['error'],
   userInfoLogout: null,
   userInfoUpdateRequest: ['user'],
+  userInfoChangePasswordRequest: ['user'],
+  userInfoSetPasswordRequest: ['user'],
+  userInfoSetPasswordSuccess: null,
 })
 
 export const UserInfoTypes = Types
@@ -52,6 +55,7 @@ export const success = (state, action) => {
 export const failure = (state,{error} )=>
   state.merge({ fetching: false, error })
 export const logout = (state) => INITIAL_STATE
+export const setPasswordSuccess = (state) => state.merge({ fetching: false, error: null })
 /* ------------- Hookup Reducers To Types ------------- */
 
 export const reducer = createReducer(INITIAL_STATE, {
@@ -59,5 +63,8 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.USER_INFO_SUCCESS]: success,
   [Types.USER_INFO_FAILURE]: failure,
   [Types.USER_INFO_LOGOUT]: logout,
-  [Types.USER_INFO_UPDATE_REQUEST]:request
+  [Types.USER_INFO_UPDATE_REQUEST]:request,
+  [Types.USER_INFO_CHANGE_PASSWORD_REQUEST]:request,
+  [Types.USER_INFO_SET_PASSWORD_REQUEST]:request,
+  [Types.USER_INFO_SET_PASSWORD_SUCCESS]:setPasswordSuccess
 })

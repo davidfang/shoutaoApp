@@ -14,6 +14,7 @@ import { call, put } from 'redux-saga/effects'
 import RegisterActions from '../Redux/RegisterRedux'
 import UserInfoActions from '../Redux/UserInfoRedux'
 import LoginActions from '../Redux/LoginRedux'
+import {NavigationActions} from "react-navigation";
 // import { RegisterSelectors } from '../Redux/RegisterRedux'
 
 export function * getRegister (api, action) {
@@ -34,7 +35,7 @@ export function * getRegister (api, action) {
       yield put(LoginActions.loginSuccess(data))
       yield put(UserInfoActions.userInfoRequest())
 
-      yield put({type: 'RELOGIN_OK'})
+      yield put(NavigationActions.navigate({routeName:'MainStack'}))
     } else {
       yield put(RegisterActions.registerFailure(data.message))
       // yield put(RegisterActions.registerFailure(response.data))

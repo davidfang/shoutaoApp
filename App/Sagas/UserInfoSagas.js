@@ -9,9 +9,10 @@
 *  - This template uses the api declared in sagas/index.js, so
 *    you'll need to define a constant in that file.
 *************************************************************/
-
+import { NavigationActions } from 'react-navigation';
 import { call, put } from 'redux-saga/effects'
 import UserInfoActions from '../Redux/UserInfoRedux'
+import LoginActions from '../Redux/LoginRedux'
 import {callApi} from './CallApiSaga'
 // import { UserInfoSelectors } from '../Redux/UserInfoRedux'
 function *requestFaild (response){
@@ -20,7 +21,7 @@ function *requestFaild (response){
       //yield put(UserInfoActions.userInfoFailure('400系列错误'))
       let message = response.data.message
       let msg = ''
-      console.log(typeof message)
+      //console.log(typeof message)
       if(typeof message == "object") {
         for (let k in message) {
           msg += message[k].toString() + '\n'
@@ -46,6 +47,13 @@ function *requestFaild (response){
       yield put(UserInfoActions.userInfoFailure('请求已被取消'))
   }
 }
+
+/**
+ * 获得用户信息
+ * @param api
+ * @param action
+ * @returns {IterableIterator<*>}
+ */
 export function * getUserInfo (api, action) {
   const { data } = action
   // get current data from Store
@@ -63,6 +71,12 @@ export function * getUserInfo (api, action) {
   }
 }
 
+/**
+ * 修改用户信息
+ * @param api
+ * @param action
+ * @returns {IterableIterator<*>}
+ */
 export function * updateUserInfo (api, action) {
   const { user } = action
   // get current data from Store
@@ -71,12 +85,67 @@ export function * updateUserInfo (api, action) {
   const response = yield call(api.updateUserInfo, user)
   //const response = yield call(callApi, apiCall,api)
 
-  console.log(response)
+  //console.log(response)
   // success?
   if (response.ok) {
     // You might need to change the response here - do this with a 'transform',
     // located in ../Transforms/. Otherwise, just pass the data back from the api.
     yield put(UserInfoActions.userInfoSuccess(user))
+    yield put(NavigationActions.navigate({routeName:'userInfo'}))
+  } else {
+    yield requestFaild(response)
+  }
+}
+
+/**
+ * 修改用户密码
+ * @param api
+ * @param action
+ * @returns {IterableIterator<*>}
+ */
+export function * changePassword (api, action) {
+  const { user } = action
+  // get current data from Store
+  // const currentData = yield select(UserInfoSelectors.getData)
+  // make the call to the api
+  const response = yield call(api.changePassword, user)
+  //const response = yield call(callApi, apiCall,api)
+
+  //console.log(response)
+  // success?
+  if (response.ok) {
+    // You might need to change the response here - do this with a 'transform',
+    // located in ../Transforms/. Otherwise, just pass the data back from the api.
+    yield call(api.removeAuthToken)
+    yield put(LoginActions.logout())
+    yield put(UserInfoActions.userInfoLogout())
+    yield put(NavigationActions.navigate({routeName:'LoginScreen'}))
+  } else {
+    yield requestFaild(response)
+  }
+}
+/**
+ * 设置用户密码 用户快捷注册时设置
+ * @param api
+ * @param action
+ * @returns {IterableIterator<*>}
+ */
+export function * setPassword (api, action) {
+  const { user } = action
+  // get current data from Store
+  // const currentData = yield select(UserInfoSelectors.getData)
+  // make the call to the api
+  const response = yield call(api.changePassword, user)
+  //const response = yield call(callApi, apiCall,api)
+
+  console.log(response)
+  // success?
+  if (response.ok) {
+    // You might need to change the response here - do this with a 'transform',
+    // located in ../Transforms/. Otherwise, just pass the data back from the api.
+    yield put(LoginActions.loginSetPassword())
+    yield put(UserInfoActions.userInfoSetPasswordSuccess())
+    yield put(NavigationActions.navigate({routeName:'EditUserScreen'}))
   } else {
     yield requestFaild(response)
   }

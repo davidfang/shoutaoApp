@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Alert, Image, View, ScrollView, Text, TextInput, Button, TouchableOpacity, TouchableHighlight } from 'react-native'
+import { Alert, Image, View, ScrollView, Text, TextInput, Button, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import styles from './Styles/LoginScreenStyle'
 import { Images, Colors } from '../Themes'
@@ -15,15 +15,12 @@ class LoginScreen extends React.Component {
     attemptLogin: PropTypes.func
   }
 
-  isAttempting = false
-
   constructor (props) {
     super(props)
     this.state = {
       mobile: '',
       password: ''
     }
-    this.isAttempting = false
     if (props.logged) {
       this.props.navigation.navigate('MainStack')
     }
@@ -34,80 +31,65 @@ class LoginScreen extends React.Component {
     if (newProps.error) {
       Toast.showError(newProps.error,{})
     }
-    if(newProps.logged){
-      this.props.navigation.navigate('MainStack')
-    }
-
   }
 
   handlePressLogin = () => {
     const {mobile, password} = this.state
-    this.isAttempting = true
-    // attempt a login - a saga is listening to pick it up from here.
-    this.props.attemptLogin(mobile, password)
-  }
-
-  handleChangeMobile = (text) => {
-    this.setState({mobile: text})
-  }
-
-  handleChangePassword = (text) => {
-    this.setState({password: text})
+    if(!this.props.fetching) {
+      this.props.login(mobile, password)
+    }
   }
 
   render () {
-    const {mobile, password} = this.state
-    const {fetching} = this.props
-    const editable = !fetching
-    const textInputStyle = editable ? styles.textInput : styles.textInputReadonly
     return (
       <View contentContainerStyle={{justifyContent: 'center'}}
             style={styles.container} keyboardShouldPersistTaps='always'>
         <Image source={Images.logoLogin} style={styles.topLogo}/>
         <View style={styles.form}>
-          <View style={styles.row}>
-            <Text style={styles.rowLabel}>手机</Text>
+          <View style={styles.formRow}>
+            <Text style={styles.formRowLabel}>手机</Text>
             <TextInput
               ref='mobile'
-              style={textInputStyle}
-              value={mobile}
-              editable={editable}
+              style={styles.formTextInput}
+              value={this.state.mobile}
               keyboardType='default'
               returnKeyType='next'
               autoCapitalize='none'
               autoCorrect={false}
-              onChangeText={this.handleChangeMobile}
+              onChangeText={(text)=>this.setState({mobile:text})}
               underlineColorAndroid='transparent'
-              onSubmitEditing={() => this.refs.password.focus()}
               placeholder='手机'/>
           </View>
 
-          <View style={styles.row}>
-            <Text style={styles.rowLabel}>密码</Text>
+          <View style={styles.formRow}>
+            <Text style={styles.formRowLabel}>密码</Text>
             <TextInput
               ref='password'
-              style={textInputStyle}
-              value={password}
-              editable={editable}
+              style={styles.formTextInput}
+              value={this.state.password}
               keyboardType='default'
               returnKeyType='go'
               autoCapitalize='none'
               autoCorrect={false}
               secureTextEntry
-              onChangeText={this.handleChangePassword}
+              onChangeText={text => this.setState({password:text})}
               underlineColorAndroid='transparent'
               onSubmitEditing={this.handlePressLogin}
               placeholder='密码'/>
           </View>
         </View>
-        <Text style={{textAlign:'right', padding:10, color: Colors.text}} onPress={() => this.props.navigation.navigate('ForgotPasswordScreen')}>忘记密码</Text>
         <View style={styles.viewWrap}>
-          <TouchableHighlight style={styles.button} onPress={this.handlePressLogin} underlayColor={Colors.ember}>
+          <TouchableOpacity style={styles.button} onPress={this.handlePressLogin} underlayColor={Colors.ember}>
             <Text style={styles.buttonText}>登录</Text>
-          </TouchableHighlight>
-          <TouchableHighlight style={[styles.button, {backgroundColor: Colors.text}]} onPress={() => this.props.navigation.navigate('RegisterScreen')} underlayColor={Colors.ember}>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.viewWrap}>
+          <TouchableOpacity style={[styles.button, {backgroundColor: Colors.banner}]} onPress={() => this.props.navigation.navigate('RegisterScreen')} underlayColor={Colors.ember}>
             <Text style={styles.buttonText}>注册</Text>
-          </TouchableHighlight>
+          </TouchableOpacity>
+          <TouchableOpacity style={[styles.button, {backgroundColor: Colors.banner}]} onPress={() => this.props.navigation.navigate('MobileLoginScreen')} underlayColor={Colors.ember}>
+            <Text style={styles.buttonText}>短信登录</Text>
+          </TouchableOpacity>
         </View>
 
 
@@ -127,7 +109,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    attemptLogin: (mobile, password) => dispatch(LoginActions.loginRequest(mobile, password)),
+    login: (mobile, password) => dispatch(LoginActions.loginRequest(mobile, password)),
     logout: () => dispatch(LoginActions.logout())
   }
 }

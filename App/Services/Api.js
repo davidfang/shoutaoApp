@@ -46,6 +46,7 @@ const create = (baseURL = AppConfig.apiUrl) => {
   // const login = (mobile, password) => api.post('api/v1/sign-in/login', {identity:mobile, password,type:'miliao'})
   //const login = (mobile, password) => api.post('api/v1/sign-in/login', userAuth)
   const login = (userAuth) => api.post('passport/login', userAuth)// 登录
+  const loginByVerifyCode = (userAuth) => api.post('passport/fast-login', userAuth)// 短信验证码登录
   const getVerifyCode = (mobile) => api.post('send-code', {mobile})// 获取手机验证码
 
   const getRegister = (user) => api.post('passport/register', user) // 注册
@@ -55,8 +56,8 @@ const create = (baseURL = AppConfig.apiUrl) => {
   const updateAccount = (user) => api.put('user/update', user) // 更新用户信息
   const getUserInfo = () => api.get('user/info') // 用户中心 获得用户信息
   const updateUserInfo = (user) => api.post('user/update', user) // 更新用户信息
-  const resetPassword = (data) => api.post('v1/sign-in/reset-password', data) // 重置密码
-  const changePassword = (data) => api.post('v1/profile/change-password', data) // 修改密码
+  const resetPassword = (data) => api.post('passport/password-reset', data) // 重置密码
+  const changePassword = (data) => api.post('passport/password-reset', data) // 修改密码
 
   const getCaptcha = () => api.get('site/captcha', {refresh: 'refresh'}) // 获取图片验证码
   const checkCaptcha = (code) => api.get('site/check-captcha', {code}) // 校验图片验证码
@@ -96,6 +97,7 @@ const create = (baseURL = AppConfig.apiUrl) => {
     getUser,
     singUp,
     login,
+    loginByVerifyCode,
     getVerifyCode,
     getBanner,
 

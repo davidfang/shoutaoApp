@@ -15,7 +15,7 @@ ExamplesRegistry.addComponentExample('CustomButton', () =>
 export default class CustomButton extends Component {
   // Prop type warnings
   static propTypes = {
-    onPress: PropTypes.object,
+    onPress: PropTypes.func,
     text: PropTypes.string.isRequired
   }
 

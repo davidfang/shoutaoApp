@@ -155,9 +155,9 @@ class RegisterScreen extends Component {
             </View>
           </View>
           <TouchableOpacity
-            style={[styles.formButton]}
+            style={styles.formButton}
             onPress={() => this.submit()}>
-            <Text style={{color: '#fff', fontSize: 17}}>注册</Text>
+            <Text style={styles.formButtonText}>注册</Text>
           </TouchableOpacity>
         </View>
       </View>

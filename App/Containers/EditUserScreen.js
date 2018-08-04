@@ -43,9 +43,9 @@ class EditUserScreen extends Component {
     if(newProps.error){
       Toast.showError(newProps.error,{})
     }
-    if(newProps.error == null){
-      Toast.showSuccess('修改成功',() => this.props.navigation.goBack())
-    }
+    // if(newProps.error == null){
+    //   Toast.showSuccess('修改成功',() => this.props.navigation.goBack())
+    // }
   }
   render () {
     return (
@@ -119,7 +119,7 @@ class EditUserScreen extends Component {
           <TouchableOpacity
             style={[styles.formButton]}
             onPress={() => this.submit()}>
-            <Text style={{color: '#fff', fontSize: 17}}>提交</Text>
+            <Text style={styles.formButtonText}>提交</Text>
           </TouchableOpacity>
         </View>
       </View>

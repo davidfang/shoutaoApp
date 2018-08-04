@@ -1,5 +1,8 @@
 import React from 'react'
 import { StackNavigator } from 'react-navigation'
+import MobileLoginScreen from '../Containers/MobileLoginScreen'
+import SetPasswordScreen from '../Containers/SetPasswordScreen'
+import ChangePasswordScreen from '../Containers/ChangePasswordScreen'
 import EditUserScreen from '../Containers/EditUserScreen'
 import RegisterScreen from '../Containers/RegisterScreen'
 import LoginScreen from '../Containers/LoginScreen'
@@ -24,7 +27,30 @@ import styles from './Styles/NavigationStyles'
 
 // Manifest of possible screens
 const PrimaryNav = StackNavigator({
-  EditUserScreen: { screen: EditUserScreen },
+  MobileLoginScreen: {
+    screen: MobileLoginScreen,
+    navigationOptions:{
+      title:'短信登录'
+    }
+  },
+  SetPasswordScreen: {
+    screen: SetPasswordScreen,
+    navigationOptions:{
+      title:'设置密码'
+    }
+  },
+  ChangePasswordScreen: {
+    screen: ChangePasswordScreen,
+    navigationOptions:{
+      title:'修改密码'
+    }
+  },
+  EditUserScreen: {
+    screen: EditUserScreen,
+    navigationOptions:{
+      title:'用户信息'
+    }
+  },
   RegisterScreen: {
     screen: RegisterScreen,
     navigationOptions: ({navigation}) => {
@@ -44,7 +70,12 @@ const PrimaryNav = StackNavigator({
     }
   },
   HomeScreen: { screen: HomeScreen },
-  UserInfoScreen: { screen: UserInfoScreen },
+  UserInfoScreen: {
+    screen: UserInfoScreen,
+    navigationOptions:{
+      title:'我的'
+    }
+  },
   LaunchScreen: { screen: LaunchScreen },
   SearchScreen: { screen: SearchScreen },
 

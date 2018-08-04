@@ -1,6 +1,7 @@
 import {call, put, select} from 'redux-saga/effects'
 import LoginActions from '../Redux/LoginRedux'
 import UserInfoActions from '../Redux/UserInfoRedux'
+import {NavigationActions} from "react-navigation";
 //import { Actions as NavigationActions } from 'react-native-router-flux'
 export const selectTokenInfo = (state) => state.login.tokenInfo
 
@@ -52,7 +53,31 @@ export function* login(api, {mobile, password}) {
     yield put(LoginActions.loginSuccess(data.data))
     yield put(UserInfoActions.userInfoRequest())
     //NavigationActions.account()
-    yield put({type: 'RELOGIN_OK'})
+    yield put(NavigationActions.navigate({routeName:'MainStack'}))
+  } else { // 网络请求失败
+    yield requestFaild(response)
+  }
+}
+
+export function *loginByMobileVerifyCode(api,{mobile,verifyCode}) {
+  const authObj = {mobile, verifyCode}
+
+  const response = yield call(api.loginByVerifyCode, authObj)
+
+  console.log(response)
+  // success?
+  if (response.ok) { // 网络请求成功
+    const data = response.data
+    // 用户登录验证成功
+    yield call(api.setAuthToken, data.data)
+    yield put(LoginActions.loginSuccess(data.data))
+    yield put(UserInfoActions.userInfoRequest())
+    //NavigationActions.account()
+    if(data.password){
+      yield put(NavigationActions.navigate({routeName:'MainStack'}))
+    }else{
+      yield put(NavigationActions.navigate({routeName:'SetPasswordScreen'}))
+    }
   } else { // 网络请求失败
     yield requestFaild(response)
   }
@@ -76,6 +101,11 @@ export function* loginRefresh(api) {
   }
 }
 
+/**
+ * 进来的时候，自动登录
+ * @param api
+ * @returns {IterableIterator<*>}
+ */
 export function* autoLogin(api) {
   const tokenInfo = yield select(selectTokenInfo)
   yield call(api.setAuthToken, tokenInfo)
