@@ -60,7 +60,7 @@ const ApplicationStyles = {
     },
     button: {
       height: 36,
-      flex:1,
+      flex: 1,
       backgroundColor: Colors.button,
       borderColor: Colors.button,
       borderRadius: 15,
@@ -77,27 +77,28 @@ const ApplicationStyles = {
       backgroundColor: '#E6E6E6'
     }
   },
-  form:{
-    form:{
+  form: {
+    form: {
       alignItems: 'center',
       paddingHorizontal: Metrics.marginHorizontal,
-      marginTop: Metrics.marginHorizontal,
       backgroundColor: Colors.white
     },
-    formRow:{
+    formRow: {
       flexDirection: 'row',
       alignItems: 'center',
       paddingVertical: 15,
       borderBottomWidth: Metrics.horizontalLineHeight,
       borderBottomColor: Colors.border
     },
-    formRowLabel:{
+    formRowLabel: {
       color: '#646464',
       marginRight: 10,
       fontSize: 15
     },
-    formTextInput:{
-      flex: 1, marginHorizontal: 10, fontSize: 14
+    formTextInput: {
+      flex: 1,
+      marginHorizontal: 10,
+      fontSize: 14
     },
     formButton: {
       alignItems: 'center',
@@ -108,7 +109,7 @@ const ApplicationStyles = {
       backgroundColor: Colors.button,
       marginTop: Metrics.doubleBaseMargin
     },
-    formButtonText:{
+    formButtonText: {
       color: Colors.white,
       fontSize: 17
     }

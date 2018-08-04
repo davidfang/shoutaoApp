@@ -1,16 +1,15 @@
-import React, {PureComponent} from 'react'
+import React from 'react'
 import {TabNavigator, TabBarBottom} from 'react-navigation'
 
 import {View, Image} from 'react-native'
 
 import styles from './Styles/NavigationStyles'
 import {Colors} from '../Themes'
-
+import UserNavigation from './UserNavigation'
 import SearchScreen from '../Containers/SearchScreen'
 import ClassifyScreen from '../Containers/ClassifyScreen'
 import HomeScreen from '../Containers/HomeScreen'
 import CircleScreen from '../Containers/CircleScreen'
-import UserInfoScreen from '../Containers/UserInfoScreen'
 
 import SearchBar from '../Components/SearchBar'
 
@@ -85,7 +84,7 @@ const TabNav = TabNavigator(
       }
     },
     userInfo: {
-      screen: UserInfoScreen,
+      screen: UserNavigation, //UserInfoScreen,
       navigationOptions: {
         tabBarLabel: '我的',
         title: '我的',

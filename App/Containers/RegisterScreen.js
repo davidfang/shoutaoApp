@@ -65,7 +65,7 @@ class RegisterScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.from}>
+        <View style={styles.form}>
           <View style={styles.formRow}>
             <Text style={styles.formRowLabel}>手机号</Text>
             <TextInput

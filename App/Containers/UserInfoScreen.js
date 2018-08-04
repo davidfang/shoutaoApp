@@ -49,7 +49,7 @@ class UserInfoScreen extends Component {
     Toast.showSuccess('邀请码已经复制到剪贴板，请发给好朋友一起赚钱吧！')
   }
   userHead = () => {
-    const {loggedIn, nickname,invitation_code,  avatar} = this.props
+    const {loggedIn, nickname,invitation_code, grade, avatar} = this.props
     if (loggedIn) {
       return (
         <View style={styles.top}>
@@ -61,7 +61,7 @@ class UserInfoScreen extends Component {
                 </TouchableOpacity>
                 <View>
                   <Text style={styles.nickName}>{nickname}
-                    <View style={styles.memberButton}><Text >超级会员</Text></View>
+                    <View style={styles.memberButton}><Text >{grade}</Text></View>
                   </Text>
                   <Text style={styles.invitationCode}>邀请码:{invitation_code}<CustomButton onPress={this._copyInvitationCode}
                     text='复制'
@@ -239,10 +239,10 @@ class UserInfoScreen extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const {mobile,nickname,invitation_code, avatar} = state.userInfo
+  const {mobile,nickname,invitation_code,grade, avatar} = state.userInfo
   return {
     loggedIn: LoginSelector.isLoggedIn(state.login),
-
+    grade,
     mobile,
     nickname,
     invitation_code,

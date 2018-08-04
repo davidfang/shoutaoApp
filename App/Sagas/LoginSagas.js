@@ -47,13 +47,17 @@ export function* login(api, {mobile, password}) {
   console.log(response)
   // success?
   if (response.ok) { // 网络请求成功
-    const data = response.data
+    const {data} = response.data
     // 用户登录验证成功
-    yield call(api.setAuthToken, data.data)
-    yield put(LoginActions.loginSuccess(data.data))
+    yield call(api.setAuthToken, data)
+    yield put(LoginActions.loginSuccess(data))
     yield put(UserInfoActions.userInfoRequest())
     //NavigationActions.account()
-    yield put(NavigationActions.navigate({routeName:'MainStack'}))
+    if(data.password){
+      yield put(NavigationActions.navigate({routeName:'MainStack'}))
+    }else{
+      yield put(NavigationActions.navigate({routeName:'SetPasswordScreen'}))
+    }
   } else { // 网络请求失败
     yield requestFaild(response)
   }
@@ -67,14 +71,15 @@ export function *loginByMobileVerifyCode(api,{mobile,verifyCode}) {
   console.log(response)
   // success?
   if (response.ok) { // 网络请求成功
-    const data = response.data
+    const {data} = response.data
     // 用户登录验证成功
-    yield call(api.setAuthToken, data.data)
-    yield put(LoginActions.loginSuccess(data.data))
+    yield call(api.setAuthToken, data)
+    yield put(LoginActions.loginSuccess(data))
     yield put(UserInfoActions.userInfoRequest())
     //NavigationActions.account()
+    console.log('data.password:',data.password)
     if(data.password){
-      yield put(NavigationActions.navigate({routeName:'MainStack'}))
+      yield put(NavigationActions.navigate({routeName:'UserInfoScreen'}))
     }else{
       yield put(NavigationActions.navigate({routeName:'SetPasswordScreen'}))
     }

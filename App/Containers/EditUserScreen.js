@@ -50,7 +50,7 @@ class EditUserScreen extends Component {
   render () {
     return (
       <View style={styles.container}>
-        <View style={styles.from}>
+        <View style={styles.form}>
           <View style={styles.formRow}>
             <Text style={styles.formRowLabel}>昵 称</Text>
             <TextInput
@@ -112,7 +112,6 @@ class EditUserScreen extends Component {
             </View>
             <Text style={{color: '#646464'}}>选填</Text>
           </View>
-
         </View>
         {/*按钮部分*/}
         <View style={{marginTop: 40, marginHorizontal: 10}}>
