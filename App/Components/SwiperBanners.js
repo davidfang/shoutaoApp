@@ -43,7 +43,8 @@ export default class SwiperBanners extends Component {
             <Image
               style={styles.swiperImage}
               source={{ uri: item.img }}
-              resizeMode='cover'
+              resizeMode='contain'
+              resizeMethod='resize'
             />
           </TouchableOpacity>
         )

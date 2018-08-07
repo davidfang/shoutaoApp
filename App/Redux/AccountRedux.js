@@ -21,17 +21,7 @@ export const INITIAL_STATE = Immutable({
   data: null,
   fetching: null,
   payload: null,
-  error: null,
-  id: null,
-  name: null,
-  email: null,
-  nickname: null,
-  mobile: null,
-  age: 0,
-  gender: "0",
-  avatar: null,
-  grade: "0",
-  invitation_code: null,
+  error: null
 })
 
 /* ------------- Selectors ------------- */

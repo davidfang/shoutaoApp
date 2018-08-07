@@ -39,7 +39,7 @@ function* requestFaild(response) {
 }
 
 // attempts to login
-export function* login(api, {mobile, password}) {
+export function * login(api, {mobile, password}) {
   const authObj = {mobile, password}
 
   const response = yield call(api.login, authObj)

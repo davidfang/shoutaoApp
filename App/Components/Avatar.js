@@ -10,8 +10,8 @@ export default class Avatar extends React.Component {
     const {width, name, backgroundColor, avatar} = this.props
     if (avatar) {
       return (
-        <Image source={{uri: avatar}}
-               style={[{width: width, height: width, borderRadius: width / 2, backgroundColor}, styles.container]}/>
+        <Image source={{uri: avatar}} resizeMothod='resize'
+               style={[{width: width, height: width, borderRadius: width / 2}, styles.container]}/>
       )
     } else {
       if(name) {
@@ -23,7 +23,7 @@ export default class Avatar extends React.Component {
       }else{
         return (
           <Image source={Images.icHead}
-                 style={[{width: width, height: width, borderRadius: width / 2, backgroundColor}, styles.container]}/>
+                 style={[{width: width, height: width,tintColor: '#CCCCCC', borderRadius: width / 2}, styles.container]}/>
         )
       }
     }

@@ -40,38 +40,51 @@ class CircleList extends React.PureComponent {
         <View style={styles.boldLabel}>
           <View style={styles.labelLeft}>
             <Image source={{uri: 'http://img.hb.aicdn.com/2c8550be8c300051e80fbc3ef1f5eb3c4e340dc78ce0-T0cyNw_fw86'}}
-                   style={styles.pic}/>
+                   style={styles.pic}
+                   resizeMode='contain'
+                   resizeMethod='resize'
+            />
             <View style={styles.author}>
               <View><Text>title</Text></View>
               <View><Text>昨天 18：00</Text></View>
             </View>
           </View>
           <TouchableOpacity style={styles.share}>
-            <Icon name={'md-share'} size={15} color={Colors.fire}> 9999</Icon>
+            <Text><Icon name={'md-share'} size={15} color={Colors.fire}/> 9999</Text>
           </TouchableOpacity>
         </View>
         <Text style={styles.labelContent}>{item.description}</Text>
         <View style={styles.picGroup}>
           <Image source={{uri: 'http://img.hb.aicdn.com/2c8550be8c300051e80fbc3ef1f5eb3c4e340dc78ce0-T0cyNw_fw86'}}
-                 style={styles.pic}/>
+                 style={styles.pic}  resizeMode='contain'
+                 resizeMethod='resize'/>
           <Image source={{uri: 'http://img.hb.aicdn.com/2c8550be8c300051e80fbc3ef1f5eb3c4e340dc78ce0-T0cyNw_fw86'}}
-                 style={styles.pic}/>
+                 style={styles.pic} resizeMode='contain'
+                 resizeMethod='resize'/>
           <Image source={{uri: 'http://img.hb.aicdn.com/2c8550be8c300051e80fbc3ef1f5eb3c4e340dc78ce0-T0cyNw_fw86'}}
-                 style={styles.pic}/>
+                 style={styles.pic} resizeMode='contain'
+                 resizeMethod='resize'/>
           <Image source={{uri: 'http://img.hb.aicdn.com/2c8550be8c300051e80fbc3ef1f5eb3c4e340dc78ce0-T0cyNw_fw86'}}
-                 style={styles.pic}/>
+                 style={styles.pic} resizeMode='contain'
+                 resizeMethod='resize'/>
           <Image source={{uri: 'http://img.hb.aicdn.com/2c8550be8c300051e80fbc3ef1f5eb3c4e340dc78ce0-T0cyNw_fw86'}}
-                 style={styles.pic}/>
+                 style={styles.pic} resizeMode='contain'
+                 resizeMethod='resize'/>
           <Image source={{uri: 'http://img.hb.aicdn.com/2c8550be8c300051e80fbc3ef1f5eb3c4e340dc78ce0-T0cyNw_fw86'}}
-                 style={styles.pic}/>
+                 style={styles.pic} resizeMode='contain'
+                 resizeMethod='resize'/>
           <Image source={{uri: 'http://img.hb.aicdn.com/2c8550be8c300051e80fbc3ef1f5eb3c4e340dc78ce0-T0cyNw_fw86'}}
-                 style={styles.pic}/>
+                 style={styles.pic} resizeMode='contain'
+                 resizeMethod='resize'/>
           <Image source={{uri: 'http://img.hb.aicdn.com/2c8550be8c300051e80fbc3ef1f5eb3c4e340dc78ce0-T0cyNw_fw86'}}
-                 style={styles.pic}/>
+                 style={styles.pic} resizeMode='contain'
+                 resizeMethod='resize'/>
           <Image source={{uri: 'http://img.hb.aicdn.com/2c8550be8c300051e80fbc3ef1f5eb3c4e340dc78ce0-T0cyNw_fw86'}}
-                 style={styles.pic}/>
+                 style={styles.pic} resizeMode='contain'
+                 resizeMethod='resize'/>
           <Image source={{uri: 'http://img.hb.aicdn.com/2c8550be8c300051e80fbc3ef1f5eb3c4e340dc78ce0-T0cyNw_fw86'}}
-                 style={styles.pic}/>
+                 style={styles.pic} resizeMode='contain'
+                 resizeMethod='resize'/>
         </View>
       </View>
     )
@@ -95,7 +108,7 @@ class CircleList extends React.PureComponent {
     <Text style={styles.label}> - Nothing to See Here - </Text>
 
   renderSeparator = () =>
-    <View style={styles.separator}> - ~~~~~ - </View>
+    <Text style={styles.separator}> - ~~~~~ - </Text>
 
   // The default function if no Key is provided is index
   // an identifiable key is important if you plan on

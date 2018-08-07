@@ -52,7 +52,8 @@ class DetailScreen extends Component {
         width={Metrics.screenWidth}
         style={styles.autoImage}
         source={{uri: item}}
-        resizeMode='cover'
+        resizeMode='contain'
+        resizeMethod='resize'
       />
     )
   }

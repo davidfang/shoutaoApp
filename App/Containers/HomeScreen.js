@@ -96,7 +96,9 @@ class HomeScreen extends Component {
     <SectionListItem navigation={this.props.navigation} product={item} />
   )
   componentWillMount() {
-    // this.props.getTbIndexRecommend(1)
+    if(this.props.tbIndexRecommend.length = 0) {
+      this.props.getTbIndexRecommend()
+    }
   }
   render () {
     const {navigate} = this.props.navigation

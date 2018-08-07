@@ -38,6 +38,8 @@ export default class BannerBar extends Component {
             <Image
               style={styles.image}
               source={ typeof(item.img) == 'string'  ? { uri: item.img } : item.img }
+              resizeMode='contain'
+              resizeMethod='resize'
             />
             <Text style={styles.title}>{item.title}</Text>
           </TouchableOpacity>

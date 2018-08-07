@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {
-  ScrollView,
+  Platform,
   Text,
   View,
   Image,
@@ -15,7 +15,8 @@ import { connect } from 'react-redux'
 import LoginActions, { LoginSelector } from '../Redux/LoginRedux'
 import AccountActions from '../Redux/AccountRedux'
 import UserInfoActions from '../Redux/UserInfoRedux'
-// import ImagePicker from 'react-native-image-picker'
+
+import ImagePicker from 'react-native-image-crop-picker'
 
 import Toast from '../Lib/Toast'
 import FullButton from '../Components/FullButton'
@@ -53,6 +54,7 @@ class UserInfoScreen extends Component {
     if (loggedIn) {
       return (
         <View style={styles.top}>
+
           <View style={styles.head}>
             <View style={styles.intro}>
               <View style={styles.introLeft}>
@@ -60,30 +62,23 @@ class UserInfoScreen extends Component {
                   <Avatar width={60} name={nickname} avatar={avatar}/>
                 </TouchableOpacity>
                 <View>
-                  <Text style={styles.nickName}>{nickname}
-                    <View style={styles.memberButton}><Text >{grade}</Text></View>
-                  </Text>
-                  <Text style={styles.invitationCode}>邀请码:{invitation_code}<CustomButton onPress={this._copyInvitationCode}
-                    text='复制'
-                    color={Colors.text}
-                    styles={styles.copyButton}
-                  /></Text>
+                  <View style={{flexDirection:'row'}}>
+                    <Text style={styles.nickName}>{nickname}</Text>
+                    <View style={styles.memberButton}><Text>{grade}</Text></View>
+                  </View>
+                  <View style={{flexDirection:'row'}}>
+                    <Text style={styles.invitationCode}>邀请码:{invitation_code}</Text>
+                    <CustomButton onPress={this._copyInvitationCode}
+                                         text='复制'
+                                         color={Colors.text}
+                                         styles={styles.copyButton}
+                    />
+                  </View>
                 </View>
               </View>
               <TouchableOpacity style={styles.setting} onPress={this._setting}>
                 <Icon name='settings' size={30} color={Colors.text}/>
               </TouchableOpacity>
-              {/*
-            <TouchableOpacity style={styles.introRight} onPress={() => this.props.navigation.navigate('SettingsScreen')}>
-              <Text style={Fonts.style.h3}>{username}</Text>
-              {Platform.OS === 'ios' ? <Icon name='ios-arrow-forward' color={Colors.charcoal} size={18}/>
-                : null
-              }
-              {Platform.OS === 'android' ? <Icon name='md-arrow-forward' color={Colors.charcoal} size={18}/>
-                : null
-              }
-            </TouchableOpacity>
-            */}
             </View>
             <View style={styles.incomeTop}>
               <Text>可提现金额：￥ 0 </Text>
@@ -94,6 +89,9 @@ class UserInfoScreen extends Component {
               />
             </View>
           </View>
+
+
+
           <View style={styles.incomeBottom}>
             <View style={styles.incomeBottomItem}>
               <View><Text>￥0</Text></View>
@@ -123,59 +121,23 @@ class UserInfoScreen extends Component {
     }
   }
 
-  selectPhotoTapped () {
-    const options = {
-      title: '选择图片',
-      cancelButtonTitle: '取消',
-      takePhotoButtonTitle: '拍照',
-      chooseFromLibraryButtonTitle: '图片库',
-      cameraType: 'back',
-      mediaType: 'photo',
-      videoQuality: 'high',
-      durationLimit: 10,
-      maxWidth: 600,
-      maxHeight: 600,
-      aspectX: 2,
-      aspectY: 1,
-      quality: 0.8,
-      angle: 0,
-      allowsEditing: false,
-      noData: false,
-      storageOptions: {
-        skipBackup: true,
-        path: 'images'
-      }
-    }
-
-    // ImagePicker.showImagePicker(options, (response) => {
-    //   console.log('Response = ', response)
-    //
-    //   if (response.didCancel) {
-    //     console.log('User cancelled photo picker')
-    //   }
-    //   else if (response.error) {
-    //     console.log('ImagePicker Error: ', response.error)
-    //   }
-    //   else if (response.customButton) {
-    //     console.log('User tapped custom button: ', response.customButton)
-    //   }
-    //   else {
-    //     let source = {uri: response.uri}
-    //
-    //     // You can also display the image using data:
-    //     // let source = { uri: 'data:image/jpeg;base64,' + response.data };
-    //
-    //     this.props.uploadAvatar(response.uri, response.fileName)
-    //     /*this.setState({
-    //       avatarSource: source
-    //     })*/
-    //   }
-    // })
+  selectPhotoTapped = ()=> {
+    ImagePicker.openPicker({
+      width: 400,
+      height: 400,
+      cropping: true,
+      cropperCircleOverlay:true
+    }).then(image => {
+      console.log(image);
+      let fileUrl = image.path
+      let fileName = Platform.OS == 'ios' ? image.filename :fileUrl.substr(fileUrl.lastIndexOf('/')+1);
+      this.props.uploadAvatar(fileUrl, fileName)
+    }).catch(e => alert(e));
   }
 
   render () {
     return (
-      <ScrollView style={styles.container}>
+      <View style={styles.container}>
         {this.userHead()}
         <View style={styles.gridItemGroup}>
           <TouchableOpacity style={styles.gridItem} onPress={() => {}}>
@@ -213,12 +175,12 @@ class UserInfoScreen extends Component {
             <Text>联系客服</Text>
           </TouchableOpacity>
         </View>
-        {this.props.loggedIn && (
+        {this.props.loggedIn &&
           <View style={styles.rowItemGroup}>
             <RowItem title='修改密码' icon='vpn-key' iconColor='lightskyblue'
                      onPress={() => this.props.navigation.navigate('ChangePasswordScreen')}/>
 
-          </View>)
+          </View>
         }
         <View style={styles.rowItemGroup}>
           <RowItem title='首页内容展示顺序' icon='reorder' iconColor='lightskyblue'/>
@@ -233,7 +195,7 @@ class UserInfoScreen extends Component {
         </View>
         <View/>
         {this.props.loggedIn && (<RoundedButton text={'退出'} onPress={() => this.props.logout()}/>)}
-      </ScrollView>
+      </View>
     )
   }
 }

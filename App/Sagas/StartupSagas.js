@@ -10,6 +10,7 @@ import TbActions from '../Redux/TbRedux'
 export const selectAvatar = GithubSelectors.selectAvatar
 const selectLoggedInStatus = (state) => LoginSelector.isLoggedIn(state.login)
 const getTokenInfo = (state) => LoginSelector.tokenInfo(state.login)
+const selectLoginFetchingStatus = (state) => state.login.fetching
 // process STARTUP actions
 export function * startup (action) {
   if (__DEV__ && console.tron) {
@@ -41,6 +42,11 @@ export function * startup (action) {
   if (isLoggedIn) {//如果登录过了，设置一下token重新访问
     yield put(LoginActions.autoLogin())
 
+  }else{
+    const selectLoginFetching = yield select(selectLoginFetchingStatus)
+    if(selectLoginFetching){
+      yield put(LoginActions.logout())
+    }
   }
 
   const avatar = yield select(selectAvatar)
@@ -50,5 +56,5 @@ export function * startup (action) {
   }
   yield put(BannerActions.bannerRequest('swiper'))
   yield put(BannerActions.bannerRequest('recommend'))
-  yield put(TbActions.tbIndexRecommendRequest(1))
+  // yield put(TbActions.tbIndexRecommendRequest(1))
 }

@@ -23,10 +23,10 @@ class CircleScreen extends Component {
                            tabBarBackgroundColor={Colors.silver}
                            tabBarActiveTextColor={Colors.fire}
                            tabBarInactiveTextColor={Colors.black}
-                           // tabBarUnderlineStyle={styles.scrollableTabBarUnderlineStyle}
+
                            renderTabBar={() => <ScrollableTabBar/>}
         >
-          <View tabLabel='每日爆款'></View>
+          <View tabLabel='每日爆款'><Text>每日爆款</Text></View>
           <CircleList tabLabel='宣传材料'></CircleList>
         </ScrollableTabView>
       </View>

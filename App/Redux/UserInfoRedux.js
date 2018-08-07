@@ -12,6 +12,8 @@ const { Types, Creators } = createActions({
   userInfoChangePasswordRequest: ['user'],
   userInfoSetPasswordRequest: ['user'],
   userInfoSetPasswordSuccess: null,
+  uploadAvatarRequest: ['fileUrl', 'fileName'],
+  uploadAvatarSuccess: ['avatar']
 })
 
 export const UserInfoTypes = Types
@@ -56,6 +58,10 @@ export const failure = (state,{error} )=>
   state.merge({ fetching: false, error })
 export const logout = (state) => INITIAL_STATE
 export const setPasswordSuccess = (state) => state.merge({ fetching: false, error: null })
+export const uploadAvatarSuccess = (state, data) => {
+  const {avatar} = data
+  return state.merge({error: null, updating: false, avatar, avatarData: avatar})
+}
 /* ------------- Hookup Reducers To Types ------------- */
 
 export const reducer = createReducer(INITIAL_STATE, {
@@ -66,5 +72,7 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.USER_INFO_UPDATE_REQUEST]:request,
   [Types.USER_INFO_CHANGE_PASSWORD_REQUEST]:request,
   [Types.USER_INFO_SET_PASSWORD_REQUEST]:request,
-  [Types.USER_INFO_SET_PASSWORD_SUCCESS]:setPasswordSuccess
+  [Types.USER_INFO_SET_PASSWORD_SUCCESS]:setPasswordSuccess,
+  [Types.UPLOAD_AVATAR_REQUEST]: request,
+  [Types.UPLOAD_AVATAR_SUCCESS]: uploadAvatarSuccess
 })

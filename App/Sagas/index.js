@@ -23,7 +23,7 @@ import {getUserAvatar} from './GithubSagas'
 import {getRegister} from './RegisterSagas'
 import {login,autoLogin,loginByMobileVerifyCode} from './LoginSagas'
 import {getVerifyCode} from './VerifyCodeSagas'
-import {getUserInfo,updateUserInfo,changePassword,setPassword} from './UserInfoSagas'
+import {getUserInfo,updateUserInfo,changePassword,setPassword,uploadAvatar} from './UserInfoSagas'
 import {getAccount} from './AccountSagas'
 import {getBanner} from './BannerSagas'
 import {getTbIndexRecommend, getTbChannelProduct, getTbSearch, setTbDetail, getTbDetail} from './TbSagas'
@@ -52,6 +52,7 @@ export default function* root() {
     takeLatest(UserInfoTypes.USER_INFO_UPDATE_REQUEST,updateUserInfo,api),
     takeLatest(UserInfoTypes.USER_INFO_CHANGE_PASSWORD_REQUEST,changePassword,api),
     takeLatest(UserInfoTypes.USER_INFO_SET_PASSWORD_REQUEST,setPassword,api),
+    takeLatest(UserInfoTypes.UPLOAD_AVATAR_REQUEST,uploadAvatar,api),
 
     takeLatest(AccountTypes.ACCOUNT_REQUEST, getAccount, api),
 

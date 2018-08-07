@@ -3,7 +3,8 @@ import apisauce from 'apisauce'
 import AppConfig from '../Config/AppConfig'
 
 // our "constructor"
-const create = (baseURL = AppConfig.apiUrl) => {
+// const create = (baseURL = AppConfig.apiUrl) => {
+const create = (baseURL = 'http://hst-api.zhicaikeji.com/') => {
   // ------
   // STEP 1
   // ------
@@ -67,7 +68,7 @@ const create = (baseURL = AppConfig.apiUrl) => {
   const getProvince = (parentId) => api.get('v1/prov-city-area-street/index', {parentId}) // 获得省市区信息
 
   // ignite-jhipster-api-method-needle
-  const uploadAvatar = (formData) => api.post('v1/profile/avatar-upload', formData) //上传图像
+  const uploadAvatar = (formData) => api.post('user/avatar', formData) //上传图像
 
   const getGoodsCategory = () => api.get('category') // 获得产品分类
   const getTbIndexRecommend = (page) => api.get('goods/recommend', {page}) // 获得首页淘宝推荐产品

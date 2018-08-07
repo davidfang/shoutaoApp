@@ -35,7 +35,8 @@ export default class ProductImages extends Component {
                   source={{
                     uri: item
                   }}
-                  resizeMode='cover'
+                  resizeMode='contain'
+                  resizeMethod='resize'
                 />
               )
             })

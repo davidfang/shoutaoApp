@@ -13,6 +13,7 @@ import { NavigationActions } from 'react-navigation';
 import { call, put } from 'redux-saga/effects'
 import UserInfoActions from '../Redux/UserInfoRedux'
 import LoginActions from '../Redux/LoginRedux'
+import Toast from '../Lib/Toast'
 import {callApi} from './CallApiSaga'
 // import { UserInfoSelectors } from '../Redux/UserInfoRedux'
 function *requestFaild (response){
@@ -91,6 +92,7 @@ export function * updateUserInfo (api, action) {
     // You might need to change the response here - do this with a 'transform',
     // located in ../Transforms/. Otherwise, just pass the data back from the api.
     yield put(UserInfoActions.userInfoSuccess(user))
+    Toast.showSuccess('提交成功')
     yield put(NavigationActions.navigate({routeName:'userInfo'}))
   } else {
     yield requestFaild(response)
@@ -119,6 +121,7 @@ export function * changePassword (api, action) {
     yield call(api.removeAuthToken)
     yield put(LoginActions.logout())
     yield put(UserInfoActions.userInfoLogout())
+    Toast.showSuccess('修改密码成功，请重新登录')
     yield put(NavigationActions.navigate({routeName:'LoginScreen'}))
   } else {
     yield requestFaild(response)
@@ -138,15 +141,44 @@ export function * setPassword (api, action) {
   const response = yield call(api.changePassword, user)
   //const response = yield call(callApi, apiCall,api)
 
-  console.log(response)
+  //console.log(response)
   // success?
   if (response.ok) {
     // You might need to change the response here - do this with a 'transform',
     // located in ../Transforms/. Otherwise, just pass the data back from the api.
     yield put(LoginActions.loginSetPassword())
     yield put(UserInfoActions.userInfoSetPasswordSuccess())
+    Toast.showSuccess('密码设置成功，请填写个人信息')
     yield put(NavigationActions.navigate({routeName:'EditUserScreen'}))
   } else {
     yield requestFaild(response)
   }
+}
+
+/**
+ * 上传头像
+ * @param api
+ * @param action
+ * @returns {IterableIterator<*>}
+ */
+export function * uploadAvatar (api, action) {
+  const {fileUrl, fileName} = action
+
+  let formData = new FormData()
+
+  let file = {uri: fileUrl, type: 'application/octet-stream', name: fileName}
+  formData.append('avatar', file)
+  yield call(api.setFormData)
+  const response = yield call(api.uploadAvatar, formData)
+
+  console.log(response)
+  if (response.ok) { // success?
+      console.log('upload ok')
+      yield put(UserInfoActions.uploadAvatarSuccess(response.data.data.avatar))
+      Toast.showSuccess('头像上传成功')
+  } else { // failure
+    console.log('upload error')
+    yield requestFaild(response)
+  }
+  yield put({type: 'UPLOAD AVATAR END'})
 }

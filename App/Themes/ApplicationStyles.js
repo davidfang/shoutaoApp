@@ -1,3 +1,4 @@
+import {Platform} from 'react-native'
 import Fonts from './Fonts'
 import Metrics from './Metrics'
 import Colors from './Colors'
@@ -20,7 +21,7 @@ const ApplicationStyles = {
     },
     container: {
       flex: 1,
-      paddingTop: Metrics.doubleBaseMargin,
+      paddingTop: (Platform.OS === 'ios') ? Metrics.doubleBaseMargin : 0,
       backgroundColor: Colors.transparent
     },
     section: {
