@@ -3,8 +3,7 @@ import apisauce from 'apisauce'
 import AppConfig from '../Config/AppConfig'
 
 // our "constructor"
-// const create = (baseURL = AppConfig.apiUrl) => {
-const create = (baseURL = 'http://hst-api.zhicaikeji.com/') => {
+const create = (baseURL = AppConfig.apiUrl) => {
   // ------
   // STEP 1
   // ------
