@@ -24,6 +24,7 @@ export default class ProductImages extends Component {
           loop={true}
           index={0}
           autoplay={true}
+          autoplayTimeout={5}
           horizontal={true}
         >
           {source && source.length >= 1 ? (
@@ -35,8 +36,8 @@ export default class ProductImages extends Component {
                   source={{
                     uri: item
                   }}
-                  resizeMode='contain'
-                  resizeMethod='resize'
+                  resizeMode='cover'
+                  resizeMethod='auto'
                 />
               )
             })
