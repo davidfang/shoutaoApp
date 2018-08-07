@@ -181,8 +181,8 @@ const mapStateToProps = (state) => {
   ]
 
   // 获取首页淘宝推荐的产品
-  const tbIndexRecommend = TbSelectors.getIndexRecommendPrds(state.tb)
-
+  let tbIndexRecommend = TbSelectors.getIndexRecommendPrds(state.tb)
+  //console.log(tbIndexRecommend)
   return {
     swiper,
     recommend: [...staticRecommend, ...recommend],

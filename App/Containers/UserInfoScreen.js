@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {
+  ScrollView,
   Platform,
   Text,
   View,
@@ -130,14 +131,14 @@ class UserInfoScreen extends Component {
     }).then(image => {
       console.log(image);
       let fileUrl = image.path
-      let fileName = Platform.OS == 'ios' ? image.filename :fileUrl.substr(fileUrl.lastIndexOf('/')+1);
+      let fileName = Platform.OS == 'ios' ? image.filename : fileUrl.substr(fileUrl.lastIndexOf('/')+1);
       this.props.uploadAvatar(fileUrl, fileName)
     }).catch(e => alert(e));
   }
 
   render () {
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         {this.userHead()}
         <View style={styles.gridItemGroup}>
           <TouchableOpacity style={styles.gridItem} onPress={() => {}}>
@@ -175,12 +176,11 @@ class UserInfoScreen extends Component {
             <Text>联系客服</Text>
           </TouchableOpacity>
         </View>
-        {this.props.loggedIn &&
-          <View style={styles.rowItemGroup}>
+        {this.props.loggedIn &&  (<View style={styles.rowItemGroup}>
             <RowItem title='修改密码' icon='vpn-key' iconColor='lightskyblue'
                      onPress={() => this.props.navigation.navigate('ChangePasswordScreen')}/>
 
-          </View>
+          </View>)
         }
         <View style={styles.rowItemGroup}>
           <RowItem title='首页内容展示顺序' icon='reorder' iconColor='lightskyblue'/>
@@ -195,7 +195,7 @@ class UserInfoScreen extends Component {
         </View>
         <View/>
         {this.props.loggedIn && (<RoundedButton text={'退出'} onPress={() => this.props.logout()}/>)}
-      </View>
+      </ScrollView>
     )
   }
 }

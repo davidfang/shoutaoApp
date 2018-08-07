@@ -5,6 +5,7 @@ import LoginActions,{LoginSelector} from  '../Redux/LoginRedux'
 
 import BannerActions from '../Redux/BannerRedux'
 import TbActions from '../Redux/TbRedux'
+import GoodsCategoryActions from "../Redux/GoodsCategoryRedux";
 
 // exported to make available for tests
 export const selectAvatar = GithubSelectors.selectAvatar
@@ -56,5 +57,6 @@ export function * startup (action) {
   }
   yield put(BannerActions.bannerRequest('swiper'))
   yield put(BannerActions.bannerRequest('recommend'))
+  yield put(GoodsCategoryActions.goodsCategoryRequest())
   // yield put(TbActions.tbIndexRecommendRequest(1))
 }

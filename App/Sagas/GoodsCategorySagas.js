@@ -20,7 +20,7 @@ export function * getGoodsCategory (api, action) {
   // const currentData = yield select(GoodsCategorySelectors.getData)
   // make the call to the api
   const response = yield call(api.getGoodsCategory)
-  yield put({ type: 'getGoodsCategory - REQUEST'})
+  //yield put({ type: 'getGoodsCategory - REQUEST'})
   // success?
   if (response.ok) {
     // You might need to change the response here - do this with a 'transform',
