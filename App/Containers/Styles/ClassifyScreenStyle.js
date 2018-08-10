@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native'
-import { ApplicationStyles, Metrics,Colors } from '../../Themes/'
+import { ApplicationStyles, Metrics,Colors,Fonts } from '../../Themes/'
 
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
@@ -26,14 +26,6 @@ export default StyleSheet.create({
     borderWidth: 1,
     borderColor: Colors.border
   },
-  desc: {
-    fontSize: 14,
-    color: Colors.descText
-  },
-  image: {
-    height: 70,
-    width: 70
-  },
 
   leftList: {
     width: 1 * Metrics.screenWidth / 4,
@@ -46,12 +38,13 @@ export default StyleSheet.create({
   lText: {
     marginLeft: 10,
     marginRight: 10,
-    fontSize: 16
+    fontSize: Fonts.size.medium
   },
   rightList: {
     width: 3 * Metrics.screenWidth / 4,
     flexDirection: 'column',
-    justifyContent: 'flex-start'
+    justifyContent: 'flex-start',
+    backgroundColor:Colors.white
   },
   rItem: {
     justifyContent: 'center',
@@ -60,19 +53,21 @@ export default StyleSheet.create({
   rHeader: {
     height: 30,
     width: Metrics.screenWidth * 3 / 4,
-    backgroundColor: Colors.white,
+    //backgroundColor: Colors.windowTint,
     marginVertical: Metrics.baseMargin,
     justifyContent: 'center',
     alignItems: 'center'
   },
   icon: {
-    height: 80,
-    width: 80,
+    height: 55,
+    width: 55,
     marginTop: 10,
     marginBottom: 10,
     marginLeft: 8
   },
   categoryText: {
-    fontSize: 13
+    fontSize: Fonts.size.medium,
+    fontFamily: Fonts.type.base,
+    color:Colors.windowTint
   }
 })

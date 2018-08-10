@@ -39,7 +39,7 @@ export default class ChanelBar extends Component {
         }}
         style={styles.child}
       >
-        <Image source={{uri: child.img}} style={styles.childImage} resizeMode='contain'
+        <Image source={{uri: child.img_path}} style={styles.childImage} resizeMode='contain'
                resizeMethod='resize'/>
         <Text style={styles.childText}>
           {child.title}

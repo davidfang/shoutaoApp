@@ -153,39 +153,39 @@ const mapStateToProps = (state) => {
   const swiper = BannerSelectors.getSwiper(state.banner).map(id => items[id])
   const recommend = BannerSelectors.getRecommend(state.banner).map(id => items[id])
   //静态固定的推荐位s
-  const staticRecommend = [
-    {
-      id: 5,
-      type: 'recommend',
-      title: '女生',
-      url: '',
-      nav: 'SearchScreen',
-      params: {
-        id: 6
-      },
-      status: '1',
-      img: require('../Images/9k91.png')
-    },
-    {
-      id: 6,
-      type: 'recommend',
-      title: '品牌',
-      url: '',
-      nav: 'SearchScreen',
-      params: {
-        id: 6
-      },
-      status: '1',
-      img: require('../Images/tejia.jpg')
-    }
-  ]
+  // const staticRecommend = [
+  //   {
+  //     id: 5,
+  //     type: 'recommend',
+  //     title: '女生',
+  //     url: '',
+  //     nav: 'SearchScreen',
+  //     params: {
+  //       id: 6
+  //     },
+  //     status: '1',
+  //     img: require('../Images/9k91.png')
+  //   },
+  //   {
+  //     id: 6,
+  //     type: 'recommend',
+  //     title: '品牌',
+  //     url: '',
+  //     nav: 'SearchScreen',
+  //     params: {
+  //       id: 6
+  //     },
+  //     status: '1',
+  //     img: require('../Images/tejia.jpg')
+  //   }
+  // ]
 
   // 获取首页淘宝推荐的产品
   let tbIndexRecommend = TbSelectors.getIndexRecommendPrds(state.tb)
   //console.log(tbIndexRecommend)
   return {
     swiper,
-    recommend: [...staticRecommend, ...recommend],
+    recommend: recommend,
     tbIndexRecommend, // 首页淘宝推荐的产品
     fetching: state.tb.fetching, // 加载
     tbIndexRecommendMore: state.tb.indexRecommendMore // 更多

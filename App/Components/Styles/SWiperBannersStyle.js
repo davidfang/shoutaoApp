@@ -3,7 +3,7 @@ import { Metrics, Colors } from '../../Themes'
 
 export default StyleSheet.create({
   swiper: {
-    width: Metrics.width,
+    width: Metrics.screenWidth,
     height: 150,
     padding: 0,
     margin: 0,
@@ -11,11 +11,10 @@ export default StyleSheet.create({
   },
   swiperItem: {
     flex: 1,
-    width: Metrics.width,
+    width: Metrics.screenWidth,
   },
   swiperImage: {
     flex: 1,
-    width: Metrics.width,
-    resizeMode: 'stretch'
+    width: Metrics.screenWidth
   }
 })
