@@ -1,5 +1,5 @@
 import React from 'react'
-import {View, Text, FlatList, Image, TouchableOpacity} from 'react-native'
+import {View, Text, FlatList, Image, TouchableOpacity,RefreshControl} from 'react-native'
 import {connect} from 'react-redux'
 import Icon from 'react-native-vector-icons/Ionicons'
 // More info here: https://facebook.github.io/react-native/docs/flatlist.html
@@ -118,7 +118,25 @@ class CircleList extends React.PureComponent {
   // e.g. itemLayout={(data, index) => (
   //   {length: ITEM_HEIGHT, offset: ITEM_HEIGHT * index, index}
   // )}
-
+  /**
+   * 上拉加载 TODO
+   */
+  _onLoading = () => {
+    let {fetching,more,getCircles,category_id} = this.props
+    let {page} = this.state
+    if (!fetching && more) {
+      getCircles(category_id,page)
+      this.setState({page:page +1})
+    }
+  }
+  /**
+   * 下拉刷新 TODO
+   */
+  _onRefreshing = () => {
+    if (!this.props.fetching) {
+      this.props.getCircles(this.props.category_id,this.state.page)
+    }
+  }
   render() {
     return (
       <View style={styles.container}>
@@ -133,6 +151,16 @@ class CircleList extends React.PureComponent {
           ListFooterComponent={this.renderFooter}
           ListEmptyComponent={this.renderEmpty}
           ItemSeparatorComponent={this.renderSeparator}
+          extraData={this.props.circle}
+          onEndReachedThreshold={0.3}
+          onEndReached={this._onLoading}
+          refreshControl={
+            <RefreshControl
+              onRefresh={this._onRefreshing}
+              refreshing={this.props.fetching}
+              title={this.props.fetching ? '刷新数据中' : '松开立即更新'}
+            />
+          }
         />
       </View>
     )
