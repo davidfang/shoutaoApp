@@ -68,6 +68,6 @@ export default StyleSheet.create({
   categoryText: {
     fontSize: Fonts.size.medium,
     fontFamily: Fonts.type.base,
-    color:Colors.windowTint
+    color:Colors.descText
   }
 })

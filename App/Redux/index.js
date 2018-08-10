@@ -16,7 +16,8 @@ export const reducers = combineReducers({
   userInfo:require('./UserInfoRedux').reducer,
   account: require('./AccountRedux').reducer,
   tb: require('./TbRedux').reducer,
-  goodsCategory: require('./GoodsCategoryRedux').reducer
+  goodsCategory: require('./GoodsCategoryRedux').reducer,
+  circle: require('./CircleRedux').reducer
 })
 
 export default () => {

@@ -69,6 +69,7 @@ const create = (baseURL = AppConfig.apiUrl) => {
   // ignite-jhipster-api-method-needle
   const uploadAvatar = (formData) => api.post('user/avatar', formData) //上传图像
 
+  const getCircle = (category_id,page) => api.get('circle',{category_id,page}) // 获得分类圈子的分享文章
   const getGoodsCategory = () => api.get('category') // 获得产品分类
   const getTbIndexRecommend = (page) => api.get('goods/recommend', {page}) // 获得首页淘宝推荐产品
   const getTbChannelProduct = (channelId, sortId, page) => api.get('goods/category', {categoryId:channelId, sortId, page}) // 获得频道推荐产品
@@ -118,6 +119,7 @@ const create = (baseURL = AppConfig.apiUrl) => {
 
     getProvince,
     uploadAvatar,
+    getCircle,
     getGoodsCategory,
     getTbIndexRecommend,
     getTbChannelProduct,

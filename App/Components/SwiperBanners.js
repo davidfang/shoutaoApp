@@ -57,6 +57,7 @@ export default class SwiperBanners extends Component {
     return (
       <View style={styles.swiper}>
         <Swiper
+          key={this.props.dataSource.length}
           height={150}
           loop={true}
           index={0}

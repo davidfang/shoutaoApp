@@ -24,7 +24,7 @@ const colors = {
   banner: '#e57373',
   button: '#ff5252',
   text: '#E0D7E5',
-  descText: '#a6a4b2',
+  descText: '#616161',
   selected: '#d32f2f',
   disabledBackGround: '#eeeeee',
   white:'#ffffff'

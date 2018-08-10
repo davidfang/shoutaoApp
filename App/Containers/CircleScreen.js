@@ -26,8 +26,8 @@ class CircleScreen extends Component {
 
                            renderTabBar={() => <ScrollableTabBar/>}
         >
-          <View tabLabel='每日爆款'><Text>每日爆款</Text></View>
-          <CircleList tabLabel='宣传材料'></CircleList>
+          <CircleList tabLabel='每日爆款' category_id={5}></CircleList>
+          <CircleList tabLabel='宣传材料' category_id={5}></CircleList>
         </ScrollableTabView>
       </View>
     )

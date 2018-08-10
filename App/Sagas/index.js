@@ -15,6 +15,7 @@ import {UserInfoTypes} from '../Redux/UserInfoRedux'
 import {AccountTypes} from '../Redux/AccountRedux'
 import {TbTypes} from '../Redux/TbRedux'
 import {GoodsCategoryTypes} from '../Redux/GoodsCategoryRedux'
+import {CircleTypes} from '../Redux/CircleRedux'
 
 /* ------------- Sagas ------------- */
 
@@ -28,6 +29,7 @@ import {getAccount} from './AccountSagas'
 import {getBanner} from './BannerSagas'
 import {getTbIndexRecommend, getTbChannelProduct, getTbSearch, setTbDetail, getTbDetail} from './TbSagas'
 import {getGoodsCategory} from './GoodsCategorySagas'
+import {getCircle} from './CircleSagas'
 
 /* ------------- API ------------- */
 
@@ -63,6 +65,7 @@ export default function* root() {
     takeLatest(TbTypes.TB_CHANNEL_PRODUCT_REQUEST, getTbChannelProduct, api),
     takeLatest(TbTypes.TB_SEARCH_REQUEST, getTbSearch, api),
     takeLatest(TbTypes.TB_SET_DETAIL_REQUEST, setTbDetail, api),
-    takeLatest(TbTypes.TB_DETAIL_REQUEST, getTbDetail, api)
+    takeLatest(TbTypes.TB_DETAIL_REQUEST, getTbDetail, api),
+    takeLatest(CircleTypes.CIRCLE_REQUEST,getCircle,api)
   ])
 }

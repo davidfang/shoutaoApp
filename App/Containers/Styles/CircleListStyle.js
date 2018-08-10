@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native'
-import { ApplicationStyles, Metrics, Colors } from '../../Themes'
+import { ApplicationStyles, Metrics, Colors,Fonts } from '../../Themes'
 
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
@@ -41,7 +41,8 @@ export default StyleSheet.create({
   },
   labelContent: {
     textAlign: 'auto',
-    color: Colors.snow
+    color: Colors.descText,
+    ...Fonts.style.description
   },
   picGroup: {
     flexDirection: 'row',

@@ -3,12 +3,19 @@ import {View, Text, FlatList, Image, TouchableOpacity} from 'react-native'
 import {connect} from 'react-redux'
 import Icon from 'react-native-vector-icons/Ionicons'
 // More info here: https://facebook.github.io/react-native/docs/flatlist.html
-
+import CircleActions ,{CircleSelectors} from '../Redux/CircleRedux'
 // Styles
 import styles from './Styles/CircleListStyle'
 import {Colors} from '../Themes'
 
 class CircleList extends React.PureComponent {
+  constructor (props) {
+    super(props)
+    this.state = {
+      page: 1,
+      more: props.more
+    }
+  }
   /* ***********************************************************
   * STEP 1
   * This is an array of objects with the properties you desire
@@ -16,8 +23,8 @@ class CircleList extends React.PureComponent {
   *************************************************************/
   state = {
     dataObjects: [
-      {title: 'First Title', description: 'First Description'},
-      {title: 'Second Title', description: 'Second Description'},
+      {title: 'First Title', description: 'First DescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescription'},
+      {title: 'Second Title', description: '成功的人排除万难也能成功Second Description'},
       {title: 'Third Title', description: 'Third Description'},
       {title: 'Fourth Title', description: 'Fourth Description'},
       {title: 'Fifth Title', description: 'Fifth Description'},
@@ -39,57 +46,37 @@ class CircleList extends React.PureComponent {
       <View key={item.index} style={styles.row}>
         <View style={styles.boldLabel}>
           <View style={styles.labelLeft}>
-            <Image source={{uri: 'http://img.hb.aicdn.com/2c8550be8c300051e80fbc3ef1f5eb3c4e340dc78ce0-T0cyNw_fw86'}}
+            <Image source={{uri: item.avatar}}
                    style={styles.pic}
                    resizeMode='contain'
                    resizeMethod='resize'
             />
             <View style={styles.author}>
-              <View><Text>title</Text></View>
-              <View><Text>昨天 18：00</Text></View>
+              <View><Text>{item.author}</Text></View>
+              <View><Text>{item.created_at}</Text></View>
             </View>
           </View>
           <TouchableOpacity style={styles.share}>
-            <Text><Icon name={'md-share'} size={15} color={Colors.fire}/> 9999</Text>
+            <Text><Icon name={'md-share'} size={15} color={Colors.fire}/> {item.click}</Text>
           </TouchableOpacity>
         </View>
-        <Text style={styles.labelContent}>{item.description}</Text>
+        <Text style={styles.labelContent}>{item.body}</Text>
         <View style={styles.picGroup}>
-          <Image source={{uri: 'http://img.hb.aicdn.com/2c8550be8c300051e80fbc3ef1f5eb3c4e340dc78ce0-T0cyNw_fw86'}}
+          <Image source={{uri: item.thumbnail}}
                  style={styles.pic}  resizeMode='contain'
-                 resizeMethod='resize'/>
-          <Image source={{uri: 'http://img.hb.aicdn.com/2c8550be8c300051e80fbc3ef1f5eb3c4e340dc78ce0-T0cyNw_fw86'}}
-                 style={styles.pic} resizeMode='contain'
-                 resizeMethod='resize'/>
-          <Image source={{uri: 'http://img.hb.aicdn.com/2c8550be8c300051e80fbc3ef1f5eb3c4e340dc78ce0-T0cyNw_fw86'}}
-                 style={styles.pic} resizeMode='contain'
-                 resizeMethod='resize'/>
-          <Image source={{uri: 'http://img.hb.aicdn.com/2c8550be8c300051e80fbc3ef1f5eb3c4e340dc78ce0-T0cyNw_fw86'}}
-                 style={styles.pic} resizeMode='contain'
-                 resizeMethod='resize'/>
-          <Image source={{uri: 'http://img.hb.aicdn.com/2c8550be8c300051e80fbc3ef1f5eb3c4e340dc78ce0-T0cyNw_fw86'}}
-                 style={styles.pic} resizeMode='contain'
-                 resizeMethod='resize'/>
-          <Image source={{uri: 'http://img.hb.aicdn.com/2c8550be8c300051e80fbc3ef1f5eb3c4e340dc78ce0-T0cyNw_fw86'}}
-                 style={styles.pic} resizeMode='contain'
-                 resizeMethod='resize'/>
-          <Image source={{uri: 'http://img.hb.aicdn.com/2c8550be8c300051e80fbc3ef1f5eb3c4e340dc78ce0-T0cyNw_fw86'}}
-                 style={styles.pic} resizeMode='contain'
-                 resizeMethod='resize'/>
-          <Image source={{uri: 'http://img.hb.aicdn.com/2c8550be8c300051e80fbc3ef1f5eb3c4e340dc78ce0-T0cyNw_fw86'}}
-                 style={styles.pic} resizeMode='contain'
-                 resizeMethod='resize'/>
-          <Image source={{uri: 'http://img.hb.aicdn.com/2c8550be8c300051e80fbc3ef1f5eb3c4e340dc78ce0-T0cyNw_fw86'}}
-                 style={styles.pic} resizeMode='contain'
-                 resizeMethod='resize'/>
-          <Image source={{uri: 'http://img.hb.aicdn.com/2c8550be8c300051e80fbc3ef1f5eb3c4e340dc78ce0-T0cyNw_fw86'}}
-                 style={styles.pic} resizeMode='contain'
                  resizeMethod='resize'/>
         </View>
       </View>
     )
   }
-
+  componentWillMount () {
+    let {circle,category_id} = this.props
+    if(circle.length <1){
+      let {page} = this.state
+      this.props.getCircles(category_id,page)
+      this.setState({page:page + 1})
+    }
+  }
   /* ***********************************************************
   * STEP 3
   * Consider the configurations we've set below.  Customize them
@@ -137,7 +124,7 @@ class CircleList extends React.PureComponent {
       <View style={styles.container}>
         <FlatList
           contentContainerStyle={styles.listContent}
-          data={this.state.dataObjects}
+          data={this.props.circle}
           renderItem={this.renderRow}
           numColumns={1}
           keyExtractor={this.keyExtractor}
@@ -152,14 +139,24 @@ class CircleList extends React.PureComponent {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state,props) => {
+  const {category_id} = props
+  let circle = CircleSelectors.getCircle(state.circle,category_id)
+  let more = CircleSelectors.getMore(state.circle,category_id)
+
   return {
+    //category_id,
+    fetching:state.circle.fetching,
+    circle,
+    more
     // ...redux state to props here
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return {}
+  return {
+    getCircles:(category_id,page) => dispatch(CircleActions.circleRequest(category_id,page))
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CircleList)
