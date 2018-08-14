@@ -1,8 +1,8 @@
 import React from 'react'
 import { StackNavigator } from 'react-navigation'
+import {View, Text} from 'react-native'
 import RegisterScreen from "../Containers/RegisterScreen";
 import UserInfoScreen from "../Containers/UserInfoScreen";
-import SetPasswordScreen from "../Containers/SetPasswordScreen";
 import ChangePasswordScreen from "../Containers/ChangePasswordScreen";
 import EditUserScreen from "../Containers/EditUserScreen";
 import MobileLoginScreen from "../Containers/MobileLoginScreen";
@@ -15,13 +15,6 @@ const UserNav = StackNavigator({
     navigationOptions:{
       title:'短信登录',
       header: null
-    }
-  },
-  SetPasswordScreen: {
-    screen: SetPasswordScreen,
-    navigationOptions:{
-      title:'设置密码',
-      header:null
     }
   },
   ChangePasswordScreen: {

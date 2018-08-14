@@ -19,7 +19,7 @@ class EditUserScreen extends Component {
       avatar: props.avatar || '',
       email: props.email || '',
       age: props.age || '',
-      gender: props.gender || ''
+      gender: props.gender || '2'
     }
   }
   /**
@@ -83,6 +83,7 @@ class EditUserScreen extends Component {
                 this.setState({nickname: text})
               }}
               value={this.state.nickname}
+              returnKeyType='done'
             />
           </View>
           <View style={styles.formRow}>
@@ -95,6 +96,7 @@ class EditUserScreen extends Component {
                 text = text.replace(/ /g, '_')
                 this.setState({email: text})
               }}
+              returnKeyType='done'
               value={this.state.email}
             />
           </View>
@@ -109,6 +111,7 @@ class EditUserScreen extends Component {
                 this.setState({age: text})
               }}
               value={this.state.age}
+              returnKeyType='done'
             />
           </View>
 

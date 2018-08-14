@@ -84,6 +84,17 @@ const ApplicationStyles = {
       paddingHorizontal: Metrics.marginHorizontal,
       backgroundColor: Colors.white
     },
+    formHead: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      paddingVertical: 15
+    },
+    formHeadText:{
+      color: Colors.black,
+      alignSelf:'center',
+      marginRight: 10,
+      fontSize: Fonts.size.regular
+    },
     formRow: {
       flexDirection: 'row',
       alignItems: 'center',

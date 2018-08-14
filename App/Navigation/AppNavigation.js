@@ -15,6 +15,7 @@ import ClassifyListScreen from '../Containers/ClassifyListScreen'
 import ChannelScreen from '../Containers/ChannelScreen'
 
 import styles from './Styles/NavigationStyles'
+import SetPasswordScreen from "../Containers/SetPasswordScreen";
 
 // Manifest of possible screens
 const PrimaryNav = StackNavigator({
@@ -29,6 +30,13 @@ const PrimaryNav = StackNavigator({
       return {
         title: state.params.title
       }
+    }
+  },
+  SetPasswordScreen: {
+    screen: SetPasswordScreen,
+    navigationOptions:{
+      title:'设置密码',
+      header:null
     }
   },
   ResultScreen: {screen: ResultScreen},

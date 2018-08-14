@@ -93,7 +93,7 @@ export function * updateUserInfo (api, action) {
     // located in ../Transforms/. Otherwise, just pass the data back from the api.
     yield put(UserInfoActions.userInfoSuccess(user))
     Toast.showSuccess('提交成功')
-    yield put(NavigationActions.navigate({routeName:'userInfo'}))
+    yield put(NavigationActions.navigate({routeName:'UserInfoScreen'}))
   } else {
     yield requestFaild(response)
   }
