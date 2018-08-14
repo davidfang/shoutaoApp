@@ -6,7 +6,8 @@ import { normalize, schema } from 'normalizr'
 const {Types, Creators} = createActions({
   bannerRequest: ['banner_type'],
   bannerSuccess: ['data', 'banner_type'],
-  bannerFailure: null
+  bannerFailure: null,
+  feedbackRequest:['body','fileUrl', 'fileName']
 })
 
 export const BannerTypes = Types
@@ -60,5 +61,6 @@ export const failure = (state, action) => {
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.BANNER_REQUEST]: request,
   [Types.BANNER_SUCCESS]: success,
-  [Types.BANNER_FAILURE]: failure
+  [Types.BANNER_FAILURE]: failure,
+  [Types.FEEDBACK_REQUEST]: request
 })

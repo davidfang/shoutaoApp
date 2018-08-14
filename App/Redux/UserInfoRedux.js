@@ -60,7 +60,7 @@ export const logout = (state) => INITIAL_STATE
 export const setPasswordSuccess = (state) => state.merge({ fetching: false, error: null })
 export const uploadAvatarSuccess = (state, data) => {
   const {avatar} = data
-  return state.merge({error: null, updating: false, avatar, avatarData: avatar})
+  return state.merge({error: null, fetching: false, avatar, avatarData: avatar})
 }
 /* ------------- Hookup Reducers To Types ------------- */
 

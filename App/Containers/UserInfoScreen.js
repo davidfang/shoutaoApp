@@ -17,7 +17,6 @@ import LoginActions, { LoginSelector } from '../Redux/LoginRedux'
 import AccountActions from '../Redux/AccountRedux'
 import UserInfoActions from '../Redux/UserInfoRedux'
 
-import ImagePicker from 'react-native-image-crop-picker'
 
 import Toast from '../Lib/Toast'
 import FullButton from '../Components/FullButton'
@@ -29,6 +28,7 @@ import CustomButton from '../Components/CustomButton'
 // Styles
 import { Colors } from '../Themes'
 import styles from './Styles/UserInfoScreenStyle'
+import AppConfig from "../Config/AppConfig";
 
 class UserInfoScreen extends Component {
 
@@ -48,7 +48,7 @@ class UserInfoScreen extends Component {
   }
   _copyInvitationCode = () =>{
     Clipboard.setString('我在使用一个超级好用的优惠券APP，淘宝天猫购物之前先在此搜一下，领内部优惠券，还可以获得购物返利，邀请别人使用，还可以获得别人购物的返利。注册时记得填我的邀请码： ' + this.props.invitation_code)
-    Toast.showSuccess('邀请码已经复制到剪贴板，请发给好朋友一起赚钱吧！')
+    Toast.showSuccess('邀请码已复制到剪贴板，发给好友一起赚钱吧！')
   }
   userHead = () => {
     const {loggedIn, nickname,invitation_code, grade, avatar} = this.props
@@ -59,9 +59,7 @@ class UserInfoScreen extends Component {
           <View style={styles.head}>
             <View style={styles.intro}>
               <View style={styles.introLeft}>
-                <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
-                  <Avatar width={60} name={nickname} avatar={avatar}/>
-                </TouchableOpacity>
+                <Avatar width={60} name={nickname} avatar={avatar}/>
                 <View>
                   <View style={{flexDirection:'row'}}>
                     <Text style={styles.nickName}>{nickname}</Text>
@@ -121,19 +119,27 @@ class UserInfoScreen extends Component {
       )
     }
   }
-
-  selectPhotoTapped = ()=> {
-    ImagePicker.openPicker({
-      width: 400,
-      height: 400,
-      cropping: true,
-      cropperCircleOverlay:true
-    }).then(image => {
-      console.log(image);
-      let fileUrl = image.path
-      let fileName = Platform.OS == 'ios' ? image.filename : fileUrl.substr(fileUrl.lastIndexOf('/')+1);
-      this.props.uploadAvatar(fileUrl, fileName)
-    }).catch(e => alert(e));
+  /**
+   * 按钮操作
+   * @private
+   */
+  _press = (nav,param) => {
+    const {navigation} = this.props
+    navigation.navigate &&
+    navigation.navigate(nav,param)
+  }
+  /**
+   * 网页链接
+   * @param url
+   * @param title
+   * @private
+   */
+  _webPress = (url,title) => {
+    const {navigation} = this.props
+    url = AppConfig.webUrl + url
+    console.log(url,title)
+    navigation.navigate &&
+    navigation.navigate('WebScreen',{url,title})
   }
 
   render () {
@@ -159,19 +165,15 @@ class UserInfoScreen extends Component {
           </TouchableOpacity>
         </View>
         <View style={styles.gridItemGroup}>
-          <TouchableOpacity style={styles.gridItem} onPress={() => {}}>
+          <TouchableOpacity style={styles.gridItem} onPress={() => this._webPress('article-category/1','新手攻略')}>
             <Image style={styles.gridIcon} source={require('../Images/guide.png')}/>
             <Text>新手攻略</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.gridItem} onPress={() => {}}>
-            <Image style={styles.gridIcon} source={require('../Images/collection.png')}/>
-            <Text>我的收藏</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.gridItem} onPress={() => {}}>
+          <TouchableOpacity style={styles.gridItem} onPress={() => this._webPress('article/9','常见问题')}>
             <Image style={styles.gridIcon} source={require('../Images/questing.png')}/>
             <Text>常见问题</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.gridItem} onPress={() => {}}>
+          <TouchableOpacity style={styles.gridItem} onPress={() => this._webPress('article/10','联系客服')}>
             <Image style={styles.gridIcon} source={require('../Images/kefu.png')}/>
             <Text>联系客服</Text>
           </TouchableOpacity>
@@ -182,15 +184,11 @@ class UserInfoScreen extends Component {
 
           </View>)
         }
-        <View style={styles.rowItemGroup}>
-          <RowItem title='首页内容展示顺序' icon='reorder' iconColor='lightskyblue'/>
-          <RowItem title='主题颜色' icon='color-lens' iconColor={Colors.fire}/>
 
-        </View>
         <View style={styles.rowItemGroup}>
-          <RowItem title='官方公告' icon='volume-up' iconColor='lightskyblue'/>
-          <RowItem title='反馈' icon='create' iconColor='lightskyblue'/>
-          <RowItem title='分享' icon='share' iconColor={Colors.fire}/>
+          <RowItem title='官方公告' icon='volume-up' iconColor='lightskyblue' onPress={()=>this._webPress('article-category/4','官方公告')}/>
+          <RowItem title='意见反馈' icon='create' iconColor='lightskyblue' onPress={() =>this._press('FeedbackScreen',{title:'意见反馈'})}/>
+          <RowItem title='分享' icon='share' iconColor={Colors.fire} onPress={this._copyInvitationCode}/>
 
         </View>
         <View/>

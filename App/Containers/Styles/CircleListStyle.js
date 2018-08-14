@@ -51,10 +51,20 @@ export default StyleSheet.create({
     flex: 1,
     flexWrap: 'wrap'
   },
-  pic: {
+  avatar: {
     width: 40,
     height: 40,
     margin: 5
+  },
+  pic: {
+    width: 140,
+    height: 140,
+    margin: 2
+  },
+  pics: {
+    width: 100,
+    height: 100,
+    margin: 2
   },
   listContent: {
     marginTop: Metrics.baseMargin

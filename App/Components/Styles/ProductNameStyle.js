@@ -29,6 +29,11 @@ export default StyleSheet.create({
     marginLeft: 5,
     marginRight: 5
   },
+  saleImage: {
+    width: 16,
+    height: 16,
+    resizeMode: 'stretch'
+  },
   oldPrice: {
     flexDirection: 'row',
     alignItems: 'baseline'

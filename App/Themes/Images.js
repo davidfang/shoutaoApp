@@ -21,7 +21,9 @@ const images = {
   backButton: require('../Images/Icons/back-button.png'),
   closeButton: require('../Images/Icons/close-button.png'),
   logoLogin: require('../Images/logo.png'),
-  icHead: require('../Images/nav_user.png')
+  icHead: require('../Images/nav_user.png'),
+  tm: require('../Images/tianmao-icon.png'),
+  tb: require('../Images/taobao-icon.png')
 }
 
 export default images

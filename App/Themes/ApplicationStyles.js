@@ -101,6 +101,16 @@ const ApplicationStyles = {
       marginHorizontal: 10,
       fontSize: 14
     },
+    formTextArea: {
+      flex: 1,
+      marginHorizontal: 10,
+      fontSize: 14,
+      height: 100,
+      borderBottomColor: Colors.steel,
+      borderBottomWidth: 1,
+      borderLeftColor: Colors.steel,
+      borderLeftWidth: 1
+    },
     formButton: {
       alignItems: 'center',
       justifyContent: 'center',

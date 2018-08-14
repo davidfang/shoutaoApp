@@ -1,5 +1,6 @@
 import React from 'react'
 import { StackNavigator } from 'react-navigation'
+import FeedbackScreen from '../Containers/FeedbackScreen'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
 import MainNavigation from './MainNavigation'
@@ -17,6 +18,7 @@ import styles from './Styles/NavigationStyles'
 
 // Manifest of possible screens
 const PrimaryNav = StackNavigator({
+  FeedbackScreen: { screen: FeedbackScreen },
   HomeScreen: { screen: HomeScreen },
   LaunchScreen: { screen: LaunchScreen },
   SearchScreen: { screen: SearchScreen },

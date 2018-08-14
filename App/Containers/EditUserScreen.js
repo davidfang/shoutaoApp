@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
-import { View, Text,TextInput, TouchableOpacity } from 'react-native'
+import {View, Text, TextInput, TouchableOpacity, Platform} from 'react-native'
 import { connect } from 'react-redux'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import ImagePicker from 'react-native-image-crop-picker'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
 import UserInfoActions,{UserInfoSelectors} from '../Redux/UserInfoRedux'
-
+import Avatar from '../Components/Avatar'
 // Styles
 import styles from './Styles/EditUserScreenStyle'
 import Toast from "../Lib/Toast";
@@ -15,6 +16,7 @@ class EditUserScreen extends Component {
     super(props)
     this.state = {
       nickname: props.nickname || '',
+      avatar: props.avatar || '',
       email: props.email || '',
       age: props.age || '',
       gender: props.gender || ''
@@ -47,9 +49,29 @@ class EditUserScreen extends Component {
     //   Toast.showSuccess('修改成功',() => this.props.navigation.goBack())
     // }
   }
+  selectPhotoTapped = ()=> {
+    ImagePicker.openPicker({
+      width: 400,
+      height: 400,
+      cropping: true,
+      cropperCircleOverlay:true
+    }).then(image => {
+      //console.log(image);
+      let fileUrl = image.path
+      let fileName = Platform.OS == 'ios' ? image.filename : fileUrl.substr(fileUrl.lastIndexOf('/')+1);
+      this.props.uploadAvatar(fileUrl, fileName)
+    }).catch(e => alert(e));
+  }
   render () {
+    const {nickname, avatar} = this.props
     return (
       <View style={styles.container}>
+        <View style={{justifyContent:'center',alignItems:'center',flexDirection:'column'}}>
+          <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
+            <Avatar width={130} name={nickname} avatar={avatar}/>
+          </TouchableOpacity>
+          <Text style={styles.formRowLabel}>点击修改头像</Text>
+        </View>
         <View style={styles.form}>
           <View style={styles.formRow}>
             <Text style={styles.formRowLabel}>昵 称</Text>
@@ -131,6 +153,7 @@ const mapStateToProps = (state) => {
     fetching: state.userInfo.fetching,
     error: UserInfoSelectors.getError(state.userInfo),
     nickname: state.userInfo.nickname,
+    avatar: state.userInfo.avatar,
     email: state.userInfo.email,
     age: state.userInfo.age.toString(),
     gender:state.userInfo.gender.toString()
@@ -139,7 +162,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    updateUserInfo: (user)=> dispatch(UserInfoActions.userInfoUpdateRequest(user))
+    updateUserInfo: (user)=> dispatch(UserInfoActions.userInfoUpdateRequest(user)),
+    uploadAvatar: (fileUrl, fileName) => dispatch(UserInfoActions.uploadAvatarRequest(fileUrl, fileName))
   }
 }
 

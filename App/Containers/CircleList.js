@@ -42,12 +42,22 @@ class CircleList extends React.PureComponent {
     return <MyCustomCell title={item.title} description={item.description} />
   *************************************************************/
   renderRow({item}) {
+    let picGroup
+    if(item.images.length){
+      picGroup = item.images.map((img)=><Image source={{uri: img}}
+                                               style={styles.pics}  resizeMode='contain'
+                                               resizeMethod='resize'/>)
+    }else{
+      picGroup = <Image source={{uri: item.thumbnail}}
+                        style={styles.pic}  resizeMode='contain'
+                        resizeMethod='resize'/>
+    }
     return (
       <View key={item.index} style={styles.row}>
         <View style={styles.boldLabel}>
           <View style={styles.labelLeft}>
             <Image source={{uri: item.avatar}}
-                   style={styles.pic}
+                   style={styles.avatar}
                    resizeMode='contain'
                    resizeMethod='resize'
             />
@@ -62,9 +72,7 @@ class CircleList extends React.PureComponent {
         </View>
         <Text style={styles.labelContent}>{item.body}</Text>
         <View style={styles.picGroup}>
-          <Image source={{uri: item.thumbnail}}
-                 style={styles.pic}  resizeMode='contain'
-                 resizeMethod='resize'/>
+          {picGroup}
         </View>
       </View>
     )

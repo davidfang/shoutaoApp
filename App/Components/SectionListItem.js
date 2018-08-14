@@ -4,6 +4,7 @@ import { Text, View, Image, TouchableOpacity } from 'react-native'
 import styles from './Styles/SectionListItemStyle'
 import { is, Map } from 'immutable'
 import MyMath from '../Lib/MyMath'
+import {Images} from '../Themes'
 
 export default class SectionListItem extends Component {
   // Prop type warnings
@@ -38,6 +39,7 @@ export default class SectionListItem extends Component {
   render () {
     const {product, navigation} = this.props
     //console.log('SectionListItem')
+    let user_type = product.user_type ==0 ? Images.tb : Images.tm
     return (
       <TouchableOpacity
         onPress={this._onRedirect}
@@ -56,7 +58,7 @@ export default class SectionListItem extends Component {
             <Text style={styles.couponInfo}>￥{product.coupon_info}</Text>
           </View>
           <View style={styles.sale}>
-            <Image style={styles.saleImage}/>
+            <Image style={styles.saleImage} source={user_type}/>
             <Text style={styles.saleInfo}>月销{product.volume}</Text>
           </View>
           <View style={styles.price}>

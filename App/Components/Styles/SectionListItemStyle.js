@@ -49,8 +49,8 @@ export default StyleSheet.create({
     alignItems: 'center'
   },
   saleImage: {
-    width: 18,
-    height: 18,
+    width: 16,
+    height: 16,
     resizeMode: 'stretch'
   },
   saleInfo: {

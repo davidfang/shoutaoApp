@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Text, View, FlatList, TouchableOpacity} from 'react-native'
+import {Text, View, FlatList, TouchableOpacity,Clipboard} from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import AutoImage from 'react-native-scalable-image'
 import {connect} from 'react-redux'
@@ -15,6 +15,7 @@ import Empty from '../Components/Empty'
 // Styles
 import styles from './Styles/DetailScreenStyle'
 import {Metrics} from '../Themes'
+import Toast from "../Lib/Toast";
 
 class DetailScreen extends Component {
 
@@ -42,8 +43,10 @@ class DetailScreen extends Component {
   _goBuy = () => {
     let {goodsInfo} = this.state
     this.destory = 1
-    alert('aaaaaa')
+    //alert('aaaaaa')
     //RNAlibcSdk.Show(goodsInfo.SPYHQTGLJ)
+    Clipboard.setString(goodsInfo.tpwd)
+    Toast.showSuccess('淘口令已复制到剪贴板，请打开淘宝购买')
   }
 
   _renderItem = ({item,index}) => {

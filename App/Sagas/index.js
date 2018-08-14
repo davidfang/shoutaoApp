@@ -26,7 +26,7 @@ import {login,autoLogin,loginByMobileVerifyCode} from './LoginSagas'
 import {getVerifyCode} from './VerifyCodeSagas'
 import {getUserInfo,updateUserInfo,changePassword,setPassword,uploadAvatar} from './UserInfoSagas'
 import {getAccount} from './AccountSagas'
-import {getBanner} from './BannerSagas'
+import {getBanner,postFeedBack} from './BannerSagas'
 import {getTbIndexRecommend, getTbChannelProduct, getTbSearch, setTbDetail, getTbDetail} from './TbSagas'
 import {getGoodsCategory} from './GoodsCategorySagas'
 import {getCircle} from './CircleSagas'
@@ -55,6 +55,7 @@ export default function* root() {
     takeLatest(UserInfoTypes.USER_INFO_CHANGE_PASSWORD_REQUEST,changePassword,api),
     takeLatest(UserInfoTypes.USER_INFO_SET_PASSWORD_REQUEST,setPassword,api),
     takeLatest(UserInfoTypes.UPLOAD_AVATAR_REQUEST,uploadAvatar,api),
+    takeLatest(BannerTypes.FEEDBACK_REQUEST,postFeedBack,api),
 
     takeLatest(AccountTypes.ACCOUNT_REQUEST, getAccount, api),
 

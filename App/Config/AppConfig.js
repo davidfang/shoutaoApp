@@ -4,5 +4,6 @@ import Config from 'react-native-config'
 export default {
   // font scaling override - RN default is on
   allowTextFontScaling: true,
-  apiUrl: Config.API_URL
+  apiUrl: Config.API_URL,
+  webUrl: Config.WEB_URL
 }
