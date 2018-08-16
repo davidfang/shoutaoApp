@@ -14,18 +14,18 @@ export default class Avatar extends React.Component {
                style={[{width: width, height: width, borderRadius: width / 2}, styles.container]}/>
       )
     } else {
-      if(name) {
-        return (
-          <View style={[{width: width, height: width, borderRadius: width / 2, backgroundColor}, styles.container]}>
-            <Text>{name}</Text>
-          </View>
-        )
-      }else{
+      // if(name) {
+      //   return (
+      //     <View style={[{width: width, height: width, borderRadius: width / 2, backgroundColor}, styles.container]}>
+      //       <Text>{name}</Text>
+      //     </View>
+      //   )
+      // }else{
         return (
           <Image source={Images.icHead}
                  style={[{width: width, height: width,tintColor: '#CCCCCC', borderRadius: width / 2}, styles.container]}/>
         )
-      }
+      // }
     }
   }
 }

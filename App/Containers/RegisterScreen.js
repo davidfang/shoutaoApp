@@ -53,12 +53,6 @@ class RegisterScreen extends Component {
    * @param oldProps
    */
   componentWillReceiveProps (newProps, oldProps) {
-    if(newProps.isLoggedIn){
-      Toast.showSuccess('注册成功', () => this.props.navigation.navigate('MainStack'))
-    }
-    if(newProps.error){
-      Toast.showError(newProps.error,{})
-    }
 
   }
 
@@ -168,7 +162,6 @@ class RegisterScreen extends Component {
 const mapStateToProps = (state) => {
   return {
     fetching: state.register.fetching,
-    error: RegisterSelectors.getError(state.register),
     isLoggedIn: LoginSelector.isLoggedIn(state.login)
   }
 }

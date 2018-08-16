@@ -155,7 +155,7 @@ class UserInfoScreen extends Component {
             <Image style={styles.gridIcon} source={require('../Images/dd.png')}/>
             <Text>订单</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.gridItem} onPress={() => {}}>
+          <TouchableOpacity style={styles.gridItem} onPress={() => this._press('FansScreen',{})}>
             <Image style={styles.gridIcon} source={require('../Images/users.png')}/>
             <Text>粉丝</Text>
           </TouchableOpacity>

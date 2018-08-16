@@ -7,6 +7,7 @@ import ChangePasswordScreen from "../Containers/ChangePasswordScreen";
 import EditUserScreen from "../Containers/EditUserScreen";
 import MobileLoginScreen from "../Containers/MobileLoginScreen";
 import LoginScreen from "../Containers/LoginScreen";
+import FansScreen from "../Containers/FansScreen";
 
 // Manifest of possible screens
 const UserNav = StackNavigator({
@@ -53,6 +54,12 @@ const UserNav = StackNavigator({
     navigationOptions:{
       title:'我的',
       header: null
+    }
+  },
+  FansScreen: {
+    screen: FansScreen ,
+    navigationOptions:{
+      title:'粉丝'
     }
   }
 }, {

@@ -28,9 +28,7 @@ class LoginScreen extends React.Component {
 
   componentWillReceiveProps (newProps) {
     // Did the login attempt complete?
-    if (newProps.error) {
-      Toast.showError(newProps.error,{})
-    }
+
   }
 
   handlePressLogin = () => {
@@ -102,8 +100,7 @@ class LoginScreen extends React.Component {
 const mapStateToProps = (state) => {
   return {
     logged: LoginSelector.isLoggedIn(state.login),
-    fetching: state.login.fetching,
-    error: state.login.error
+    fetching: state.login.fetching
   }
 }
 

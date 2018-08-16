@@ -36,9 +36,7 @@ class ChangePasswordScreen extends Component {
    * @param oldProps
    */
   componentWillReceiveProps (newProps, oldProps) {
-    if(newProps.error){
-      Toast.showError(newProps.error,{})
-    }
+
   }
   render() {
     return (
@@ -86,8 +84,7 @@ class ChangePasswordScreen extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    fetching: state.userInfo.fetching,
-    error: UserInfoSelectors.getError(state.userInfo),
+    fetching: state.userInfo.fetching
   }
 }
 

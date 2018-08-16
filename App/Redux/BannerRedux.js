@@ -19,7 +19,7 @@ export const INITIAL_STATE = Immutable({
   items: {},
   swiper: [],
   recommend: [],
-  fetching: null,
+  fetching: false,
   payload: null,
   error: null
 })

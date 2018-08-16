@@ -17,7 +17,7 @@ export default Creators
 
 export const INITIAL_STATE = Immutable({
   data: null,
-  fetching: null,
+  fetching: false,
   payload: null,
   error: null,
   invitation_code:null

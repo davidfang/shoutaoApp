@@ -38,9 +38,7 @@ class MobileLoginScreen extends Component {
    * @param oldProps
    */
   componentWillReceiveProps(newProps, oldProps) {
-    if (newProps.error) {
-      Toast.showError(newProps.error, {})
-    }
+
   }
 
   render() {
@@ -110,7 +108,6 @@ class MobileLoginScreen extends Component {
 const mapStateToProps = (state) => {
   return {
     fetching: state.login.fetching,
-    error: state.login.error,
     tokenInfo: state.login.tokenInfo
   }
 }

@@ -117,7 +117,7 @@ class HomeScreen extends Component {
           data={this.props.tbIndexRecommend}
           initialNumToRender={10}
           maxToRenderPerBatch={10}
-          onEndReachedThreshold={0.3}
+          onEndReachedThreshold={0.1}
           ref={flat => (this._flatList = flat)}
           keyExtractor={(item, index) => index.toString()}
           ListEmptyComponent={<Empty />}

@@ -11,40 +11,11 @@ import {Colors} from '../Themes'
 class CircleList extends React.PureComponent {
   constructor (props) {
     super(props)
-    this.state = {
-      page: 1,
-      more: props.more
-    }
   }
-  /* ***********************************************************
-  * STEP 1
-  * This is an array of objects with the properties you desire
-  * Usually this should come from Redux mapStateToProps
-  *************************************************************/
-  state = {
-    dataObjects: [
-      {title: 'First Title', description: 'First DescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescription'},
-      {title: 'Second Title', description: '成功的人排除万难也能成功Second Description'},
-      {title: 'Third Title', description: 'Third Description'},
-      {title: 'Fourth Title', description: 'Fourth Description'},
-      {title: 'Fifth Title', description: 'Fifth Description'},
-      {title: 'Sixth Title', description: 'Sixth Description'},
-      {title: 'Seventh Title', description: 'Seventh Description'}
-    ]
-  }
-
-  /* ***********************************************************
-  * STEP 2
-  * `renderRow` function. How each cell/row should be rendered
-  * It's our best practice to place a single component here:
-  *
-  * e.g.
-    return <MyCustomCell title={item.title} description={item.description} />
-  *************************************************************/
   renderRow({item}) {
     let picGroup
     if(item.images.length){
-      picGroup = item.images.map((img)=><Image source={{uri: img}}
+      picGroup = item.images.map((img)=><Image key={img} source={{uri: img}}
                                                style={styles.pics}  resizeMode='contain'
                                                resizeMethod='resize'/>)
     }else{
@@ -78,11 +49,9 @@ class CircleList extends React.PureComponent {
     )
   }
   componentWillMount () {
-    let {circle,category_id} = this.props
+    let {circle,category_id,getCircles,nextPage} = this.props
     if(circle.length <1){
-      let {page} = this.state
-      this.props.getCircles(category_id,page)
-      this.setState({page:page + 1})
+      getCircles(category_id,nextPage)
     }
   }
   /* ***********************************************************
@@ -130,19 +99,18 @@ class CircleList extends React.PureComponent {
    * 上拉加载 TODO
    */
   _onLoading = () => {
-    let {fetching,more,getCircles,category_id} = this.props
-    let {page} = this.state
+    let {fetching,more,getCircles,category_id,nextPage} = this.props
     if (!fetching && more) {
-      getCircles(category_id,page)
-      this.setState({page:page +1})
+      getCircles(category_id,nextPage)
     }
   }
   /**
    * 下拉刷新 TODO
    */
   _onRefreshing = () => {
-    if (!this.props.fetching) {
-      this.props.getCircles(this.props.category_id,this.state.page)
+    let {fetching,category_id,nextPage,getCircles} = this.props
+    if (!fetching) {
+      getCircles(category_id,nextPage)
     }
   }
   render() {
@@ -179,12 +147,14 @@ const mapStateToProps = (state,props) => {
   const {category_id} = props
   let circle = CircleSelectors.getCircle(state.circle,category_id)
   let more = CircleSelectors.getMore(state.circle,category_id)
+  let nextPage = CircleSelectors.getNextPage(state.circle,category_id)
 
   return {
     //category_id,
     fetching:state.circle.fetching,
     circle,
-    more
+    more,
+    nextPage
     // ...redux state to props here
   }
 }

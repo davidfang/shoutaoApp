@@ -13,6 +13,7 @@
 import {call, put,select} from 'redux-saga/effects'
 import BannerActions from '../Redux/BannerRedux'
 import Toast from "../Lib/Toast";
+import {requestFaild} from '../Lib/Request'
 import UserInfoActions from "../Redux/UserInfoRedux";
 import {NavigationActions} from "react-navigation";
 
@@ -37,7 +38,7 @@ export function* getBanner(api, {banner_type}) {
       yield put(BannerActions.bannerFailure(data))
     }
   } else {
-    yield put(BannerActions.bannerFailure())
+    requestFaild(response,BannerActions.bannerFailure)
   }
 }
 
@@ -69,7 +70,7 @@ export function* postFeedBack(api, action) {
     console.log('upload error')
     yield put({type: 'UPLOAD feedback Fail'})
     console.log(response)
-    //yield put(BannerActions.bannerFailure(response))
+    requestFaild(response,BannerActions.bannerFailure)
   }
   yield put({type: 'UPLOAD feedback END'})
 }

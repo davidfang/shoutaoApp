@@ -111,8 +111,8 @@ export const success = (state, action) => {
 
 // Something went wrong somewhere.
 export const tbInit = state => INITIAL_STATE
-export const failure = (state, {payload, error}) =>
-  state.merge({fetching: false, error, payload})
+export const failure = (state, { error}) =>
+  state.merge({fetching: false, error})
 
 // request the data from an api
 export const indexRecommendRequest = (state) =>

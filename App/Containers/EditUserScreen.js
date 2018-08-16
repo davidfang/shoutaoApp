@@ -42,12 +42,7 @@ class EditUserScreen extends Component {
    * @param oldProps
    */
   componentWillReceiveProps (newProps, oldProps) {
-    if(newProps.error){
-      Toast.showError(newProps.error,{})
-    }
-    // if(newProps.error == null){
-    //   Toast.showSuccess('修改成功',() => this.props.navigation.goBack())
-    // }
+
   }
   selectPhotoTapped = ()=> {
     ImagePicker.openPicker({
@@ -154,7 +149,6 @@ class EditUserScreen extends Component {
 const mapStateToProps = (state) => {
   return {
     fetching: state.userInfo.fetching,
-    error: UserInfoSelectors.getError(state.userInfo),
     nickname: state.userInfo.nickname,
     avatar: state.userInfo.avatar,
     email: state.userInfo.email,

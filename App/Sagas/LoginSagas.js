@@ -2,41 +2,9 @@ import {call, put, select} from 'redux-saga/effects'
 import LoginActions from '../Redux/LoginRedux'
 import UserInfoActions from '../Redux/UserInfoRedux'
 import {NavigationActions} from "react-navigation";
+import {requestFaild} from '../Lib/Request'
 //import { Actions as NavigationActions } from 'react-native-router-flux'
 export const selectTokenInfo = (state) => state.login.tokenInfo
-
-function* requestFaild(response) {
-  switch (response.problem) {
-    case 'CLIENT_ERROR'://400-499任何非特定的400系列错误
-      //yield put(LoginActions.loginFailure('400系列错误'))
-      let message = response.data.message
-      let msg = ''
-      console.log(typeof message)
-      if (typeof message == "object") {
-        for (let k in message) {
-          msg += message[k].toString() + '\n'
-        }
-      } else {
-        msg = message
-      }
-      yield put(LoginActions.loginFailure(msg))
-      break;
-    case 'SERVER_ERROR'://500-599任何500系列错误
-      yield put(LoginActions.loginFailure('500系列错误'))
-      break;
-    case 'TIMEOUT_ERROR'://服务器没有及时响应
-      yield put(LoginActions.loginFailure('服务器超时'))
-      break;
-    case 'CONNECTION_ERROR'://服务器不可用，坏dns
-      yield put(LoginActions.loginFailure('服务器不可用'))
-      break;
-    case 'NETWORK_ERROR'://网络不可用
-      yield put(LoginActions.loginFailure('网络不可用'))
-      break;
-    case 'CANCEL_ERROR'://请求已被取消
-      yield put(LoginActions.loginFailure('请求已被取消'))
-  }
-}
 
 // attempts to login
 export function * login(api, {mobile, password}) {
@@ -44,7 +12,7 @@ export function * login(api, {mobile, password}) {
 
   const response = yield call(api.login, authObj)
 
-  console.log(response)
+  //console.log(response)
   // success?
   if (response.ok) { // 网络请求成功
     const {data} = response.data
@@ -59,7 +27,7 @@ export function * login(api, {mobile, password}) {
       yield put(NavigationActions.navigate({routeName:'SetPasswordScreen'}))
     }
   } else { // 网络请求失败
-    yield requestFaild(response)
+    yield requestFaild(response,LoginActions.loginFailure)
   }
 }
 
@@ -84,7 +52,7 @@ export function *loginByMobileVerifyCode(api,{mobile,verifyCode}) {
       yield put(NavigationActions.navigate({routeName:'SetPasswordScreen'}))
     }
   } else { // 网络请求失败
-    yield requestFaild(response)
+    yield requestFaild(response,LoginActions.loginFailure)
   }
 }
 

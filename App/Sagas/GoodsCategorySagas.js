@@ -12,7 +12,7 @@
 
 import { call, put } from 'redux-saga/effects'
 import GoodsCategoryActions from '../Redux/GoodsCategoryRedux'
-
+import {requestFaild} from '../Lib/Request'
 // import { GoodsCategorySelectors } from '../Redux/GoodsCategoryRedux'
 
 export function * getGoodsCategory (api, action) {
@@ -33,6 +33,6 @@ export function * getGoodsCategory (api, action) {
     }
   } else {
 
-    yield put(GoodsCategoryActions.goodsCategoryFailure(response))
+    yield Request(response,GoodsCategoryActions.goodsCategoryFailure)
   }
 }

@@ -14,9 +14,10 @@ import { call, put } from 'redux-saga/effects'
 import UserInfoActions from '../Redux/UserInfoRedux'
 import LoginActions from '../Redux/LoginRedux'
 import Toast from '../Lib/Toast'
+import {requestFaild} from '../Lib/Request'
 import {callApi} from './CallApiSaga'
 // import { UserInfoSelectors } from '../Redux/UserInfoRedux'
-function *requestFaild (response){
+/*function *requestFaild (response){
   switch (response.problem){
     case 'CLIENT_ERROR'://400-499任何非特定的400系列错误
       //yield put(UserInfoActions.userInfoFailure('400系列错误'))
@@ -47,7 +48,7 @@ function *requestFaild (response){
     case 'CANCEL_ERROR'://请求已被取消
       yield put(UserInfoActions.userInfoFailure('请求已被取消'))
   }
-}
+}*/
 
 /**
  * 获得用户信息
@@ -68,7 +69,7 @@ export function * getUserInfo (api, action) {
     // located in ../Transforms/. Otherwise, just pass the data back from the api.
     yield put(UserInfoActions.userInfoSuccess(response.data.data))
   } else {
-    yield requestFaild(response)
+    yield requestFaild(response,UserInfoActions.userInfoFailure)
   }
 }
 
@@ -95,7 +96,7 @@ export function * updateUserInfo (api, action) {
     Toast.showSuccess('提交成功')
     yield put(NavigationActions.navigate({routeName:'UserInfoScreen'}))
   } else {
-    yield requestFaild(response)
+    yield requestFaild(response,UserInfoActions.userInfoFailure)
   }
 }
 
@@ -113,7 +114,7 @@ export function * changePassword (api, action) {
   const response = yield call(api.changePassword, user)
   //const response = yield call(callApi, apiCall,api)
 
-  //console.log(response)
+  console.log(response)
   // success?
   if (response.ok) {
     // You might need to change the response here - do this with a 'transform',
@@ -124,7 +125,7 @@ export function * changePassword (api, action) {
     Toast.showSuccess('修改密码成功，请重新登录')
     yield put(NavigationActions.navigate({routeName:'LoginScreen'}))
   } else {
-    yield requestFaild(response)
+    yield requestFaild(response,UserInfoActions.userInfoFailure)
   }
 }
 /**
@@ -151,7 +152,7 @@ export function * setPassword (api, action) {
     Toast.showSuccess('密码设置成功，请填写个人信息')
     yield put(NavigationActions.navigate({routeName:'EditUserScreen'}))
   } else {
-    yield requestFaild(response)
+    yield requestFaild(response,UserInfoActions.userInfoFailure)
   }
 }
 
@@ -171,14 +172,52 @@ export function * uploadAvatar (api, action) {
   yield call(api.setFormData)
   const response = yield call(api.uploadAvatar, formData)
 
-  console.log(response)
+  //console.log(response)
   if (response.ok) { // success?
       console.log('upload ok')
       yield put(UserInfoActions.uploadAvatarSuccess(response.data.data.avatar))
       Toast.showSuccess('头像上传成功')
   } else { // failure
     console.log('upload error')
-    yield requestFaild(response)
+    yield requestFaild(response,UserInfoActions.userInfoFailure)
   }
   yield put({type: 'UPLOAD AVATAR END'})
+}
+
+/**
+ * 获得粉丝
+ * @param api
+ * @param action
+ * @returns {IterableIterator<*>}
+ */
+export function *getFans(api, action) {
+  const {page} = action
+  const response = yield call(api.getFans,page)
+  console.log(response)
+  if(response.ok){ // success?
+    let {data,current_page,last_page} = response.data
+    let more = current_page < last_page
+    yield put(UserInfoActions.fansSuccess(data,more))
+  }else{ // failure
+    yield requestFaild(response,UserInfoActions.userInfoFailure)
+  }
+}
+
+/**
+ * 获得推荐粉丝
+ * @param api
+ * @param action
+ * @returns {IterableIterator<*>}
+ */
+export function *getGrandFans(api, action) {
+  const {page} = action
+  const response = yield call(api.getGrandFans,page)
+  console.log(response)
+  if(response.ok){ // success?
+    let {data,current_page,last_page} = response.data
+    let more = current_page < last_page
+    yield put(UserInfoActions.grandFansSuccess(data,more))
+  }else{ // failure
+    yield requestFaild(response,UserInfoActions.userInfoFailure)
+  }
 }

@@ -1,12 +1,12 @@
-import { createReducer, createActions } from 'reduxsauce'
+import {createReducer, createActions} from 'reduxsauce'
 import Immutable from 'seamless-immutable'
-import union from "lodash/union";
+import unionBy from "lodash/unionBy";
 
 /* ------------- Types and Action Creators ------------- */
 
-const { Types, Creators } = createActions({
-  circleRequest: ['category_id','page'],
-  circleSuccess: ['category_id','data'],
+const {Types, Creators} = createActions({
+  circleRequest: ['category_id', 'page'],
+  circleSuccess: ['category_id', 'data', 'more'],
   circleFailure: ['error']
 })
 
@@ -17,48 +17,57 @@ export default Creators
 
 export const INITIAL_STATE = Immutable({
   data: {},
-  more:{},
-  fetching: null,
+  more: {},
+  nextPage: {},
+  fetching: false,
   error: null
 })
 
 /* ------------- Selectors ------------- */
 
 export const CircleSelectors = {
-  getCircle: (state,category_id) => state.data.hasOwnProperty(category_id)? state.data[category_id]:[],
-  getMore: (state,category_id) => state.more.hasOwnProperty(category_id)? state.more[category_id]:true,
+  getCircle: (state, category_id) => state.data.hasOwnProperty(category_id) ? state.data[category_id] : [],
+  getMore: (state, category_id) => state.more.hasOwnProperty(category_id) ? state.more[category_id] : true,
+  getNextPage: (state, category_id) => state.nextPage.hasOwnProperty(category_id) ? state.nextPage[category_id] : 1,
 }
 
 /* ------------- Reducers ------------- */
 
 // request the data from an api
-export const request = (state, { category_id }) =>
-  state.merge({ fetching: true,  payload: null })
+export const request = (state, {category_id}) =>
+  state.merge({fetching: true, payload: null})
 
 // successful api lookup
 export const success = (state, action) => {
-  const { category_id, data } = action
+  const {category_id, data, more} = action
   let newData
-  let {data:oldData,more} = state
-  if(more.hasOwnProperty(category_id)){
-    more[category_id] = !(data.length < 20)
-  }else{
-    more = more.merge({[category_id]:!(data.length < 20)})
+  let {data: oldData, more: oldMore, nextPage} = state
+  if (oldMore.hasOwnProperty(category_id)) {
+    oldMore[category_id] = more
+  } else {
+    oldMore = oldMore.merge({[category_id]: more})
   }
-  if(oldData.hasOwnProperty(category_id)){
-    newData = union(oldData[category_id], data)
-  }else{
+  if (nextPage.hasOwnProperty(category_id)) {
+    nextPage[category_id] = more ? nextPage[category_id] + 1 : nextPage[category_id]
+  } else {
+    nextPage = nextPage.merge({
+      [category_id]: more ? 2 : 1
+    })
+  }
+  if (oldData.hasOwnProperty(category_id)) {
+    newData = unionBy(oldData[category_id], data,'id')
+  } else {
     newData = data
   }
 
-  let circle = oldData.merge({[category_id]:newData})
+  let circle = oldData.merge({[category_id]: newData})
 
-  return state.merge({ fetching: false, error: null,more, data:circle })
+  return state.merge({fetching: false, error: null, more: oldMore,nextPage, data: circle})
 }
 
 // Something went wrong somewhere.
-export const failure = (state,{error}) =>
-  state.merge({ fetching: false, error})
+export const failure = (state, {error}) =>
+  state.merge({fetching: false, error})
 
 /* ------------- Hookup Reducers To Types ------------- */
 

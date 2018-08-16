@@ -9,7 +9,7 @@
 *  - This template uses the api declared in sagas/index.js, so
 *    you'll need to define a constant in that file.
 *************************************************************/
-
+import {requestFaild} from '../Lib/Request'
 import { call, put, select } from 'redux-saga/effects'
 import TbActions, { TbSelectors } from '../Redux/TbRedux'
 
@@ -33,10 +33,10 @@ export function * getTbIndexRecommend (api, action) {
     if (response.data.status) {
       yield put(TbActions.tbIndexRecommendSuccess(response.data.data))
     } else {
-      yield put(TbActions.tbFailure(response.data.message, response))
+      yield requestFaild(response,TbActions.tbFailure)
     }
   } else {
-    yield put(TbActions.tbFailure(response.problem, response))
+    yield requestFaild(response,TbActions.tbFailure)
   }
 }
 
@@ -56,10 +56,10 @@ export function * getTbChannelProduct (api, action) {
     if (response.data.status) {
       yield put(TbActions.tbChannelProductSuccess(channelId, response.data.data))
     } else {
-      yield put(TbActions.tbFailure(response.data.message, response))
+      yield requestFaild(response,TbActions.tbFailure)
     }
   } else {
-    yield put(TbActions.tbFailure(response.problem, response))
+    yield requestFaild(response,TbActions.tbFailure)
   }
 }
 
@@ -80,10 +80,10 @@ export function * getTbSearch (api, action) {
     if (response.data.status) {
       yield put(TbActions.tbSearchSuccess(keyWord, response.data.data))
     } else {
-      yield put(TbActions.tbFailure(response.data.message, response))
+      yield requestFaild(response,TbActions.tbFailure)
     }
   } else {
-    yield put(TbActions.tbFailure(response.problem, response))
+    yield requestFaild(response,TbActions.tbFailure)
   }
 }
 
@@ -103,10 +103,10 @@ export function * getTbDetail (api, action) {
       const {smallImages, detailImages, guessLike} = response.data.data
       yield put(TbActions.tbDetailSuccess(goodsId, smallImages, detailImages, guessLike, response.data.data))
     } else {
-      yield put(TbActions.tbFailure(response.data.message, response))
+      yield requestFaild(response,TbActions.tbFailure)
     }
   } else {
-    yield put(TbActions.tbFailure(response.problem, response))
+    yield requestFaild(response,TbActions.tbFailure)
   }
 }
 

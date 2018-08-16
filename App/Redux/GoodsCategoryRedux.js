@@ -16,7 +16,7 @@ export default Creators
 
 export const INITIAL_STATE = Immutable({
   data: [],
-  fetching: null,
+  fetching: false,
   payload: null,
   error: null
 })
