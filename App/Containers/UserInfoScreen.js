@@ -37,9 +37,7 @@ class UserInfoScreen extends Component {
   //   this.state = {}
   // }
   componentDidMount () {
-    if(this.props.mobile == null){
-      this.props.getUserInfo()
-    }
+
   }
   _setting = () => {
     const {navigation} = this.props

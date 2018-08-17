@@ -5,6 +5,7 @@ import {NavigationActions} from "react-navigation";
 import {requestFaild} from '../Lib/Request'
 //import { Actions as NavigationActions } from 'react-native-router-flux'
 export const selectTokenInfo = (state) => state.login.tokenInfo
+export const selectInvitationCode = (state) => state.register.invitation_code
 
 // attempts to login
 export function * login(api, {mobile, password}) {
@@ -32,8 +33,13 @@ export function * login(api, {mobile, password}) {
 }
 
 export function *loginByMobileVerifyCode(api,{mobile,verifyCode}) {
-  const authObj = {mobile, verifyCode}
-
+  const invitation_code = yield select(selectInvitationCode)
+  let authObj
+  if(invitation_code !='') {
+    authObj = {mobile, verifyCode,invitation_code}
+  }else {
+    authObj = {mobile, verifyCode}
+  }
   const response = yield call(api.loginByVerifyCode, authObj)
 
   console.log(response)

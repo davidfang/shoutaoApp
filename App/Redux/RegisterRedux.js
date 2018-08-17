@@ -20,7 +20,7 @@ export const INITIAL_STATE = Immutable({
   fetching: false,
   payload: null,
   error: null,
-  invitation_code:null
+  invitation_code:''
 })
 
 /* ------------- Selectors ------------- */

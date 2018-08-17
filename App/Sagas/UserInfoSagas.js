@@ -9,8 +9,8 @@
 *  - This template uses the api declared in sagas/index.js, so
 *    you'll need to define a constant in that file.
 *************************************************************/
-import { NavigationActions } from 'react-navigation';
-import { call, put } from 'redux-saga/effects'
+import {NavigationActions} from 'react-navigation';
+import {call, put} from 'redux-saga/effects'
 import UserInfoActions from '../Redux/UserInfoRedux'
 import LoginActions from '../Redux/LoginRedux'
 import Toast from '../Lib/Toast'
@@ -56,8 +56,8 @@ import {callApi} from './CallApiSaga'
  * @param action
  * @returns {IterableIterator<*>}
  */
-export function * getUserInfo (api, action) {
-  const { data } = action
+export function* getUserInfo(api, action) {
+  const {data} = action
   // get current data from Store
   // const currentData = yield select(UserInfoSelectors.getData)
   // make the call to the api
@@ -69,7 +69,7 @@ export function * getUserInfo (api, action) {
     // located in ../Transforms/. Otherwise, just pass the data back from the api.
     yield put(UserInfoActions.userInfoSuccess(response.data.data))
   } else {
-    yield requestFaild(response,UserInfoActions.userInfoFailure)
+    yield requestFaild(response, UserInfoActions.userInfoFailure)
   }
 }
 
@@ -79,8 +79,8 @@ export function * getUserInfo (api, action) {
  * @param action
  * @returns {IterableIterator<*>}
  */
-export function * updateUserInfo (api, action) {
-  const { user } = action
+export function* updateUserInfo(api, action) {
+  const {user} = action
   // get current data from Store
   // const currentData = yield select(UserInfoSelectors.getData)
   // make the call to the api
@@ -92,11 +92,11 @@ export function * updateUserInfo (api, action) {
   if (response.ok) {
     // You might need to change the response here - do this with a 'transform',
     // located in ../Transforms/. Otherwise, just pass the data back from the api.
-    yield put(UserInfoActions.userInfoSuccess(user))
     Toast.showSuccess('提交成功')
-    yield put(NavigationActions.navigate({routeName:'UserInfoScreen'}))
+    yield put(UserInfoActions.userInfoSuccess(user))
+    yield put(NavigationActions.navigate({routeName: 'UserInfoScreen'}))
   } else {
-    yield requestFaild(response,UserInfoActions.userInfoFailure)
+    yield requestFaild(response, UserInfoActions.userInfoFailure)
   }
 }
 
@@ -106,8 +106,8 @@ export function * updateUserInfo (api, action) {
  * @param action
  * @returns {IterableIterator<*>}
  */
-export function * changePassword (api, action) {
-  const { user } = action
+export function* changePassword(api, action) {
+  const {user} = action
   // get current data from Store
   // const currentData = yield select(UserInfoSelectors.getData)
   // make the call to the api
@@ -123,19 +123,20 @@ export function * changePassword (api, action) {
     yield put(LoginActions.logout())
     yield put(UserInfoActions.userInfoLogout())
     Toast.showSuccess('修改密码成功，请重新登录')
-    yield put(NavigationActions.navigate({routeName:'LoginScreen'}))
+    yield put(NavigationActions.navigate({routeName: 'LoginScreen'}))
   } else {
-    yield requestFaild(response,UserInfoActions.userInfoFailure)
+    yield requestFaild(response, UserInfoActions.userInfoFailure)
   }
 }
+
 /**
  * 设置用户密码 用户快捷注册时设置
  * @param api
  * @param action
  * @returns {IterableIterator<*>}
  */
-export function * setPassword (api, action) {
-  const { user } = action
+export function* setPassword(api, action) {
+  const {user} = action
   // get current data from Store
   // const currentData = yield select(UserInfoSelectors.getData)
   // make the call to the api
@@ -150,9 +151,9 @@ export function * setPassword (api, action) {
     yield put(LoginActions.loginSetPassword())
     yield put(UserInfoActions.userInfoSetPasswordSuccess())
     Toast.showSuccess('密码设置成功，请填写个人信息')
-    yield put(NavigationActions.navigate({routeName:'EditUserScreen'}))
+    yield put(NavigationActions.navigate({routeName: 'EditUserScreen'}))
   } else {
-    yield requestFaild(response,UserInfoActions.userInfoFailure)
+    yield requestFaild(response, UserInfoActions.userInfoFailure)
   }
 }
 
@@ -162,9 +163,8 @@ export function * setPassword (api, action) {
  * @param action
  * @returns {IterableIterator<*>}
  */
-export function * uploadAvatar (api, action) {
+export function* uploadAvatar(api, action) {
   const {fileUrl, fileName} = action
-
   let formData = new FormData()
 
   let file = {uri: fileUrl, type: 'application/octet-stream', name: fileName}
@@ -174,12 +174,14 @@ export function * uploadAvatar (api, action) {
 
   //console.log(response)
   if (response.ok) { // success?
-      console.log('upload ok')
-      yield put(UserInfoActions.uploadAvatarSuccess(response.data.data.avatar))
-      Toast.showSuccess('头像上传成功')
+    //console.log('upload ok')
+    yield call(api.setJsonData)
+    Toast.showSuccess('头像上传成功')
+    yield put(UserInfoActions.uploadAvatarSuccess(response.data.data.avatar))
+
   } else { // failure
-    console.log('upload error')
-    yield requestFaild(response,UserInfoActions.userInfoFailure)
+    //console.log('upload error')
+    yield requestFaild(response, UserInfoActions.userInfoFailure)
   }
   yield put({type: 'UPLOAD AVATAR END'})
 }
@@ -190,16 +192,16 @@ export function * uploadAvatar (api, action) {
  * @param action
  * @returns {IterableIterator<*>}
  */
-export function *getFans(api, action) {
+export function* getFans(api, action) {
   const {page} = action
-  const response = yield call(api.getFans,page)
-  console.log(response)
-  if(response.ok){ // success?
-    let {data,current_page,last_page} = response.data
+  const response = yield call(api.getFans, page)
+  //console.log(response)
+  if (response.ok) { // success?
+    let {data, current_page, last_page} = response.data
     let more = current_page < last_page
-    yield put(UserInfoActions.fansSuccess(data,more))
-  }else{ // failure
-    yield requestFaild(response,UserInfoActions.userInfoFailure)
+    yield put(UserInfoActions.fansSuccess(data, more))
+  } else { // failure
+    yield requestFaild(response, UserInfoActions.userInfoFailure)
   }
 }
 
@@ -209,15 +211,15 @@ export function *getFans(api, action) {
  * @param action
  * @returns {IterableIterator<*>}
  */
-export function *getGrandFans(api, action) {
+export function* getGrandFans(api, action) {
   const {page} = action
-  const response = yield call(api.getGrandFans,page)
-  console.log(response)
-  if(response.ok){ // success?
-    let {data,current_page,last_page} = response.data
+  const response = yield call(api.getGrandFans, page)
+  //console.log(response)
+  if (response.ok) { // success?
+    let {data, current_page, last_page} = response.data
     let more = current_page < last_page
-    yield put(UserInfoActions.grandFansSuccess(data,more))
-  }else{ // failure
-    yield requestFaild(response,UserInfoActions.userInfoFailure)
+    yield put(UserInfoActions.grandFansSuccess(data, more))
+  } else { // failure
+    yield requestFaild(response, UserInfoActions.userInfoFailure)
   }
 }

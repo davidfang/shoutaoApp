@@ -37,12 +37,21 @@ class RegisterScreen extends Component {
       return
     }
     if(!this.props.fetching) {
-      let account = {
-        mobile: this.state.mobile,
-        verifyCode: this.state.verifyCode,
-        password: this.state.password,
-        invitation_code: this.state.invitation_code
-      }
+      let account
+        if(this.state.invitation_code !=''){
+        account= {
+            mobile: this.state.mobile,
+            verifyCode: this.state.verifyCode,
+            password: this.state.password,
+            invitation_code: this.state.invitation_code
+          }
+        }else{
+          account= {
+            mobile: this.state.mobile,
+            verifyCode: this.state.verifyCode,
+            password: this.state.password
+          }
+        }
       this.props.register(account)
     }
   }
@@ -65,6 +74,7 @@ class RegisterScreen extends Component {
             <TextInput
               style={styles.formTextInput}
               placeholder={'请输入手机号'}
+              returnKeyType='next'
               onChangeText={text => {
                 text = text.replace(/ /g, '_')
                 this.setState({mobile: text})
@@ -77,6 +87,7 @@ class RegisterScreen extends Component {
             <TextInput
               style={styles.formTextInput}
               placeholder={'验证码'}
+              returnKeyType='next'
               onChangeText={text => {
                 text = text.replace(/ /g, '_')
                 this.setState({verifyCode: text})
@@ -107,6 +118,7 @@ class RegisterScreen extends Component {
             <TextInput
               style={styles.formTextInput}
               placeholder={'6-20位字母、数字、符号'}
+              returnKeyType='next'
               secureTextEntry={this.state.secret}
               onChangeText={text => {
                 text = text.replace(/ /g, '_')
@@ -126,6 +138,7 @@ class RegisterScreen extends Component {
             <TextInput
               style={styles.formTextInput}
               placeholder={'朋友发给你的邀请码，如无可不填'}
+              returnKeyType='done'
               onChangeText={text => {
                 text = text.replace(/ /g, '_')
                 this.setState({invitation_code: text})

@@ -38,6 +38,7 @@ const create = (baseURL = AppConfig.apiUrl) => {
   const setAuthToken = (tokenInfo) => api.setHeader('Authorization', tokenInfo.token_type + ' ' + tokenInfo.access_token) // 设置token
   const removeAuthToken = () => api.setHeader('Authorization', '') // 删除token
   const setFormData = () => api.setHeader('Content-Type', 'multipart/form-data;charset=utf-8') // 设置form data文件上传
+  const setJsonData = () => api.setHeader('Content-Type', 'application/json;charset=utf-8') // 设置form data文件上传
   const getRoot = () => api.get('')
   const getRate = () => api.get('rate_limit')
   const getUser = (username) => api.get('search/users', {q: username})
@@ -96,6 +97,7 @@ const create = (baseURL = AppConfig.apiUrl) => {
     setAuthToken,
     removeAuthToken,
     setFormData,
+    setJsonData,
     getRoot,
     getRate,
     getUser,
