@@ -145,29 +145,19 @@ class UserInfoScreen extends Component {
       <ScrollView style={styles.container}>
         {this.userHead()}
         <View style={styles.gridItemGroup}>
-          <TouchableOpacity style={styles.gridItem} onPress={() => {}}>
-            <Image style={styles.gridIcon} source={require('../Images/shouyi.png')}/>
-            <Text>收益</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.gridItem} onPress={() => {}}>
-            <Image style={styles.gridIcon} source={require('../Images/dd.png')}/>
-            <Text>订单</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.gridItem} onPress={() => this._press('FansScreen',{})}>
+          {this.props.loggedIn &&  (<TouchableOpacity style={styles.gridItem} onPress={() => this._press('FansScreen',{})}>
             <Image style={styles.gridIcon} source={require('../Images/users.png')}/>
             <Text>粉丝</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.gridItem} onPress={() => {}}>
+          </TouchableOpacity>)}
+          {this.props.loggedIn &&  (<TouchableOpacity style={styles.gridItem} onPress={this._copyInvitationCode}>
             <Image style={styles.gridIcon} source={require('../Images/invite.png')}/>
             <Text>邀请</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.gridItemGroup}>
+          </TouchableOpacity>)}
           <TouchableOpacity style={styles.gridItem} onPress={() => this._webPress('article-category/1','新手攻略')}>
             <Image style={styles.gridIcon} source={require('../Images/guide.png')}/>
             <Text>新手攻略</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.gridItem} onPress={() => this._webPress('article/9','常见问题')}>
+          <TouchableOpacity style={styles.gridItem} onPress={() => this._webPress('article-category/2','常见问题')}>
             <Image style={styles.gridIcon} source={require('../Images/questing.png')}/>
             <Text>常见问题</Text>
           </TouchableOpacity>

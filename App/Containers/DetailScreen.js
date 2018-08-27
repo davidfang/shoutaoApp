@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Text, View, FlatList, TouchableOpacity,Clipboard} from 'react-native'
+import {Text, View, FlatList, TouchableOpacity,Clipboard,Linking} from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import AutoImage from 'react-native-scalable-image'
 import {connect} from 'react-redux'
@@ -46,7 +46,15 @@ class DetailScreen extends Component {
     //alert('aaaaaa')
     //RNAlibcSdk.Show(goodsInfo.SPYHQTGLJ)
     Clipboard.setString(goodsInfo.tpwd)
-    Toast.showSuccess('淘口令已复制到剪贴板，请打开淘宝购买')
+    // 2、跳转代码
+    Linking.canOpenURL('taobao://').then(supported => { // weixin://  alipay://
+        if (supported) {
+            Linking.openURL('taobao://')
+           } else {
+            Toast.showError('请先安装淘宝')
+           }
+       });
+    //Toast.showSuccess('淘口令已复制到剪贴板，请打开淘宝购买')
   }
 
   _renderItem = ({item,index}) => {

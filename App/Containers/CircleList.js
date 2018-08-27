@@ -1,5 +1,5 @@
 import React from 'react'
-import {View, Text, FlatList, Image, TouchableOpacity,RefreshControl} from 'react-native'
+import {View, Text, FlatList, Image, TouchableOpacity, RefreshControl, Clipboard} from 'react-native'
 import {connect} from 'react-redux'
 import Icon from 'react-native-vector-icons/Ionicons'
 // More info here: https://facebook.github.io/react-native/docs/flatlist.html
@@ -7,10 +7,15 @@ import CircleActions ,{CircleSelectors} from '../Redux/CircleRedux'
 // Styles
 import styles from './Styles/CircleListStyle'
 import {Colors} from '../Themes'
+import Toast from "../Lib/Toast";
 
 class CircleList extends React.PureComponent {
   constructor (props) {
     super(props)
+  }
+  _copyInvitationCode = () =>{
+    Clipboard.setString('我在使用一个超级好用的优惠券APP，淘宝天猫购物之前先在此搜一下，领内部优惠券，还可以获得购物返利，邀请别人使用，还可以获得别人购物的返利。注册时记得填我的邀请码： ' + this.props.invitation_code)
+    Toast.showSuccess('邀请码已复制到剪贴板，发给好友一起赚钱吧！')
   }
   renderRow({item}) {
     let picGroup
@@ -37,7 +42,7 @@ class CircleList extends React.PureComponent {
               <View><Text>{item.created_at}</Text></View>
             </View>
           </View>
-          <TouchableOpacity style={styles.share}>
+          <TouchableOpacity style={styles.share} onPress={this._copyInvitationCode}>
             <Text><Icon name={'md-share'} size={15} color={Colors.fire}/> {item.click}</Text>
           </TouchableOpacity>
         </View>
