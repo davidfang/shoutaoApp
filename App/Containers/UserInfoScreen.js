@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {
   ScrollView,
-  Platform,
+  RefreshControl,
   Text,
   View,
   Image,
@@ -16,6 +16,7 @@ import { connect } from 'react-redux'
 import LoginActions, { LoginSelector } from '../Redux/LoginRedux'
 import AccountActions from '../Redux/AccountRedux'
 import UserInfoActions from '../Redux/UserInfoRedux'
+import {AppSetSelectors} from '../Redux/AppSetRedux'
 
 
 import Toast from '../Lib/Toast'
@@ -37,7 +38,9 @@ class UserInfoScreen extends Component {
   //   this.state = {}
   // }
   componentDidMount () {
-
+    if(this.props.loggedIn){
+      this.props.getAccountInfo()
+    }
   }
   _setting = () => {
     const {navigation} = this.props
@@ -45,12 +48,14 @@ class UserInfoScreen extends Component {
     navigation.navigate('EditUserScreen')
   }
   _copyInvitationCode = () =>{
-    Clipboard.setString('我在使用一个超级好用的优惠券APP，淘宝天猫购物之前先在此搜一下，领内部优惠券，还可以获得购物返利，邀请别人使用，还可以获得别人购物的返利。注册时记得填我的邀请码： ' + this.props.invitation_code)
+
+    Clipboard.setString('我在使用一个超级好用的优惠券APP，淘宝天猫购物之前先在此搜一下，领内部优惠券，还可以获得购物返利，邀请别人使用，还可以获得别人购物的返利。注册时记得填我的邀请码： ' + this.props.invitation_code +  this.props.downloadUrl)
     Toast.showSuccess('邀请码已复制到剪贴板，发给好友一起赚钱吧！')
   }
   userHead = () => {
     const {loggedIn, nickname,invitation_code, grade, avatar} = this.props
     if (loggedIn) {
+      let {accountInfo,bankInfo} = this.props
       return (
         <View style={styles.top}>
 
@@ -78,8 +83,8 @@ class UserInfoScreen extends Component {
               </TouchableOpacity>
             </View>
             <View style={styles.incomeTop}>
-              <Text>可提现金额：￥ 0 </Text>
-              <CustomButton //onPress={onPressLearnMore}
+              <Text>可提现金额：￥ {accountInfo.hasOwnProperty('cash_balance') ? accountInfo.cash_balance : 0} </Text>
+              <CustomButton onPress={this._withdrawal}
                 text='提现'
                 color={Colors.text}
                 styles={styles.withdrawButton}
@@ -91,16 +96,16 @@ class UserInfoScreen extends Component {
 
           <View style={styles.incomeBottom}>
             <View style={styles.incomeBottomItem}>
-              <View><Text>￥0</Text></View>
-              <View><Text>本月预估</Text></View>
+              <View><Text>￥{accountInfo.hasOwnProperty('uncash_balance') ? accountInfo.uncash_balance : 0}</Text></View>
+              <View><Text>本月确认</Text></View>
             </View>
             <View style={styles.incomeBottomItem}>
-              <View><Text>￥0</Text></View>
-              <View><Text>本月预估</Text></View>
+              <View><Text>￥{accountInfo.hasOwnProperty('freeze_uncash_balance') ? accountInfo.freeze_uncash_balance : 0}</Text></View>
+              <View><Text>未确认</Text></View>
             </View>
             <View style={styles.incomeBottomItem}>
-              <View><Text>￥0</Text></View>
-              <View><Text>本月预估</Text></View>
+              <View><Text>{accountInfo.hasOwnProperty('fans') ? accountInfo.fans : 0}人</Text></View>
+              <View><Text>粉丝数</Text></View>
             </View>
           </View>
         </View>
@@ -115,6 +120,22 @@ class UserInfoScreen extends Component {
           </View>
         </View>
       )
+    }
+  }
+
+  /**
+   * 提现操作
+   * @private
+   */
+  _withdrawal = () => {
+    const {navigation} = this.props
+    if(this.props.bankInfo == null){
+      Toast.show('请先绑定支付宝')
+      navigation.navigate &&
+      navigation.navigate('BindingBankCardScreen')
+    }else{
+      navigation.navigate &&
+      navigation.navigate('WithdrawalScreen')
     }
   }
   /**
@@ -135,14 +156,29 @@ class UserInfoScreen extends Component {
   _webPress = (url,title) => {
     const {navigation} = this.props
     url = AppConfig.webUrl + url
-    console.log(url,title)
+    //console.log(url,title)
     navigation.navigate &&
     navigation.navigate('WebScreen',{url,title})
   }
-
+  /**
+   * 刷新
+   * @private
+   */
+  _onRefresh = () => {
+    if(this.props.loggedIn){
+      this.props.getAccountInfo()
+    }
+  }
   render () {
     return (
-      <ScrollView style={styles.container}>
+      <ScrollView style={styles.container}
+                  refreshControl={
+                    <RefreshControl
+                      refreshing={this.props.fetching}
+                      onRefresh={this._onRefresh}
+                    />
+                  }
+      >
         {this.userHead()}
         <View style={styles.gridItemGroup}>
           {this.props.loggedIn &&  (<TouchableOpacity style={styles.gridItem} onPress={() => this._press('FansScreen',{})}>
@@ -188,13 +224,19 @@ class UserInfoScreen extends Component {
 
 const mapStateToProps = (state) => {
   const {mobile,nickname,invitation_code,grade, avatar} = state.userInfo
+  const {accountInfo,bankInfo,fetching} = state.account
+  let downloadUrl = AppSetSelectors.get(state.appSet,'downloadUrl');
   return {
     loggedIn: LoginSelector.isLoggedIn(state.login),
     grade,
     mobile,
     nickname,
     invitation_code,
-    avatar
+    downloadUrl,
+    avatar,
+    accountInfo,
+    bankInfo,
+    fetching
   }
 }
 
@@ -205,7 +247,8 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(LoginActions.logout())
       dispatch(UserInfoActions.userInfoLogout())
     },
-    uploadAvatar: (fileUrl, fileName) => dispatch(UserInfoActions.uploadAvatarRequest(fileUrl, fileName))
+    uploadAvatar: (fileUrl, fileName) => dispatch(UserInfoActions.uploadAvatarRequest(fileUrl, fileName)),
+    getAccountInfo: () => dispatch(AccountActions.accountRequest())
   }
 }
 

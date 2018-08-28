@@ -6,7 +6,7 @@ import DebugConfig from '../Config/DebugConfig'
 /* ------------- Types ------------- */
 
 import {StartupTypes} from '../Redux/StartupRedux'
-import {GithubTypes} from '../Redux/GithubRedux'
+import {AppSetTypes} from '../Redux/AppSetRedux'
 import {BannerTypes} from '../Redux/BannerRedux'
 import {RegisterTypes} from '../Redux/RegisterRedux'
 import {LoginTypes} from '../Redux/LoginRedux'
@@ -20,16 +20,17 @@ import {CircleTypes} from '../Redux/CircleRedux'
 /* ------------- Sagas ------------- */
 
 import {startup} from './StartupSagas'
-import {getUserAvatar} from './GithubSagas'
+import {getAppSet} from './AppSetSagas'
 import {getRegister} from './RegisterSagas'
 import {login,autoLogin,loginByMobileVerifyCode} from './LoginSagas'
 import {getVerifyCode} from './VerifyCodeSagas'
 import {getUserInfo,updateUserInfo,changePassword,setPassword,uploadAvatar,getFans,getGrandFans} from './UserInfoSagas'
-import {getAccount} from './AccountSagas'
+import {getAccount,getBankInfo,setBankInfo,withdrawal} from './AccountSagas'
 import {getBanner,postFeedBack} from './BannerSagas'
 import {getTbIndexRecommend, getTbChannelProduct, getTbSearch, setTbDetail, getTbDetail} from './TbSagas'
 import {getGoodsCategory} from './GoodsCategorySagas'
 import {getCircle} from './CircleSagas'
+import App from "../Containers/App";
 
 /* ------------- API ------------- */
 
@@ -43,6 +44,7 @@ export default function* root() {
   yield all([
     // some sagas only receive an action
     takeLatest(StartupTypes.STARTUP, startup),
+    takeLatest(AppSetTypes.APP_SET_REQUEST,getAppSet,api),
 
     // some sagas receive extra parameters in addition to an action
     takeLatest(RegisterTypes.REGISTER_REQUEST,getRegister,api),
@@ -60,8 +62,10 @@ export default function* root() {
     takeLatest(BannerTypes.FEEDBACK_REQUEST,postFeedBack,api),
 
     takeLatest(AccountTypes.ACCOUNT_REQUEST, getAccount, api),
+    takeLatest(AccountTypes.BANK_INFO_REQUEST,getBankInfo,api),
+    takeLatest(AccountTypes.BANK_INFO_SET_REQUEST,setBankInfo,api),
+    takeLatest(AccountTypes.WITHDRAWAL_REQUEST,withdrawal,api),
 
-    takeLatest(GithubTypes.USER_REQUEST, getUserAvatar, api),
     takeEvery(BannerTypes.BANNER_REQUEST, getBanner, api),
     takeLatest(GoodsCategoryTypes.GOODS_CATEGORY_REQUEST, getGoodsCategory, api),
     takeLatest(TbTypes.TB_INDEX_RECOMMEND_REQUEST, getTbIndexRecommend, api),

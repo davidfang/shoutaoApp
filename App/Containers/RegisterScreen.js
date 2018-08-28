@@ -76,7 +76,7 @@ class RegisterScreen extends Component {
               placeholder={'请输入手机号'}
               returnKeyType='next'
               onChangeText={text => {
-                text = text.replace(/ /g, '_')
+                text = text.replace(/ /g, '')
                 this.setState({mobile: text})
               }}
               value={this.state.mobile}
@@ -89,7 +89,7 @@ class RegisterScreen extends Component {
               placeholder={'验证码'}
               returnKeyType='next'
               onChangeText={text => {
-                text = text.replace(/ /g, '_')
+                text = text.replace(/ /g, '')
                 this.setState({verifyCode: text})
               }}
               value={this.state.verifyCode}
@@ -121,7 +121,7 @@ class RegisterScreen extends Component {
               returnKeyType='next'
               secureTextEntry={this.state.secret}
               onChangeText={text => {
-                text = text.replace(/ /g, '_')
+                text = text.replace(/ /g, '')
                 this.setState({password: text})
               }}
               value={this.state.password}
@@ -140,7 +140,7 @@ class RegisterScreen extends Component {
               placeholder={'朋友发给你的邀请码，如无可不填'}
               returnKeyType='done'
               onChangeText={text => {
-                text = text.replace(/ /g, '_')
+                text = text.replace(/ /g, '')
                 this.setState({invitation_code: text})
               }}
               value={this.state.invitation_code}

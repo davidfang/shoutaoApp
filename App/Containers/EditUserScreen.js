@@ -74,7 +74,7 @@ class EditUserScreen extends Component {
               style={styles.formTextInput}
               placeholder={'请填写昵称'}
               onChangeText={text => {
-                text = text.replace(/ /g, '_')
+                text = text.replace(/ /g, '')
                 this.setState({nickname: text})
               }}
               value={this.state.nickname}
@@ -88,7 +88,7 @@ class EditUserScreen extends Component {
               placeholder={'请填写邮箱'}
               keyboardType='email-address'
               onChangeText={text => {
-                text = text.replace(/ /g, '_')
+                text = text.replace(/ /g, '')
                 this.setState({email: text})
               }}
               returnKeyType='done'
@@ -102,7 +102,7 @@ class EditUserScreen extends Component {
               placeholder={'请填年龄以便推荐更好的产品'}
               keyboardType='numeric'
               onChangeText={text => {
-                text = text.replace(/ /g, '_')
+                text = text.replace(/ /g, '')
                 this.setState({age: text})
               }}
               value={this.state.age}

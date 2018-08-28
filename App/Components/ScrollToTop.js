@@ -24,7 +24,7 @@ export default class ScrollToTop extends Component {
       <TouchableOpacity style={styles.toTop}  activeOpacity={1} onPress={_onPress}  >
         <Image
           source={require('../Images/scroll.png')}
-          style={{ height: 45, width: 45 }}
+          style={{ height: 32, width: 32 }}
         />
       </TouchableOpacity>
     ) : null

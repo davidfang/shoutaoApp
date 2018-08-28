@@ -1,14 +1,11 @@
 import { call ,put, select } from 'redux-saga/effects'
-import GithubActions, { GithubSelectors } from '../Redux/GithubRedux'
-import { is } from 'ramda'
 import LoginActions,{LoginSelector} from  '../Redux/LoginRedux'
 
+import AppSetActions from '../Redux/AppSetRedux'
 import BannerActions from '../Redux/BannerRedux'
-import TbActions from '../Redux/TbRedux'
 import GoodsCategoryActions from "../Redux/GoodsCategoryRedux";
 
 // exported to make available for tests
-export const selectAvatar = GithubSelectors.selectAvatar
 const selectLoggedInStatus = (state) => LoginSelector.isLoggedIn(state.login)
 const getTokenInfo = (state) => LoginSelector.tokenInfo(state.login)
 const selectLoginFetchingStatus = (state) => state.login.fetching
@@ -21,7 +18,7 @@ export function * startup (action) {
     // logging an object for better clarity
     console.tron.log({
       message: 'pass objects for better logging',
-      someGeneratorFunction: selectAvatar
+      someGeneratorFunction: selectLoggedInStatus
     })
 
     // fully customized!
@@ -34,8 +31,7 @@ export function * startup (action) {
         '💃': 'Welcome to the future!',
         subObject,
         someInlineFunction: () => true,
-        someGeneratorFunction: startup,
-        someNormalFunction: selectAvatar
+        someGeneratorFunction: startup
       }
     })
   }
@@ -50,13 +46,9 @@ export function * startup (action) {
     }
   }
 
-  const avatar = yield select(selectAvatar)
   // only get if we don't have it yet
-  if (!is(String, avatar)) {
-    yield put(GithubActions.userRequest('GantMan'))
-  }
+  yield put(AppSetActions.appSetRequest(''))
   yield put(BannerActions.bannerRequest('swiper'))
   yield put(BannerActions.bannerRequest('recommend'))
   yield put(GoodsCategoryActions.goodsCategoryRequest())
-  // yield put(TbActions.tbIndexRecommendRequest(1))
 }

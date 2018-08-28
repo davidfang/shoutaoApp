@@ -1,11 +1,12 @@
-import { NavigationActions } from 'react-navigation';
-import { call, put } from 'redux-saga/effects'
+import {  put } from 'redux-saga/effects'
 import Toast from '../Lib/Toast'
 
 export function *requestFaild (response,failureAction){
+  console.log(response.problem)
   switch (response.problem){
     case 'CLIENT_ERROR'://400-499任何非特定的400系列错误
       //yield put(failureAction('400系列错误'))
+      console.log('400系列错误')
       let message = response.data.message
       let msg = ''
       //console.log(typeof message)

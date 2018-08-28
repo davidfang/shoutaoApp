@@ -38,7 +38,7 @@ export function* getBanner(api, {banner_type}) {
       yield put(BannerActions.bannerFailure(data))
     }
   } else {
-    requestFaild(response,BannerActions.bannerFailure)
+    yield requestFaild(response,BannerActions.bannerFailure)
   }
 }
 
@@ -70,7 +70,7 @@ export function* postFeedBack(api, action) {
     console.log('upload error')
     yield put({type: 'UPLOAD feedback Fail'})
     console.log(response)
-    requestFaild(response,BannerActions.bannerFailure)
+    yield requestFaild(response,BannerActions.bannerFailure)
   }
   yield put({type: 'UPLOAD feedback END'})
 }

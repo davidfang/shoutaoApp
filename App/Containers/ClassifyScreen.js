@@ -9,6 +9,7 @@ import GoodsCategoryActions, { GoodsCategorySelectors } from '../Redux/GoodsCate
 import styles from './Styles/ClassifyScreenStyle'
 
 import SearchBar from '../Components/SearchBar'
+import {Images} from "../Themes";
 
 class ClassifyScreen extends Component {
   constructor (props) {
@@ -77,7 +78,7 @@ class ClassifyScreen extends Component {
   _renderRItem = ({item}) => {
     return (
       <TouchableOpacity key={item.id} style={styles.rItem} onPress={() => this._redirect(item)}>
-        <Image style={styles.icon} source={{uri: item.img_path}}/>
+        <Image style={styles.icon} source={{uri: item.img_path}}  defaultSource={Images.default_middle}  />
         <Text style={styles.categoryText}>{item.title}</Text>
       </TouchableOpacity>
     )

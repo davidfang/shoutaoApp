@@ -53,8 +53,11 @@ const create = (baseURL = AppConfig.apiUrl) => {
   const getRegister = (user) => api.post('passport/register', user) // 注册
   const forgotPassword = (data) => api.post('v1/sign-in/reset-password', data) // 忘记密码
 
-  const getAccount = () => api.get('user/info') // 用户中心 获得用户信息
+  const getAccount = () => api.get('account/index') // 用户中心 获得用户帐户信息
   const updateAccount = (user) => api.put('user/update', user) // 更新用户信息
+  const getBankInfo = () => api.get('bankcard/show')//获取用户银行卡支付宝绑定信息
+  const setBankInfo = (bankInfo) => api.post('bankcard/create',bankInfo)//设置银行卡支付宝绑定信息
+  const withdrawal = (withdrawal)=> api.post('account/withdrawal',withdrawal)//提现申请
   const getUserInfo = () => api.get('user/info') // 用户中心 获得用户信息
   const updateUserInfo = (user) => api.post('user/update', user) // 更新用户信息
   const resetPassword = (data) => api.post('passport/password-reset', data) // 重置密码
@@ -80,6 +83,7 @@ const create = (baseURL = AppConfig.apiUrl) => {
   const getTbSearchKeyWord = (keyWord, page, sortId) => api.get('search', {keyWord, page, sortId}) // 获得搜索产品
   const getTbDetail = (goodsId) => api.get('goods/show/'+ goodsId) // 获得产品详情
   const setTbDetail = (num_iid,detail) => api.post('goods/set-detail',{num_iid,detail}) // 设置产品详情
+  const getAppSet = (data) => api.post('app-set',data)//获得系统设置
   // ------
   // STEP 3
   // ------
@@ -102,6 +106,7 @@ const create = (baseURL = AppConfig.apiUrl) => {
     getRate,
     getUser,
     singUp,
+    getAppSet,
     login,
     loginByVerifyCode,
     getVerifyCode,
@@ -117,6 +122,9 @@ const create = (baseURL = AppConfig.apiUrl) => {
 
     getAccount,
     updateAccount,
+    getBankInfo,
+    setBankInfo,
+    withdrawal,
     resetPassword,
     changePassword,
 

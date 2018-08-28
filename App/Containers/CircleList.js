@@ -6,21 +6,24 @@ import Icon from 'react-native-vector-icons/Ionicons'
 import CircleActions ,{CircleSelectors} from '../Redux/CircleRedux'
 // Styles
 import styles from './Styles/CircleListStyle'
-import {Colors} from '../Themes'
+import {Colors, Images} from '../Themes'
 import Toast from "../Lib/Toast";
+import {AppSetSelectors} from "../Redux/AppSetRedux";
 
 class CircleList extends React.PureComponent {
   constructor (props) {
     super(props)
   }
   _copyInvitationCode = () =>{
-    Clipboard.setString('我在使用一个超级好用的优惠券APP，淘宝天猫购物之前先在此搜一下，领内部优惠券，还可以获得购物返利，邀请别人使用，还可以获得别人购物的返利。注册时记得填我的邀请码： ' + this.props.invitation_code)
+    console.log('aaaa');
+    Clipboard.setString('我在使用一个超级好用的优惠券APP，淘宝天猫购物之前先在此搜一下，领内部优惠券，还可以获得购物返利，邀请别人使用，还可以获得别人购物的返利。注册时记得填我的邀请码： ' + this.props.invitation_code +  this.props.downloadUrl)
     Toast.showSuccess('邀请码已复制到剪贴板，发给好友一起赚钱吧！')
   }
-  renderRow({item}) {
+  renderRow = ({item}) =>{
     let picGroup
     if(item.images.length){
       picGroup = item.images.map((img)=><Image key={img} source={{uri: img}}
+                                               defaultSource={Images.default_middle}
                                                style={styles.pics}  resizeMode='contain'
                                                resizeMethod='resize'/>)
     }else{
@@ -36,6 +39,7 @@ class CircleList extends React.PureComponent {
                    style={styles.avatar}
                    resizeMode='contain'
                    resizeMethod='resize'
+                   defaultSource={Images.default_small}
             />
             <View style={styles.author}>
               <View><Text>{item.author}</Text></View>
@@ -150,13 +154,16 @@ class CircleList extends React.PureComponent {
 
 const mapStateToProps = (state,props) => {
   const {category_id} = props
+  const {invitation_code} = state.userInfo
   let circle = CircleSelectors.getCircle(state.circle,category_id)
   let more = CircleSelectors.getMore(state.circle,category_id)
   let nextPage = CircleSelectors.getNextPage(state.circle,category_id)
-
+  let downloadUrl = AppSetSelectors.get(state.appSet,'downloadUrl');
   return {
     //category_id,
     fetching:state.circle.fetching,
+    invitation_code,
+    downloadUrl,
     circle,
     more,
     nextPage

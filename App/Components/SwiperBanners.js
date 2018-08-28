@@ -4,6 +4,7 @@ import { View, TouchableOpacity, Image } from 'react-native'
 
 import Swiper from 'react-native-swiper'
 import styles from './Styles/SWiperBannersStyle'
+import {Images} from "../Themes";
 
 export default class SwiperBanners extends Component {
   // // Prop type warnings
@@ -45,6 +46,7 @@ export default class SwiperBanners extends Component {
               source={{ uri: item.img }}
               resizeMode='stretch'
               resizeMethod='resize'
+              defaultSource={Images.default}
             />
           </TouchableOpacity>
         )

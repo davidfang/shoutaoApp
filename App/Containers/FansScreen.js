@@ -18,7 +18,6 @@ class FansScreen extends React.PureComponent {
     }
   }
   loadFans = (refresh = false) => {
-    console.log(this.props.fansMore ,this.props.fetching)
     if(refresh && !this.props.fetching){//下拉刷新
       this.props.getFans(1);
     }else {

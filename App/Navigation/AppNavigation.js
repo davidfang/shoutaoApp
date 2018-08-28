@@ -1,5 +1,6 @@
 import React from 'react'
 import { StackNavigator } from 'react-navigation'
+import WithdrawalScreen from '../Containers/WithdrawalScreen'
 import FeedbackScreen from '../Containers/FeedbackScreen'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
@@ -19,9 +20,13 @@ import SetPasswordScreen from "../Containers/SetPasswordScreen";
 
 // Manifest of possible screens
 const PrimaryNav = StackNavigator({
-  FeedbackScreen: { screen: FeedbackScreen },
+  FeedbackScreen: {
+    screen: FeedbackScreen,
+    navigationOptions:{
+      title:'意见反馈'
+    }
+  },
   HomeScreen: { screen: HomeScreen },
-  LaunchScreen: { screen: LaunchScreen },
   SearchScreen: { screen: SearchScreen },
   WebScreen: {
     screen: WebScreen,

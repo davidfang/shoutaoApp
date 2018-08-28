@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { View, Image } from 'react-native'
 import Swiper from 'react-native-swiper'
 import styles from './Styles/ProductImagesStyle'
+import {Images} from "../Themes";
 
 export default class ProductImages extends Component {
   // Prop type warnings
@@ -38,6 +39,7 @@ export default class ProductImages extends Component {
                   }}
                   resizeMode='cover'
                   resizeMethod='auto'
+                  defaultSource={Images.default}
                 />
               )
             })

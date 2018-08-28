@@ -8,6 +8,8 @@ import EditUserScreen from "../Containers/EditUserScreen";
 import MobileLoginScreen from "../Containers/MobileLoginScreen";
 import LoginScreen from "../Containers/LoginScreen";
 import FansScreen from "../Containers/FansScreen";
+import BindingBankCardScreen from "../Containers/BindingBankCardScreen";
+import WithdrawalScreen from "../Containers/WithdrawalScreen";
 
 // Manifest of possible screens
 const UserNav = StackNavigator({
@@ -28,6 +30,18 @@ const UserNav = StackNavigator({
     screen: EditUserScreen,
     navigationOptions:{
       title:'用户信息'
+    }
+  },
+  BindingBankCardScreen: {
+    screen: BindingBankCardScreen,
+    navigationOptions:{
+      title:'绑定提现支付宝'
+    }
+  },
+  WithdrawalScreen: {
+    screen: WithdrawalScreen,
+    navigationOptions:{
+      title:'提现申请'
     }
   },
   RegisterScreen: {

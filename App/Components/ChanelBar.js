@@ -3,6 +3,7 @@ import R from 'ramda'
 import PropTypes from 'prop-types'
 import {TouchableOpacity, Image, View, Text} from 'react-native'
 import styles from './Styles/ChanelBarStyle'
+import {Images} from "../Themes";
 
 export default class ChanelBar extends Component {
   // Prop type warnings
@@ -40,7 +41,7 @@ export default class ChanelBar extends Component {
         style={styles.child}
       >
         <Image source={{uri: child.img_path}} style={styles.childImage} resizeMode='contain'
-               resizeMethod='resize'/>
+               resizeMethod='resize'  defaultSource={Images.default_small} />
         <Text style={styles.childText}>
           {child.title}
         </Text>
