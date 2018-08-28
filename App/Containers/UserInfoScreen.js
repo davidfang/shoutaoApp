@@ -40,6 +40,7 @@ class UserInfoScreen extends Component {
   componentDidMount () {
     if(this.props.loggedIn){
       this.props.getAccountInfo()
+      this.props.getBankInfo()
     }
   }
   _setting = () => {
@@ -56,60 +57,63 @@ class UserInfoScreen extends Component {
     const {loggedIn, nickname,invitation_code, grade, avatar} = this.props
     if (loggedIn) {
       let {accountInfo,bankInfo} = this.props
-      return (
-        <View style={styles.top}>
+      if(accountInfo) {
+        return (
+          <View style={styles.top}>
 
-          <View style={styles.head}>
-            <View style={styles.intro}>
-              <View style={styles.introLeft}>
-                <Avatar width={60} name={nickname} avatar={avatar}/>
-                <View>
-                  <View style={{flexDirection:'row'}}>
-                    <Text style={styles.nickName}>{nickname}</Text>
-                    <View style={styles.memberButton}><Text>{grade}</Text></View>
-                  </View>
-                  <View style={{flexDirection:'row'}}>
-                    <Text style={styles.invitationCode}>邀请码:{invitation_code}</Text>
-                    <CustomButton onPress={this._copyInvitationCode}
-                                         text='复制'
-                                         color={Colors.text}
-                                         styles={styles.copyButton}
-                    />
+            <View style={styles.head}>
+              <View style={styles.intro}>
+                <View style={styles.introLeft}>
+                  <Avatar width={60} name={nickname} avatar={avatar}/>
+                  <View>
+                    <View style={{flexDirection: 'row'}}>
+                      <Text style={styles.nickName}>{nickname}</Text>
+                      <View style={styles.memberButton}><Text>{grade}</Text></View>
+                    </View>
+                    <View style={{flexDirection: 'row'}}>
+                      <Text style={styles.invitationCode}>邀请码:{invitation_code}</Text>
+                      <CustomButton onPress={this._copyInvitationCode}
+                                    text='复制'
+                                    color={Colors.text}
+                                    styles={styles.copyButton}
+                      />
+                    </View>
                   </View>
                 </View>
+                <TouchableOpacity style={styles.setting} onPress={this._setting}>
+                  <Icon name='settings' size={30} color={Colors.text}/>
+                </TouchableOpacity>
               </View>
-              <TouchableOpacity style={styles.setting} onPress={this._setting}>
-                <Icon name='settings' size={30} color={Colors.text}/>
-              </TouchableOpacity>
+              <View style={styles.incomeTop}>
+                <Text>可提现金额：￥ {accountInfo.hasOwnProperty('cash_balance') ? accountInfo.cash_balance : 0} </Text>
+                <CustomButton onPress={this._withdrawal}
+                              text='提现'
+                              color={Colors.text}
+                              styles={styles.withdrawButton}
+                />
+              </View>
             </View>
-            <View style={styles.incomeTop}>
-              <Text>可提现金额：￥ {accountInfo.hasOwnProperty('cash_balance') ? accountInfo.cash_balance : 0} </Text>
-              <CustomButton onPress={this._withdrawal}
-                text='提现'
-                color={Colors.text}
-                styles={styles.withdrawButton}
-              />
+
+
+            <View style={styles.incomeBottom}>
+              <View style={styles.incomeBottomItem}>
+                <View><Text>￥{accountInfo.hasOwnProperty('uncash_balance') ? accountInfo.uncash_balance : 0}</Text></View>
+                <View><Text>本月确认</Text></View>
+              </View>
+              <View style={styles.incomeBottomItem}>
+                <View><Text>￥{accountInfo.hasOwnProperty('freeze_uncash_balance') ? accountInfo.freeze_uncash_balance : 0}</Text></View>
+                <View><Text>未确认</Text></View>
+              </View>
+              <View style={styles.incomeBottomItem}>
+                <View><Text>{accountInfo.hasOwnProperty('fans') ? accountInfo.fans : 0}人</Text></View>
+                <View><Text>粉丝数</Text></View>
+              </View>
             </View>
           </View>
-
-
-
-          <View style={styles.incomeBottom}>
-            <View style={styles.incomeBottomItem}>
-              <View><Text>￥{accountInfo.hasOwnProperty('uncash_balance') ? accountInfo.uncash_balance : 0}</Text></View>
-              <View><Text>本月确认</Text></View>
-            </View>
-            <View style={styles.incomeBottomItem}>
-              <View><Text>￥{accountInfo.hasOwnProperty('freeze_uncash_balance') ? accountInfo.freeze_uncash_balance : 0}</Text></View>
-              <View><Text>未确认</Text></View>
-            </View>
-            <View style={styles.incomeBottomItem}>
-              <View><Text>{accountInfo.hasOwnProperty('fans') ? accountInfo.fans : 0}人</Text></View>
-              <View><Text>粉丝数</Text></View>
-            </View>
-          </View>
-        </View>
-      )
+        )
+      }else{
+        return <View/>
+      }
     } else {
       return (
         <View style={styles.head}>
@@ -246,9 +250,11 @@ const mapDispatchToProps = (dispatch) => {
     logout: () => {
       dispatch(LoginActions.logout())
       dispatch(UserInfoActions.userInfoLogout())
+      dispatch(AccountActions.accountLogout())
     },
     uploadAvatar: (fileUrl, fileName) => dispatch(UserInfoActions.uploadAvatarRequest(fileUrl, fileName)),
-    getAccountInfo: () => dispatch(AccountActions.accountRequest())
+    getAccountInfo: () => dispatch(AccountActions.accountRequest()),
+    getBankInfo: () => dispatch(AccountActions.bankInfoRequest())
   }
 }
 

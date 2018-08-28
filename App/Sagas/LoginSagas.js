@@ -42,7 +42,7 @@ export function *loginByMobileVerifyCode(api,{mobile,verifyCode}) {
   }
   const response = yield call(api.loginByVerifyCode, authObj)
 
-  console.log(response)
+  //console.log(response)
   // success?
   if (response.ok) { // 网络请求成功
     const {data} = response.data
