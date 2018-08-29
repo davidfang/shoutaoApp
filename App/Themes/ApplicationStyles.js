@@ -89,9 +89,9 @@ const ApplicationStyles = {
       alignItems: 'center',
       paddingVertical: 15
     },
-    formHeadText:{
+    formHeadText: {
       color: Colors.black,
-      alignSelf:'center',
+      alignSelf: 'center',
       marginRight: 10,
       fontSize: Fonts.size.regular
     },
@@ -110,7 +110,8 @@ const ApplicationStyles = {
     formTextInput: {
       flex: 1,
       marginHorizontal: 10,
-      fontSize: 14
+      fontSize: 14,
+      padding: 0
     },
     formTextArea: {
       flex: 1,

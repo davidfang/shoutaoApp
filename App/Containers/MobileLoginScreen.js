@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {View, Text, TouchableOpacity,Image, TextInput} from 'react-native'
+import {View, Text, TouchableOpacity, Image, TextInput} from 'react-native'
 import {connect} from 'react-redux'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
@@ -54,33 +54,35 @@ class MobileLoginScreen extends Component {
               placeholder={'请填写注册的手机号'}
               onChangeText={text => this.setState({mobile: text.trim()})}
               value={this.state.mobile}
+              underlineColorAndroid='transparent'
             />
           </View>
-          <View style={styles.form}>
-            <View style={styles.formRow}>
-              <Text style={styles.formRowLabel}>短信</Text>
-              <TextInput
-                style={styles.formTextInput}
-                placeholder={'短信验证码'}
-                onChangeText={text => this.setState({verifyCode: text.trim()})}
-                value={this.state.verifyCode}
-              />
-              <CountDownButton
-                timerTitle={'获取验证码'}
-                timerCount={120}
-                enable={this.state.mobile.length > 10}
-                onClick={(shouldStartCounting) => {
-                  this.props.getVerifyCode(this.state.mobile)
-                  shouldStartCounting && shouldStartCounting(true)
-                }}
-                // timerEnd={()=>{
-                //   // this.setState({
-                //   //   state: '倒计时结束'
-                //   // })
-                // }}
-              />
-            </View>
+
+          <View style={styles.formRow}>
+            <Text style={styles.formRowLabel}>短信</Text>
+            <TextInput
+              style={styles.formTextInput}
+              placeholder={'短信验证码'}
+              onChangeText={text => this.setState({verifyCode: text.trim()})}
+              value={this.state.verifyCode}
+              underlineColorAndroid='transparent'
+            />
+            <CountDownButton
+              timerTitle={'获取验证码'}
+              timerCount={120}
+              enable={this.state.mobile.length > 10}
+              onClick={(shouldStartCounting) => {
+                this.props.getVerifyCode(this.state.mobile)
+                shouldStartCounting && shouldStartCounting(true)
+              }}
+              // timerEnd={()=>{
+              //   // this.setState({
+              //   //   state: '倒计时结束'
+              //   // })
+              // }}
+            />
           </View>
+
           {/*按钮部分*/}
           <View style={styles.viewWrap}>
             <TouchableOpacity style={styles.button} onPress={() => this.submit()} underlayColor={Colors.ember}>
@@ -88,17 +90,21 @@ class MobileLoginScreen extends Component {
             </TouchableOpacity>
           </View>
           <View style={styles.viewWrap}>
-            <TouchableOpacity style={[styles.button, {backgroundColor: Colors.banner}]} onPress={() => this.props.navigation.navigate('RegisterScreen')} underlayColor={Colors.ember}>
+            <TouchableOpacity style={[styles.button, {backgroundColor: Colors.banner}]}
+                              onPress={() => this.props.navigation.navigate('RegisterScreen')}
+                              underlayColor={Colors.ember}>
               <Text style={styles.buttonText}>注册</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={[styles.button, {backgroundColor: Colors.banner}]} onPress={() => this.props.navigation.navigate('LoginScreen')} underlayColor={Colors.ember}>
+            <TouchableOpacity style={[styles.button, {backgroundColor: Colors.banner}]}
+                              onPress={() => this.props.navigation.navigate('LoginScreen')}
+                              underlayColor={Colors.ember}>
               <Text style={styles.buttonText}>密码登录</Text>
             </TouchableOpacity>
           </View>
         </View>
 
 
-        </View>
+      </View>
 
 
     )

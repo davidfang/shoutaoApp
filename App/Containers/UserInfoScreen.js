@@ -205,6 +205,10 @@ class UserInfoScreen extends Component {
             <Image style={styles.gridIcon} source={require('../Images/kefu.png')}/>
             <Text>联系客服</Text>
           </TouchableOpacity>
+          <TouchableOpacity style={styles.gridItem} onPress={() => this._webPress('test','测试')}>
+            <Image style={styles.gridIcon} source={require('../Images/kefu.png')}/>
+            <Text>测试</Text>
+          </TouchableOpacity>
         </View>
         {this.props.loggedIn &&  (<View style={styles.rowItemGroup}>
             <RowItem title='修改密码' icon='vpn-key' iconColor='lightskyblue'

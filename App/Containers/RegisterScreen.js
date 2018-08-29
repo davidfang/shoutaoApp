@@ -14,6 +14,7 @@ import CountDownButton from '../Components/CountDownButton'
 
 // Styles
 import styles from './Styles/RegisterScreenStyle'
+import AppConfig from "../Config/AppConfig";
 
 class RegisterScreen extends Component {
   constructor(props) {
@@ -64,7 +65,17 @@ class RegisterScreen extends Component {
   componentWillReceiveProps (newProps, oldProps) {
 
   }
-
+  /**
+   * 用户注册协议
+   * @private
+   */
+  _agreement = () => {
+    const {navigation} = this.props
+    url = AppConfig.webUrl + 'article/12'
+    //console.log(url,title)
+    navigation.navigate &&
+    navigation.navigate('WebScreen',{url,title:'注册协议'})
+  }
   render() {
     return (
       <View style={styles.container}>
@@ -80,6 +91,7 @@ class RegisterScreen extends Component {
                 this.setState({mobile: text})
               }}
               value={this.state.mobile}
+              underlineColorAndroid='transparent'
             />
           </View>
           <View style={styles.formRow}>
@@ -93,6 +105,7 @@ class RegisterScreen extends Component {
                 this.setState({verifyCode: text})
               }}
               value={this.state.verifyCode}
+              underlineColorAndroid='transparent'
             />
 
 
@@ -125,6 +138,7 @@ class RegisterScreen extends Component {
                 this.setState({password: text})
               }}
               value={this.state.password}
+              underlineColorAndroid='transparent'
             />
             <Switch
               onValueChange={value => {
@@ -144,6 +158,7 @@ class RegisterScreen extends Component {
                 this.setState({invitation_code: text})
               }}
               value={this.state.invitation_code}
+              underlineColorAndroid='transparent'
             />
           </View>
         </View>
@@ -156,7 +171,7 @@ class RegisterScreen extends Component {
             </TouchableOpacity>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
               <Text style={{color: '#646464', marginLeft: 10}}>我已阅读并同意</Text>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() =>this._agreement()} >
                 <Text style={{color: '#2972C6'}}>《服务条款》</Text>
               </TouchableOpacity>
             </View>

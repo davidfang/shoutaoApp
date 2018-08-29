@@ -79,6 +79,7 @@ class EditUserScreen extends Component {
               }}
               value={this.state.nickname}
               returnKeyType='done'
+              underlineColorAndroid='transparent'
             />
           </View>
           <View style={styles.formRow}>
@@ -93,6 +94,7 @@ class EditUserScreen extends Component {
               }}
               returnKeyType='done'
               value={this.state.email}
+              underlineColorAndroid='transparent'
             />
           </View>
           <View style={styles.formRow}>
@@ -107,6 +109,7 @@ class EditUserScreen extends Component {
               }}
               value={this.state.age}
               returnKeyType='done'
+              underlineColorAndroid='transparent'
             />
           </View>
 
@@ -130,7 +133,7 @@ class EditUserScreen extends Component {
                 <Icon name='human-female' size={30}color={this.state.gender == '2' ? '#E25287' : '#D5D5D5'}/>
               </TouchableOpacity>
             </View>
-            <Text style={{color: '#646464'}}>选填</Text>
+
           </View>
         </View>
         {/*按钮部分*/}
