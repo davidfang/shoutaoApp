@@ -1,10 +1,10 @@
 import { StyleSheet } from 'react-native'
-import { Metrics, Colors } from '../../Themes'
+import { Metrics, Colors,ScreenUtil } from '../../Themes'
 
 export default StyleSheet.create({
   container: {
     width: Metrics.width,
-    height: 100,
+    height: ScreenUtil.scaleHeight(100),
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'center',
@@ -13,18 +13,17 @@ export default StyleSheet.create({
   },
   item: {
     flex: 1,
-    height: 75,
+    height: ScreenUtil.scaleHeight(75),
     alignItems: 'center',
     justifyContent: 'center',
-    paddingLeft: 5,
-    paddingRight: 5
+    paddingHorizontal: ScreenUtil.scaleSize(5)
   },
   image: {
-    width: 50,
-    height: 50
+    width: ScreenUtil.scaleSize(50),
+    height: ScreenUtil.scaleHeight(50)
   },
   title: {
-    marginTop: 5,
+    marginTop: ScreenUtil.scaleHeight(5),
     textAlign: 'center'
   }
 })

@@ -1,13 +1,13 @@
 import { StyleSheet } from 'react-native'
-import { Colors } from '../../Themes/'
+import { Colors,ScreenUtil } from '../../Themes/'
 
 export default StyleSheet.create({
   header: {
     backgroundColor: Colors.background
   },
   icon: {
-    width: 24,
-    height: 24
+    width: ScreenUtil.scaleSize(24),
+    height: ScreenUtil.scaleSize(24)
   },
   headerTitleStyle: {
     color: Colors.text,

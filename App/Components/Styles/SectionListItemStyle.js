@@ -1,26 +1,27 @@
 import { StyleSheet } from 'react-native'
-import {Colors} from '../../Themes'
+import {Colors, ScreenUtil} from '../../Themes'
 
 export default StyleSheet.create({
   productItem: {
-    height: 150,
+    height: ScreenUtil.scaleHeight(150),
     flexDirection: 'row',
-    padding: 10,
+    padding: ScreenUtil.scaleSize(10),
     backgroundColor: Colors.white,
-    borderBottomWidth: 1,
+    borderBottomWidth: ScreenUtil.scaleHeight(1),
     borderBottomColor: Colors.border
   },
   zhutu: {
-    width: 150,
-    height: 150
+    width: ScreenUtil.scaleSize(150),
+    height: ScreenUtil.scaleHeight(150)
   },
   info: {
     flex: 1,
-    paddingLeft: 5,
-    justifyContent: 'space-around'
+    paddingLeft: ScreenUtil.scaleSize(5),
+    justifyContent: 'space-around',
+    height: ScreenUtil.scaleHeight(150)
   },
   title: {
-    height: 40,
+    height: ScreenUtil.scaleHeight(40),
     alignItems: 'center'
   },
   coupon: {
@@ -31,8 +32,7 @@ export default StyleSheet.create({
   couponTitle: {
     backgroundColor: Colors.orange,
     color: Colors.text,
-    paddingLeft: 3,
-    paddingRight: 3,
+    paddingHorizontal: ScreenUtil.scaleSize(3),
     borderWidth: 1,
     borderColor: Colors.orange,
     textAlign: 'center'
@@ -40,8 +40,7 @@ export default StyleSheet.create({
   couponInfo: {
     borderWidth: 1,
     borderColor: Colors.orange,
-    paddingLeft: 5,
-    paddingRight: 5
+    paddingHorizontal: ScreenUtil.scaleSize(5)
   },
   sale: {
     flexDirection: 'row',
@@ -49,8 +48,8 @@ export default StyleSheet.create({
     alignItems: 'center'
   },
   saleImage: {
-    width: 16,
-    height: 16,
+    width: ScreenUtil.scaleSize(16),
+    height: ScreenUtil.scaleSize(16),
     resizeMode: 'stretch'
   },
   saleInfo: {
@@ -60,17 +59,20 @@ export default StyleSheet.create({
     flexDirection: 'row',
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'space-between'
+    justifyContent: 'space-around'
   },
   cprice: {
     color: Colors.selected,
-    fontSize: 16,
+    fontSize: ScreenUtil.setSpText(14),
     fontWeight: 'bold'
   },
   rprice: {
-    paddingLeft: 5,
+    paddingLeft: ScreenUtil.scaleSize(5),
     textDecorationLine: 'line-through',
     flex: 1,
-    fontSize: 13
+    fontSize: ScreenUtil.setSpText(12.5)
+  },
+  priceLabel:{
+    fontSize:ScreenUtil.setSpText(12)
   }
 })

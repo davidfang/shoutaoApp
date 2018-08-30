@@ -1,13 +1,13 @@
 import React, {Component} from 'react'
-import {View, Text, TextInput, Switch, TouchableOpacity} from 'react-native'
+import {View, Text, TextInput, Switch, TouchableOpacity, Keyboard,TouchableWithoutFeedback} from 'react-native'
 import {connect} from 'react-redux'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
 
 // Styles
 import styles from './Styles/SetPasswordScreenStyle'
-import UserInfoActions, {UserInfoSelectors} from "../Redux/UserInfoRedux";
-import Toast from "../Lib/Toast";
+import UserInfoActions from "../Redux/UserInfoRedux";
+import {Colors, ScreenUtil} from "../Themes";
 
 class SetPasswordScreen extends Component {
   constructor(props) {
@@ -42,6 +42,7 @@ class SetPasswordScreen extends Component {
 
   render() {
     return (
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <View style={styles.container}>
         {/*表单部分*/}
         <View style={styles.form}>
@@ -53,9 +54,11 @@ class SetPasswordScreen extends Component {
             <TextInput
               style={styles.formTextInput}
               placeholder={'6-20位字母、数字、符号'}
+              placeholderTextColor={Colors.steel}
               secureTextEntry={this.state.secret}
               onChangeText={text => this.setState({password: text.trim()})}
               value={this.state.password}
+              underlineColorAndroid='transparent'
             />
             <Switch
               onValueChange={value => this.setState({secret: value})}
@@ -64,7 +67,7 @@ class SetPasswordScreen extends Component {
           </View>
 
           {/*按钮部分*/}
-          <View style={{marginTop: 40, marginHorizontal: 10}}>
+          <View style={{marginTop: ScreenUtil.scaleHeight(40), marginHorizontal: ScreenUtil.scaleSize(10)}}>
             <TouchableOpacity
               style={styles.formButton}
               onPress={() => this.submit()}>
@@ -73,6 +76,7 @@ class SetPasswordScreen extends Component {
           </View>
         </View>
       </View>
+      </TouchableWithoutFeedback>
     )
   }
 }

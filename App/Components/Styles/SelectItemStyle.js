@@ -1,5 +1,6 @@
-import {  StyleSheet} from 'react-native'
-import {Colors} from '../../Themes'
+import {StyleSheet} from 'react-native'
+import {Colors, ScreenUtil} from '../../Themes'
+
 export default StyleSheet.create({
 
   item: {
@@ -7,30 +8,29 @@ export default StyleSheet.create({
   },
 
   container: {
-    height: 50,
+    height: ScreenUtil.scaleHeight(50),
     flexDirection: 'row',
     alignItems: 'center'
   },
 
   img: {
-    width: 20,
-    height: 20,
-    marginLeft: 20
+    width: ScreenUtil.scaleSize(20),
+    height: ScreenUtil.scaleHeight(20),
+    marginLeft: ScreenUtil.scaleSize(20)
   },
 
   title: {
     flex: 1,
-    marginLeft: 15
+    marginLeft: ScreenUtil.scaleSize(15)
   },
 
   skipImg: {
-    marginRight: 20
+    marginRight: ScreenUtil.scaleSize(20)
   },
 
   underline: {
-    height: 0.5,
+    height: ScreenUtil.scaleHeight(0.5),
     backgroundColor: Colors.text,
-    marginLeft: 10,
-    marginRight: 10
+    marginHorizontal: ScreenUtil.scaleSize(10)
   }
 })

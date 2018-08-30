@@ -1,16 +1,16 @@
 import { StyleSheet } from 'react-native'
-import {Colors} from '../../Themes'
+import {Colors,ScreenUtil} from '../../Themes'
 export default StyleSheet.create({
   footerContainer: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 10,
-    height: 44
+    padding: ScreenUtil.scaleSize(10),
+    height: ScreenUtil.scaleHeight(44)
   },
   footerText: {
-    fontSize: 14,
+    fontSize: ScreenUtil.setSpText(14),
     color: Colors.charcoal
   }
 })

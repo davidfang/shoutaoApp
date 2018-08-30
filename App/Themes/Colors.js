@@ -27,7 +27,8 @@ const colors = {
   descText: '#616161',
   selected: '#d32f2f',
   disabledBackGround: '#eeeeee',
-  white:'#ffffff'
+  white:'#ffffff',
+  textInput:'#f2ecee'
 }
 
 export default colors

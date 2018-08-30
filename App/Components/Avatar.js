@@ -2,8 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { View, Text, Image } from 'react-native'
 import styles from './Styles/AvatarStyle'
-import { Images } from '../Themes'
-
+import { Images,ScreenUtil } from '../Themes'
 export default class Avatar extends React.Component {
 
   render () {
@@ -40,6 +39,6 @@ Avatar.propTypes = {
 
 // Defaults for props
 Avatar.defaultProps = {
-  width: 60,
+  width: ScreenUtil.scaleSize(60),
   backgroundColor: 'skyblue'
 }

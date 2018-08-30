@@ -1,5 +1,5 @@
 import React from 'react'
-import { StackNavigator } from 'react-navigation'
+import {StackNavigator} from 'react-navigation'
 import WithdrawalScreen from '../Containers/WithdrawalScreen'
 import FeedbackScreen from '../Containers/FeedbackScreen'
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -17,17 +17,17 @@ import ChannelScreen from '../Containers/ChannelScreen'
 
 import styles from './Styles/NavigationStyles'
 import SetPasswordScreen from "../Containers/SetPasswordScreen";
-
+import {ScreenUtil} from '../Themes'
 // Manifest of possible screens
 const PrimaryNav = StackNavigator({
   FeedbackScreen: {
     screen: FeedbackScreen,
-    navigationOptions:{
-      title:'意见反馈'
+    navigationOptions: {
+      title: '意见反馈'
     }
   },
-  HomeScreen: { screen: HomeScreen },
-  SearchScreen: { screen: SearchScreen },
+  HomeScreen: {screen: HomeScreen},
+  SearchScreen: {screen: SearchScreen},
   WebScreen: {
     screen: WebScreen,
     navigationOptions: ({navigation}) => {
@@ -39,9 +39,9 @@ const PrimaryNav = StackNavigator({
   },
   SetPasswordScreen: {
     screen: SetPasswordScreen,
-    navigationOptions:{
-      title:'设置密码',
-      header:null
+    navigationOptions: {
+      title: '设置密码',
+      header: null
     }
   },
   ResultScreen: {screen: ResultScreen},
@@ -91,10 +91,14 @@ const PrimaryNav = StackNavigator({
     return {
       headerStyle: styles.header,
       headerTitleStyle: styles.headerTitleStyle,
-      headerLeft: <Icon name='chevron-left' onPress={() => {goBack()}} size={24} color='#fff'
-                        style={{marginLeft: 20}}/>,
-      headerRight: <Icon name='home' onPress={() => {navigate('MainStack')}} size={24} color='#fff'
-                         style={{marginRight: 20}}/>,
+      headerLeft: <Icon name='chevron-left' onPress={() => {
+        goBack()
+      }} size={ScreenUtil.scaleSize(24)} color='#fff'
+                        style={{marginLeft: ScreenUtil.scaleSize(20)}}/>,
+      headerRight: <Icon name='home' onPress={() => {
+        navigate('MainStack')
+      }} size={ScreenUtil.scaleSize(24)} color='#fff'
+                         style={{marginRight: ScreenUtil.scaleSize(20)}}/>,
     }
   }
 })

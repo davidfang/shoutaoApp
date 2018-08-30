@@ -1,5 +1,5 @@
-import { StyleSheet } from 'react-native'
-import { ApplicationStyles, Colors, Metrics, Fonts } from '../../Themes/'
+import {StyleSheet} from 'react-native'
+import {ApplicationStyles, Colors, Metrics, Fonts, ScreenUtil} from '../../Themes/'
 
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
@@ -10,15 +10,15 @@ export default StyleSheet.create({
 
     justifyContent: 'space-between',
     alignItems: 'flex-start',
-    padding: 10
+    padding: ScreenUtil.scaleSize(10)
   },
   top: {
     backgroundColor: Colors.steel,
-    paddingBottom: 3
+    paddingBottom: ScreenUtil.scaleSize(3)
   },
   headbg: {
     width: Metrics.screenWidth,
-    height: 230
+    height: ScreenUtil.scaleHeight(230)
   },
   head: {
     backgroundColor: Colors.background
@@ -29,13 +29,13 @@ export default StyleSheet.create({
     alignItems: 'flex-end'
   },
   incomeTop: {
-    marginHorizontal: 10,
-    padding: 10,
+    marginHorizontal: ScreenUtil.scaleSize(10),
+    padding: ScreenUtil.scaleSize(10),
     display: 'flex',
     backgroundColor: Colors.disabledBackGround,
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
-    borderBottomWidth: 1,
+    borderTopLeftRadius: ScreenUtil.scaleSize(10),
+    borderTopRightRadius: ScreenUtil.scaleSize(10),
+    borderBottomWidth: ScreenUtil.scaleHeight(1),
     borderBottomColor: Colors.border,
     flexDirection: 'row',
     alignItems: 'center',
@@ -43,11 +43,11 @@ export default StyleSheet.create({
   },
   incomeBottom: {
     backgroundColor: Colors.disabledBackGround,
-    marginHorizontal: 10,
-    padding: 10,
+    marginHorizontal: ScreenUtil.scaleSize(10),
+    padding: ScreenUtil.scaleSize(10),
     display: 'flex',
-    borderBottomLeftRadius: 10,
-    borderBottomRightRadius: 10,
+    borderBottomLeftRadius: ScreenUtil.scaleSize(10),
+    borderBottomRightRadius: ScreenUtil.scaleSize(10),
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around'
@@ -56,17 +56,17 @@ export default StyleSheet.create({
     alignItems: 'center'
   },
   introLeft: {
-    height: Metrics.screenWidth / 3 - 20,
+    height: Metrics.screenWidth / 3 - ScreenUtil.scaleHeight(20),
     justifyContent: 'flex-start',
     alignItems: 'flex-end',
     flexDirection: 'row'
   },
   introRight: {
-    height: 60,
+    height: ScreenUtil.scaleHeight(60),
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginLeft: 20,
+    marginLeft: ScreenUtil.scaleSize(20),
     backgroundColor: Colors.ember
   },
   nickName: {
@@ -78,31 +78,31 @@ export default StyleSheet.create({
     ...Fonts.style.normal
   },
   memberButton: {
-    borderRadius: 20,
+    borderRadius: ScreenUtil.scaleSize(20),
     backgroundColor: Colors.disabledBackGround,
-    paddingVertical: 2,
-    paddingHorizontal: 10
+    paddingVertical: ScreenUtil.scaleHeight(2),
+    paddingHorizontal: ScreenUtil.scaleSize(10)
   },
-  memberText:{
-    color:Colors.fire
+  memberText: {
+    color: Colors.fire
   },
   copyButton: {
-    borderRadius: 20,
-    borderWidth: 1,
+    borderRadius: ScreenUtil.scaleSize(20),
+    borderWidth: ScreenUtil.scaleSize(1),
     borderColor: Colors.disabledBackGround,
-    padding: 2,
-    paddingHorizontal: 10,
+    padding: ScreenUtil.scaleSize(2),
+    paddingHorizontal: ScreenUtil.scaleSize(10),
     backgroundColor: Colors.selected
   },
   withdrawButton: {
-    borderRadius: 20,
+    borderRadius: ScreenUtil.scaleSize(20),
     backgroundColor: Colors.button,
-    padding: 2,
-    paddingHorizontal: 10,
-    marginVertical: 15
+    padding: ScreenUtil.scaleSize(2),
+    paddingHorizontal: ScreenUtil.scaleSize(10),
+    marginVertical: ScreenUtil.scaleHeight(15)
   },
   setting: {
-    height: Metrics.screenWidth / 3 - 20,
+    height: Metrics.screenWidth / 3 - ScreenUtil.scaleHeight(20),
     margin: 10
   },
   rowItemGroup: {
@@ -122,9 +122,9 @@ export default StyleSheet.create({
     alignItems: 'center'
   },
   gridIcon: {
-    width: 32,
-    height: 32,
-    margin: 10
+    width: ScreenUtil.scaleSize(32),
+    height: ScreenUtil.scaleHeight(32),
+    margin: ScreenUtil.scaleSize(10)
   },
   title: {
     color: Colors.silver

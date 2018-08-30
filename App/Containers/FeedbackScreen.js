@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {View, Text, TouchableOpacity, TextInput, Image, Platform} from 'react-native'
+import {View, Text, TouchableOpacity, TextInput, Platform, Keyboard, TouchableWithoutFeedback} from 'react-native'
 import {connect} from 'react-redux'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
@@ -9,13 +9,13 @@ import BannerActions from '../Redux/BannerRedux'
 
 // Styles
 import styles from './Styles/FeedbackScreenStyle'
-import {Colors} from "../Themes";
+import {Colors, ScreenUtil} from "../Themes";
 
 class FeedbackScreen extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      fetching:false,
+      fetching: false,
       body: '',
       img: '',
       fileUrl: '',
@@ -50,33 +50,36 @@ class FeedbackScreen extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <View style={styles.formRow}>
-          <Text style={styles.formRowLabel}>我要反馈</Text>
-          <TextInput
-            ref='body'
-            multiline={true}
-            style={styles.formTextArea}
-            value={this.state.body}
-            keyboardType='default'
-            autoCapitalize='none'
-            autoCorrect={false}
-            onChangeText={(text) => this.setState({body: text})}
-            underlineColorAndroid='transparent'
-            placeholder='请输入您的宝贵意见'
-          />
-        </View>
-        <View style={styles.formRow}>
-          <Text style={styles.formRowLabel}>上传截图</Text>
-          <TouchableOpacity style={styles.setting} onPress={this.selectPhotoTapped.bind(this)}>
-            <Icon name='image-plus' size={60} color={Colors.steel}/>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+        <View style={styles.container}>
+          <View style={styles.formRow}>
+            <Text style={styles.formRowLabel}>我要反馈</Text>
+            <TextInput
+              ref='body'
+              multiline={true}
+              style={styles.formTextArea}
+              value={this.state.body}
+              keyboardType='default'
+              autoCapitalize='none'
+              autoCorrect={false}
+              onChangeText={(text) => this.setState({body: text})}
+              underlineColorAndroid='transparent'
+              placeholder='请输入您的宝贵意见'
+              placeholderTextColor={Colors.steel}
+            />
+          </View>
+          <View style={styles.formRow}>
+            <Text style={styles.formRowLabel}>上传截图</Text>
+            <TouchableOpacity style={styles.setting} onPress={this.selectPhotoTapped.bind(this)}>
+              <Icon name='image-plus' size={ScreenUtil.scaleSize(60)} color={Colors.steel}/>
+            </TouchableOpacity>
+            <Text>{this.state.fileName}</Text>
+          </View>
+          <TouchableOpacity style={styles.formButton} onPress={() => this.submit()}>
+            <Text style={styles.formButtonText}>提交</Text>
           </TouchableOpacity>
-          <Text>{this.state.fileName}</Text>
         </View>
-        <TouchableOpacity style={styles.formButton} onPress={() => this.submit()} >
-          <Text style={styles.formButtonText}>提交</Text>
-        </TouchableOpacity>
-      </View>
+      </TouchableWithoutFeedback>
     )
   }
 }

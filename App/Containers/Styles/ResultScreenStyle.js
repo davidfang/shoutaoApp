@@ -1,7 +1,5 @@
-import { StyleSheet } from 'react-native'
-import { ApplicationStyles } from '../../Themes/'
-import {Colors} from "../../Themes";
-import Metrics from "../../Themes/Metrics";
+import {StyleSheet} from 'react-native'
+import {ApplicationStyles, Metrics, Colors, ScreenUtil} from '../../Themes/'
 
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
@@ -14,15 +12,15 @@ export default StyleSheet.create({
     paddingTop: Metrics.doubleBaseMargin,
   },
   backIcon: {
-    width: 30,
-    height: 30,
+    width: ScreenUtil.scaleSize(30),
+    height: ScreenUtil.scaleHeight(30),
     backgroundColor: Colors.windowTint,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 30,
+    borderRadius: ScreenUtil.scaleSize(30),
     position: 'absolute',
-    left: 25,
-    top: 25,
+    left: ScreenUtil.scaleSize(25),
+    top: ScreenUtil.scaleHeight(25),
     zIndex: 1000
-  },
+  }
 })

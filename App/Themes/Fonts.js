@@ -1,3 +1,4 @@
+import ScreenUtil from './ScreenUtil'
 const type = {
   base: 'Avenir-Book',
   bold: 'Avenir-Black',
@@ -5,17 +6,17 @@ const type = {
 }
 
 const size = {
-  h1: 38,
-  h2: 34,
-  h3: 30,
-  h4: 26,
-  h5: 20,
-  h6: 19,
-  input: 18,
-  regular: 17,
-  medium: 14,
-  small: 12,
-  tiny: 8.5
+  h1: ScreenUtil.setSpText(38),
+  h2: ScreenUtil.setSpText(34),
+  h3: ScreenUtil.setSpText(30),
+  h4: ScreenUtil.setSpText(26),
+  h5: ScreenUtil.setSpText(20),
+  h6: ScreenUtil.setSpText(19),
+  input: ScreenUtil.setSpText(18),
+  regular: ScreenUtil.setSpText(17),
+  medium: ScreenUtil.setSpText(14),
+  small: ScreenUtil.setSpText(12),
+  tiny: ScreenUtil.setSpText(8.5)
 }
 
 const style = {

@@ -1,18 +1,18 @@
-import { StyleSheet } from 'react-native'
-import { ApplicationStyles, Colors } from '../../Themes/'
+import {StyleSheet} from 'react-native'
+import {ApplicationStyles, Colors, ScreenUtil} from '../../Themes/'
 
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
   backIcon: {
-    width: 30,
-    height: 30,
+    width: ScreenUtil.scaleSize(30),
+    height: ScreenUtil.scaleHeight(30),
     backgroundColor: Colors.windowTint,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 30,
+    borderRadius: ScreenUtil.scaleSize(30),
     position: 'absolute',
-    left: 25,
-    top: 25,
+    left: ScreenUtil.scaleSize(25),
+    top: ScreenUtil.scaleHeight(25),
     zIndex: 1000
   },
   autoImage: {
@@ -21,7 +21,7 @@ export default StyleSheet.create({
     resizeMode: 'stretch'
   },
   buyCard: {
-    height: 50,
+    height: ScreenUtil.scaleHeight(50),
     backgroundColor: Colors.white,
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -29,40 +29,39 @@ export default StyleSheet.create({
   },
   coupon: {
     backgroundColor: Colors.orange,
-    height: 50,
+    height: ScreenUtil.scaleHeight(50),
     justifyContent: 'center',
     alignItems: 'center',
-    minWidth: 70
+    minWidth: ScreenUtil.scaleSize(70)
   },
   getCoupon: {
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: Colors.selected,
-    width: 120,
-    height: 50
+    width: ScreenUtil.scaleSize(120),
+    height: ScreenUtil.scaleHeight(50)
   },
   getCouponText: {
     fontWeight: 'bold',
-    fontSize: 18,
+    fontSize: ScreenUtil.setSpText(18),
     color: Colors.text,
     textAlign: 'center',
     textAlignVertical: 'center'
   },
-  detailLabel:{
+  detailLabel: {
     borderLeftColor: Colors.selected,
-    borderLeftWidth: 3,
+    borderLeftWidth: ScreenUtil.scaleSize(3),
     borderStyle: 'solid',
-    height: 45,
-    padding: 3,
+    height: ScreenUtil.scaleHeight(45),
+    padding: ScreenUtil.scaleSize(3),
     justifyContent: 'center',
     backgroundColor: Colors.white,
-    marginTop: 5
+    marginTop: ScreenUtil.scaleHeight(5)
   },
   salePrice: {
-    fontSize: 24,
+    fontSize: ScreenUtil.setSpText(24),
     color: Colors.selected,
     fontWeight: 'bold',
-    marginLeft: 5,
-    marginRight: 5
-  },
+    marginHorizontal: ScreenUtil.scaleSize(5)
+  }
 })

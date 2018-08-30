@@ -1,18 +1,18 @@
 import { StyleSheet } from 'react-native'
-import {Colors, Metrics} from '../../Themes'
+import {Colors, Metrics, ScreenUtil} from '../../Themes'
 
 export default StyleSheet.create({
   container: {
     //flex: 1,
     //height: 200
-    padding:3,
+    padding:ScreenUtil.scaleSize(3),
     backgroundColor:Colors.silver
   },
   productItem: {
-    height: 200,
+    height: ScreenUtil.scaleHeight(200),
     width: Metrics.screenWidth * 0.3,
     flexDirection: 'column',
-    padding: 5,
+    padding: ScreenUtil.scaleSize(5),
     backgroundColor: Colors.silver,
     borderBottomWidth: 1,
     borderBottomColor: Colors.border,
@@ -20,7 +20,7 @@ export default StyleSheet.create({
   },
   zhutu: {
     width: Metrics.screenWidth * 0.3,
-    height: 100
+    height: ScreenUtil.scaleHeight(100)
   },
   info: {
     flex: 1,
@@ -34,22 +34,20 @@ export default StyleSheet.create({
   coupon: {
     flexDirection: 'row',
     alignItems: 'center',
-    top: -20
+    top: - ScreenUtil.scaleHeight(20)
   },
   couponTitle: {
     backgroundColor: Colors.orange,
     color: Colors.text,
-    paddingLeft: 3,
-    paddingRight: 3,
-    borderWidth: 1,
+    paddingHorizontal: ScreenUtil.scaleSize(3),
+    borderWidth: ScreenUtil.scaleSize(1),
     borderColor: Colors.orange,
     textAlign: 'center'
   },
   couponInfo: {
-    borderWidth: 1,
+    borderWidth: ScreenUtil.scaleSize(1),
     borderColor: Colors.orange,
-    paddingLeft: 5,
-    paddingRight: 5
+    paddingHorizontal: ScreenUtil.scaleSize(5)
   },
   sale: {
     flexDirection: 'row',
@@ -57,8 +55,8 @@ export default StyleSheet.create({
     alignItems: 'center'
   },
   saleImage: {
-    width: 18,
-    height: 18,
+    width: ScreenUtil.scaleSize(18),
+    height: ScreenUtil.scaleHeight(18),
     resizeMode: 'stretch'
   },
   saleInfo: {
@@ -72,13 +70,13 @@ export default StyleSheet.create({
   },
   cprice: {
     color: Colors.fire,
-    fontSize: 15,
+    fontSize: ScreenUtil.setSpText(15),
     fontWeight: 'bold'
   },
   rprice: {
-    paddingLeft: 5,
+    paddingLeft: ScreenUtil.scaleSize(5),
     textDecorationLine: 'line-through',
     flex: 1,
-    fontSize: 12
+    fontSize: ScreenUtil.setSpText(12)
   }
 })

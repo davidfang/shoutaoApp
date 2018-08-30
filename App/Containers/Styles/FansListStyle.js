@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native'
-import {ApplicationStyles, Metrics, Colors} from '../../Themes'
+import {ApplicationStyles, Metrics, Colors, ScreenUtil} from '../../Themes'
 
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
@@ -31,13 +31,13 @@ export default StyleSheet.create({
     color: Colors.charcoal,
     flex: 2
   },
-  avatarLabel:{
+  avatarLabel: {
     flex: 1,
-    alignItems:'center'
+    alignItems: 'center'
   },
   avatar: {
-    width: 46,
-    height: 46
+    width: ScreenUtil.scaleSize(46),
+    height: ScreenUtil.scaleSize(46)
   },
   listHeader: {
     flexDirection: 'row',

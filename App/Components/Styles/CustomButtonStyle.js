@@ -1,5 +1,6 @@
-import { StyleSheet } from 'react-native'
-import { Fonts, Colors } from '../../Themes/'
+import {StyleSheet} from 'react-native'
+import {Fonts, Colors, ScreenUtil} from '../../Themes/'
+
 export default StyleSheet.create({
   button: {
     //marginVertical: 5,
@@ -8,8 +9,8 @@ export default StyleSheet.create({
     borderTopWidth: 1,
     borderBottomWidth: 1,
     backgroundColor: Colors.ember,
-    marginHorizontal: 5,
-    borderRadius: 5,
+    marginHorizontal: ScreenUtil.scaleSize(5),
+    borderRadius: ScreenUtil.scaleSize(5),
   },
   buttonText: {
     //margin: 10,

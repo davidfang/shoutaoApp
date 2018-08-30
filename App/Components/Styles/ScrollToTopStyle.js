@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native'
+import {ScreenUtil} from '../../Themes'
 
 export default StyleSheet.create({
   container: {
@@ -8,9 +9,9 @@ export default StyleSheet.create({
     position: 'absolute',
     alignItems: 'center',
     justifyContent: 'center',
-    width: 45,
-    height: 45,
-    right: 35,
-    bottom: 55
+    width: ScreenUtil.scaleSize(45),
+    height: ScreenUtil.scaleSize(45),
+    right: ScreenUtil.scaleSize(35),
+    bottom: ScreenUtil.scaleSize(55)
   }
 })

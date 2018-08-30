@@ -1,7 +1,8 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import PropTypes from 'prop-types';
-import { TouchableOpacity, Image } from 'react-native'
+import {TouchableOpacity, Image} from 'react-native'
 import styles from './Styles/ScrollToTopStyle'
+import {ScreenUtil} from '../Themes'
 
 export default class ScrollToTop extends Component {
   // // Prop type warnings
@@ -15,16 +16,16 @@ export default class ScrollToTop extends Component {
     isShow: false
   }
 
-  render () {
-    const { isShow, scrollTo } = this.props
+  render() {
+    const {isShow, scrollTo} = this.props
     const _onPress = () => {
       scrollTo && scrollTo()
     }
     return isShow ? (
-      <TouchableOpacity style={styles.toTop}  activeOpacity={1} onPress={_onPress}  >
+      <TouchableOpacity style={styles.toTop} activeOpacity={1} onPress={_onPress}>
         <Image
           source={require('../Images/scroll.png')}
-          style={{ height: 32, width: 32 }}
+          style={{height: ScreenUtil.scaleSize(32), width: ScreenUtil.scaleSize(32)}}
         />
       </TouchableOpacity>
     ) : null

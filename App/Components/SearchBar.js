@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 // import PropTypes from 'prop-types'
 import { Text,  View,  TextInput,  TouchableOpacity,  Keyboard,  Image } from 'react-native'
 import styles from './Styles/SearchBarStyle'
-
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import {Colors,  ScreenUtil} from '../Themes/'
 export default class SearchBar extends Component {
   // // Prop type warnings
   // static propTypes = {
@@ -48,9 +49,7 @@ export default class SearchBar extends Component {
     let eleCancel = null
     if (this.state.inputText.length >= 1) {
       eleCancel = (
-        <Text onPress={this.clearInput} style={styles.cancel}>
-          X
-        </Text>
+        <Icon name='close-circle-outline' size={ScreenUtil.scaleSize(18)} color={Colors.steel}   onPress={this.clearInput} style={styles.cancel}/>
       )
     }
     let logo = null
@@ -69,6 +68,7 @@ export default class SearchBar extends Component {
           />
           <TextInput
             placeholder='好宝贝 等你搜'
+            placeholderTextColor={Colors.steel}
             returnKeyType='search'
             defaultValue={this.state.inputText}
             onChangeText={this.onTextChange}

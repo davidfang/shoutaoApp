@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Text, View, FlatList, TouchableOpacity,Clipboard,Linking} from 'react-native'
+import {Text, View, FlatList, TouchableOpacity, Clipboard, Linking} from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import AutoImage from 'react-native-scalable-image'
 import {connect} from 'react-redux'
@@ -14,7 +14,7 @@ import GuessLike from '../Components/GuessLike'
 import Empty from '../Components/Empty'
 // Styles
 import styles from './Styles/DetailScreenStyle'
-import {Metrics} from '../Themes'
+import {Metrics, ScreenUtil} from '../Themes'
 import Toast from "../Lib/Toast";
 
 class DetailScreen extends Component {
@@ -48,23 +48,23 @@ class DetailScreen extends Component {
     Clipboard.setString(goodsInfo.tpwd)
     // 2、跳转代码
     Linking.canOpenURL('taobao://').then(supported => { // weixin://  alipay://
-        if (supported) {
-            Linking.openURL('taobao://')
-           } else {
-            Toast.showError('请先安装淘宝')
-           }
-       });
+      if (supported) {
+        Linking.openURL('taobao://')
+      } else {
+        Toast.showError('请先安装淘宝')
+      }
+    });
     //Toast.showSuccess('淘口令已复制到剪贴板，请打开淘宝购买')
   }
 
-  _renderItem = ({item,index}) => {
+  _renderItem = ({item, index}) => {
     return (
       <AutoImage key={index}
-        width={Metrics.screenWidth}
-        style={styles.autoImage}
-        source={{uri: item}}
-        resizeMode='contain'
-        resizeMethod='resize'
+                 width={Metrics.screenWidth}
+                 style={styles.autoImage}
+                 source={{uri: item}}
+                 resizeMode='contain'
+                 resizeMethod='resize'
       />
     )
   }
@@ -82,8 +82,8 @@ class DetailScreen extends Component {
         >
           <Text
             style={{
-              fontSize: 18,
-              paddingLeft: 10
+              fontSize: ScreenUtil.setSpText(18),
+              paddingLeft: ScreenUtil.scaleSize(10)
             }}
           >
             商品详情
@@ -100,13 +100,13 @@ class DetailScreen extends Component {
     }
     let {goodsInfo} = this.state
     let {productInfo} = this.props
-    if(productInfo.detail == null){//没有产品详情时
+    if (productInfo.detail == null) {//没有产品详情时
 
-      fetch('http://hws.m.taobao.com/cache/mtop.wdetail.getItemDescx/4.1/?data={"item_num_id":"'+ goodsInfo.num_iid +'"}')
+      fetch('http://hws.m.taobao.com/cache/mtop.wdetail.getItemDescx/4.1/?data={"item_num_id":"' + goodsInfo.num_iid + '"}')
         .then(response => response.json())
         .then(responseJson => {
           //console.log(responseJson);
-          this.props.setTbDetailRequest(goodsInfo.num_iid,responseJson.data.images)
+          this.props.setTbDetailRequest(goodsInfo.num_iid, responseJson.data.images)
 
         })
         .catch(error => {
@@ -121,7 +121,7 @@ class DetailScreen extends Component {
     return (
       <View style={styles.container}>
         <TouchableOpacity style={styles.backIcon} onPress={() => this.props.navigation.goBack()}>
-          <Icon name='chevron-left' size={24} color='#fff'
+          <Icon name='chevron-left' size={ScreenUtil.scaleSize(24)} color='#fff'
           />
         </TouchableOpacity>
         <FlatList
@@ -130,7 +130,7 @@ class DetailScreen extends Component {
           ListHeaderComponent={this._renderHeader}
           keyExtractor={(item, index) => index.toString()}
           data={productInfo.detail}
-          ListEmptyComponent={<Empty text='~数据加载中~' />}
+          ListEmptyComponent={<Empty text='~数据加载中~'/>}
           renderItem={this._renderItem}
           initialNumToRender={2}
         />
@@ -140,7 +140,7 @@ class DetailScreen extends Component {
           activeOpacity={1}
           onPress={this._goBuy}
         >
-          <Text style={{marginLeft: 5, flex: 1}}>
+          <Text style={{marginLeft: ScreenUtil.scaleSize(5), flex: 1}}>
             券后价：
             <Text style={{color: '#fc3616'}}>￥</Text>
             <Text
@@ -175,7 +175,7 @@ const mapStateToProps = (state, props) => {
     smallImages: TbSelectors.getSmallImages(state.tb, params.goodsId),
     detailImages: TbSelectors.getDetailImages(state.tb, params.goodsId),
     guessLike: TbSelectors.getGuessLikePrds(state.tb, params.goodsId),
-    productInfo: TbSelectors.getProductInfo(state.tb,params.goodsId),
+    productInfo: TbSelectors.getProductInfo(state.tb, params.goodsId),
     ...params
   }
 }
@@ -183,7 +183,7 @@ const mapStateToProps = (state, props) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getTbDetail: (goodsId) => dispatch(TbActions.tbDetailRequest(goodsId)),
-    setTbDetailRequest: (goodsId,detail) => dispatch(TbActions.tbSetDetailRequest(goodsId,detail))
+    setTbDetailRequest: (goodsId, detail) => dispatch(TbActions.tbSetDetailRequest(goodsId, detail))
   }
 }
 

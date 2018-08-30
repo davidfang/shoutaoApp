@@ -1,5 +1,5 @@
-import { StyleSheet } from 'react-native'
-import { ApplicationStyles, Metrics,Colors,Fonts } from '../../Themes/'
+import {StyleSheet} from 'react-native'
+import {ApplicationStyles, Metrics, Colors, Fonts, ScreenUtil} from '../../Themes/'
 
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
@@ -8,22 +8,22 @@ export default StyleSheet.create({
     paddingBottom: 135
   },*/
   classify: {
-    borderTopColor:Colors.border,
-    borderTopWidth:1,
+    borderTopColor: Colors.border,
+    borderTopWidth: ScreenUtil.scaleHeight(1),
     flex: Metrics.height,
     flexDirection: 'row',
     position: 'relative'
   },
   classifyItem: {
-    width: Metrics.width / 2 - 15,
-    height: 72,
+    width: Metrics.width / 2 - ScreenUtil.scaleSize(15),
+    height: ScreenUtil.scaleHeight(72),
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-    marginLeft: 10,
-    marginBottom: 10,
+    marginLeft: ScreenUtil.scaleSize(10),
+    marginBottom: ScreenUtil.scaleHeight(10),
     backgroundColor: Colors.white,
-    borderWidth: 1,
+    borderWidth: ScreenUtil.scaleSize(1),
     borderColor: Colors.border
   },
 
@@ -32,26 +32,25 @@ export default StyleSheet.create({
     backgroundColor: Colors.disabledBackGround
   },
   lItem: {
-    minHeight: 44,
+    minHeight: ScreenUtil.scaleHeight(44),
     justifyContent: 'center'
   },
   lText: {
-    marginLeft: 10,
-    marginRight: 10,
+    marginHorizontal: ScreenUtil.scaleSize(10),
     fontSize: Fonts.size.medium
   },
   rightList: {
     width: 3 * Metrics.screenWidth / 4,
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    backgroundColor:Colors.white
+    backgroundColor: Colors.white
   },
   rItem: {
     justifyContent: 'center',
     alignItems: 'center'
   },
   rHeader: {
-    height: 30,
+    height: ScreenUtil.scaleHeight(30),
     width: Metrics.screenWidth * 3 / 4,
     //backgroundColor: Colors.windowTint,
     marginVertical: Metrics.baseMargin,
@@ -59,15 +58,14 @@ export default StyleSheet.create({
     alignItems: 'center'
   },
   icon: {
-    height: 55,
-    width: 55,
-    marginTop: 10,
-    marginBottom: 10,
-    marginLeft: 8
+    height: ScreenUtil.scaleHeight(55),
+    width: ScreenUtil.scaleSize(55),
+    marginVertical: ScreenUtil.scaleHeight(10),
+    marginLeft: ScreenUtil.scaleSize(8)
   },
   categoryText: {
     fontSize: Fonts.size.medium,
     fontFamily: Fonts.type.base,
-    color:Colors.descText
+    color: Colors.descText
   }
 })

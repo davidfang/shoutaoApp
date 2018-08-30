@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native'
-import {Metrics,Colors} from '../../Themes'
+import {Metrics, Colors, ScreenUtil} from '../../Themes'
 
 export default StyleSheet.create({
   container: {
@@ -8,14 +8,14 @@ export default StyleSheet.create({
   product: {
     backgroundColor: Colors.silver,
     width: Metrics.screenWidth,
-    padding: 10,
+    padding:  ScreenUtil.scaleSize(10),
     justifyContent: 'space-around'
   },
   name: {
     width: '100%',
     textAlignVertical: 'center',
     flexDirection: 'row',
-    paddingBottom: 5
+    paddingBottom: ScreenUtil.scaleHeight(5)
   },
   price: {
     flexDirection: 'row',
@@ -23,15 +23,14 @@ export default StyleSheet.create({
     justifyContent: 'space-between'
   },
   salePrice: {
-    fontSize: 18,
+    fontSize: ScreenUtil.setSpText(18),
     color: Colors.selected,
     fontWeight: 'bold',
-    marginLeft: 5,
-    marginRight: 5
+    marginHorizontal: ScreenUtil.scaleSize(5)
   },
   saleImage: {
-    width: 16,
-    height: 16,
+    width: ScreenUtil.scaleHeight(16),
+    height: ScreenUtil.scaleHeight(16),
     resizeMode: 'stretch'
   },
   oldPrice: {
@@ -43,24 +42,23 @@ export default StyleSheet.create({
   },
   coupon: {
     flexDirection: 'row',
-    height: 30,
+    height:  ScreenUtil.scaleSize(30),
     alignItems: 'center',
     justifyContent: 'flex-start'
   },
   couponTitle: {
     backgroundColor: Colors.orange,
     color: Colors.text,
-    paddingLeft: 10,
-    paddingRight: 10,
-    borderWidth: 1,
+    paddingHorizontal:  ScreenUtil.scaleSize(10),
+    borderWidth:  ScreenUtil.scaleSize(1),
     borderColor: Colors.orange,
     textAlign: 'center'
   },
   couponInfo: {
-    borderWidth: 1,
+    borderWidth:  ScreenUtil.scaleSize(1),
     borderColor: Colors.orange,
-    paddingLeft: 15,
-    paddingRight: 10
+    paddingHorizontal:  ScreenUtil.scaleSize(15),
+    paddingRight:  ScreenUtil.scaleSize(10)
   },
   xiangguanatuijian: {
     color: Colors.text,

@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native'
-import { ApplicationStyles, Metrics,Colors } from '../../Themes/'
+import { ApplicationStyles, Metrics,Colors,ScreenUtil } from '../../Themes/'
 
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
@@ -10,7 +10,7 @@ export default StyleSheet.create({
 
   bg: {
     width: Metrics.width,
-    height: 120,
+    height: ScreenUtil.scaleHeight(120),
     justifyContent: 'center',
     alignItems: 'center'
   },
@@ -19,37 +19,36 @@ export default StyleSheet.create({
     justifyContent: 'space-around'
   },
   searchBox: {
-    height: 45,
+    height: ScreenUtil.scaleHeight(45),
     width: Metrics.width * 0.9,
     flexDirection: 'row',
-    borderRadius: 5,
+    borderRadius: ScreenUtil.scaleSize(5),
     alignItems: 'center',
     backgroundColor: Colors.white
   },
   searchIcon: {
-    width: 18,
-    height: 18,
-    marginLeft: 10,
-    marginRight: 5,
+    width: ScreenUtil.scaleSize(18),
+    height: ScreenUtil.scaleSize(18),
+    marginHorizontal: ScreenUtil.scaleSize(10),
     resizeMode: 'stretch'
   },
   searchInput: {
     flex: 1,
     padding: 0,
-    marginHorizontal: 5
+    marginHorizontal: ScreenUtil.scaleSize(5)
   },
   searchButton: {
-    width: 70,
+    width: ScreenUtil.scaleSize(70),
     alignItems: 'center',
     justifyContent: 'center',
-    height: 45,
+    height: ScreenUtil.scaleHeight(45),
     backgroundColor: '#ffb300',
-    borderTopRightRadius: 5,
-    borderBottomRightRadius: 5
+    borderTopRightRadius: ScreenUtil.scaleSize(5),
+    borderBottomRightRadius: ScreenUtil.scaleSize(5)
   },
   cancel: {
-    width: 21,
-    height: 21,
+    width: ScreenUtil.scaleSize(21),
+    height: ScreenUtil.scaleHeight(21),
     alignItems: 'center',
     justifyContent: 'center'
   },

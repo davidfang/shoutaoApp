@@ -1,10 +1,10 @@
 import { StyleSheet } from 'react-native'
-import { Metrics, Colors } from '../../Themes'
+import { Metrics, Colors ,ScreenUtil} from '../../Themes'
 
 export default StyleSheet.create({
   swiper: {
     width: Metrics.screenWidth,
-    height: 150,
+    height: ScreenUtil.scaleHeight(150),
     padding: 0,
     margin: 0,
     backgroundColor: Colors.silver

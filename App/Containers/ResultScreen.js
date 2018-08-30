@@ -7,6 +7,7 @@ import TbActions, { TbSelectors } from '../Redux/TbRedux'
 import GoodsList from './GoodsList'
 // Styles
 import styles from './Styles/ResultScreenStyle'
+import {ScreenUtil} from '../Themes'
 
 import SearchBar from '../Components/SearchBar'
 
@@ -52,7 +53,7 @@ class ResultScreen extends Component {
     return (
       <View style={styles.container}>
         <TouchableOpacity style={styles.backIcon} onPress={() => this.props.navigation.goBack()}>
-          <Icon name='chevron-left' size={24} color='#fff'
+          <Icon name='chevron-left' size={ScreenUtil.scaleSize(24)} color='#fff'
           />
         </TouchableOpacity>
         <GoodsList

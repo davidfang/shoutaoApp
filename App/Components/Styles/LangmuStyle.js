@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native'
-import { Metrics, Colors } from '../../Themes'
+import {Metrics, Colors, ScreenUtil} from '../../Themes'
 
 export default StyleSheet.create({
   container: {
@@ -8,17 +8,17 @@ export default StyleSheet.create({
   },
   header: {
     backgroundColor: Colors.silver,
-    height: 45,
+    height: ScreenUtil.scaleHeight(45),
     justifyContent: 'center',
     alignItems: 'center'
   },
   lanmu: {
-    height: 22,
+    height: ScreenUtil.scaleHeight(22),
     width: '100%',
     resizeMode: 'contain'
   },
   body: {
-    height: 200,
+    height: ScreenUtil.scaleHeight(200),
     flexDirection: 'row'
   },
   left: {

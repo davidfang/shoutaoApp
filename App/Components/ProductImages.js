@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { View, Image } from 'react-native'
 import Swiper from 'react-native-swiper'
 import styles from './Styles/ProductImagesStyle'
-import {Images} from "../Themes";
+import {Images,ScreenUtil} from "../Themes";
 
 export default class ProductImages extends Component {
   // Prop type warnings
@@ -21,7 +21,7 @@ export default class ProductImages extends Component {
     return (
       <View style={styles.swiper}>
         <Swiper
-          height={140}
+          height={ScreenUtil.scaleSize(140)}
           loop={true}
           index={0}
           autoplay={true}

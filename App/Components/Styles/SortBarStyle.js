@@ -1,9 +1,9 @@
 import { StyleSheet } from 'react-native'
-import {Colors} from '../../Themes'
+import {Colors,ScreenUtil} from '../../Themes'
 
 export default StyleSheet.create({
   container: {
-    height: 40,
+    height: ScreenUtil.scaleHeight(40),
     borderBottomWidth: 1,
     borderBottomColor: Colors.steel,
     backgroundColor: Colors.silver,

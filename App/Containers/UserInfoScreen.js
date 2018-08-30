@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import {
   ScrollView,
   RefreshControl,
@@ -10,10 +10,10 @@ import {
 } from 'react-native'
 
 import Icon from 'react-native-vector-icons/MaterialIcons'
-import { connect } from 'react-redux'
+import {connect} from 'react-redux'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
-import LoginActions, { LoginSelector } from '../Redux/LoginRedux'
+import LoginActions, {LoginSelector} from '../Redux/LoginRedux'
 import AccountActions from '../Redux/AccountRedux'
 import UserInfoActions from '../Redux/UserInfoRedux'
 import {AppSetSelectors} from '../Redux/AppSetRedux'
@@ -27,7 +27,7 @@ import RowItem from '../Components/RowItem'
 import CustomButton from '../Components/CustomButton'
 
 // Styles
-import { Colors } from '../Themes'
+import {Colors, ScreenUtil} from '../Themes'
 import styles from './Styles/UserInfoScreenStyle'
 import AppConfig from "../Config/AppConfig";
 
@@ -37,34 +37,35 @@ class UserInfoScreen extends Component {
   //   super(props)
   //   this.state = {}
   // }
-  componentDidMount () {
-    if(this.props.loggedIn){
+  componentDidMount() {
+    if (this.props.loggedIn) {
       this.props.getAccountInfo()
       this.props.getBankInfo()
     }
   }
+
   _setting = () => {
     const {navigation} = this.props
     navigation.navigate &&
     navigation.navigate('EditUserScreen')
   }
-  _copyInvitationCode = () =>{
+  _copyInvitationCode = () => {
 
-    Clipboard.setString('我在使用一个超级好用的优惠券APP，淘宝天猫购物之前先在此搜一下，领内部优惠券，还可以获得购物返利，邀请别人使用，还可以获得别人购物的返利。注册时记得填我的邀请码： ' + this.props.invitation_code +  this.props.downloadUrl)
+    Clipboard.setString('我在使用一个超级好用的优惠券APP，淘宝天猫购物之前先在此搜一下，领内部优惠券，还可以获得购物返利，邀请别人使用，还可以获得别人购物的返利。注册时记得填我的邀请码： ' + this.props.invitation_code + this.props.downloadUrl)
     Toast.showSuccess('邀请码已复制到剪贴板，发给好友一起赚钱吧！')
   }
   userHead = () => {
-    const {loggedIn, nickname,invitation_code, grade, avatar} = this.props
+    const {loggedIn, nickname, invitation_code, grade, avatar} = this.props
     if (loggedIn) {
-      let {accountInfo,bankInfo} = this.props
-      if(accountInfo) {
+      let {accountInfo, bankInfo} = this.props
+      if (accountInfo) {
         return (
           <View style={styles.top}>
 
             <View style={styles.head}>
               <View style={styles.intro}>
                 <View style={styles.introLeft}>
-                  <Avatar width={60} name={nickname} avatar={avatar}/>
+                  <Avatar width={ScreenUtil.scaleSize(60)} name={nickname} avatar={avatar}/>
                   <View>
                     <View style={{flexDirection: 'row'}}>
                       <Text style={styles.nickName}>{nickname}</Text>
@@ -81,7 +82,7 @@ class UserInfoScreen extends Component {
                   </View>
                 </View>
                 <TouchableOpacity style={styles.setting} onPress={this._setting}>
-                  <Icon name='settings' size={30} color={Colors.text}/>
+                  <Icon name='settings' size={ScreenUtil.scaleSize(30)} color={Colors.text}/>
                 </TouchableOpacity>
               </View>
               <View style={styles.incomeTop}>
@@ -111,14 +112,14 @@ class UserInfoScreen extends Component {
             </View>
           </View>
         )
-      }else{
+      } else {
         return <View/>
       }
     } else {
       return (
         <View style={styles.head}>
           <View style={[styles.intro, styles.headNoLogin]}>
-            <Avatar width={60}/>
+            <Avatar width={ScreenUtil.scaleSize(60)}/>
             <FullButton text={'登录'} onPress={() => this.props.navigation.navigate('LoginScreen')}/>
             <FullButton text={'注册'} onPress={() => this.props.navigation.navigate('RegisterScreen')}/>
           </View>
@@ -133,11 +134,11 @@ class UserInfoScreen extends Component {
    */
   _withdrawal = () => {
     const {navigation} = this.props
-    if(this.props.bankInfo == null){
+    if (this.props.bankInfo == null) {
       Toast.show('请先绑定支付宝')
       navigation.navigate &&
       navigation.navigate('BindingBankCardScreen')
-    }else{
+    } else {
       navigation.navigate &&
       navigation.navigate('WithdrawalScreen')
     }
@@ -146,10 +147,10 @@ class UserInfoScreen extends Component {
    * 按钮操作
    * @private
    */
-  _press = (nav,param) => {
+  _press = (nav, param) => {
     const {navigation} = this.props
     navigation.navigate &&
-    navigation.navigate(nav,param)
+    navigation.navigate(nav, param)
   }
   /**
    * 网页链接
@@ -157,23 +158,24 @@ class UserInfoScreen extends Component {
    * @param title
    * @private
    */
-  _webPress = (url,title) => {
+  _webPress = (url, title) => {
     const {navigation} = this.props
     url = AppConfig.webUrl + url
     //console.log(url,title)
     navigation.navigate &&
-    navigation.navigate('WebScreen',{url,title})
+    navigation.navigate('WebScreen', {url, title})
   }
   /**
    * 刷新
    * @private
    */
   _onRefresh = () => {
-    if(this.props.loggedIn){
+    if (this.props.loggedIn) {
       this.props.getAccountInfo()
     }
   }
-  render () {
+
+  render() {
     return (
       <ScrollView style={styles.container}
                   refreshControl={
@@ -185,37 +187,40 @@ class UserInfoScreen extends Component {
       >
         {this.userHead()}
         <View style={styles.gridItemGroup}>
-          {this.props.loggedIn &&  (<TouchableOpacity style={styles.gridItem} onPress={() => this._press('FansScreen',{})}>
-            <Image style={styles.gridIcon} source={require('../Images/users.png')}/>
-            <Text>粉丝</Text>
-          </TouchableOpacity>)}
-          {this.props.loggedIn &&  (<TouchableOpacity style={styles.gridItem} onPress={this._copyInvitationCode}>
+          {this.props.loggedIn && (
+            <TouchableOpacity style={styles.gridItem} onPress={() => this._press('FansScreen', {})}>
+              <Image style={styles.gridIcon} source={require('../Images/users.png')}/>
+              <Text>粉丝</Text>
+            </TouchableOpacity>)}
+          {this.props.loggedIn && (<TouchableOpacity style={styles.gridItem} onPress={this._copyInvitationCode}>
             <Image style={styles.gridIcon} source={require('../Images/invite.png')}/>
             <Text>邀请</Text>
           </TouchableOpacity>)}
-          <TouchableOpacity style={styles.gridItem} onPress={() => this._webPress('article-category/1','新手攻略')}>
+          <TouchableOpacity style={styles.gridItem} onPress={() => this._webPress('article-category/1', '新手攻略')}>
             <Image style={styles.gridIcon} source={require('../Images/guide.png')}/>
             <Text>新手攻略</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.gridItem} onPress={() => this._webPress('article-category/2','常见问题')}>
+          <TouchableOpacity style={styles.gridItem} onPress={() => this._webPress('article-category/2', '常见问题')}>
             <Image style={styles.gridIcon} source={require('../Images/questing.png')}/>
             <Text>常见问题</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.gridItem} onPress={() => this._webPress('article/10','联系客服')}>
+          <TouchableOpacity style={styles.gridItem} onPress={() => this._webPress('article/10', '联系客服')}>
             <Image style={styles.gridIcon} source={require('../Images/kefu.png')}/>
             <Text>联系客服</Text>
           </TouchableOpacity>
         </View>
-        {this.props.loggedIn &&  (<View style={styles.rowItemGroup}>
-            <RowItem title='修改密码' icon='vpn-key' iconColor='lightskyblue'
-                     onPress={() => this.props.navigation.navigate('ChangePasswordScreen')}/>
+        {this.props.loggedIn && (<View style={styles.rowItemGroup}>
+          <RowItem title='修改密码' icon='vpn-key' iconColor='lightskyblue'
+                   onPress={() => this.props.navigation.navigate('ChangePasswordScreen')}/>
 
-          </View>)
+        </View>)
         }
 
         <View style={styles.rowItemGroup}>
-          <RowItem title='官方公告' icon='volume-up' iconColor='lightskyblue' onPress={()=>this._webPress('article-category/4','官方公告')}/>
-          <RowItem title='意见反馈' icon='create' iconColor='lightskyblue' onPress={() =>this._press('FeedbackScreen',{title:'意见反馈'})}/>
+          <RowItem title='官方公告' icon='volume-up' iconColor='lightskyblue'
+                   onPress={() => this._webPress('article-category/4', '官方公告')}/>
+          <RowItem title='意见反馈' icon='create' iconColor='lightskyblue'
+                   onPress={() => this._press('FeedbackScreen', {title: '意见反馈'})}/>
           <RowItem title='分享' icon='share' iconColor={Colors.fire} onPress={this._copyInvitationCode}/>
 
         </View>
@@ -227,9 +232,9 @@ class UserInfoScreen extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const {mobile,nickname,invitation_code,grade, avatar} = state.userInfo
-  const {accountInfo,bankInfo,fetching} = state.account
-  let downloadUrl = AppSetSelectors.get(state.appSet,'downloadUrl');
+  const {mobile, nickname, invitation_code, grade, avatar} = state.userInfo
+  const {accountInfo, bankInfo, fetching} = state.account
+  let downloadUrl = AppSetSelectors.get(state.appSet, 'downloadUrl');
   return {
     loggedIn: LoginSelector.isLoggedIn(state.login),
     grade,

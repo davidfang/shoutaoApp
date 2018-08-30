@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   ViewPropTypes
 } from 'react-native';
+import {ScreenUtil} from '../Themes'
 export default class CountDownButton extends React.Component {
   constructor(props) {
     super(props)
@@ -109,12 +110,12 @@ export default class CountDownButton extends React.Component {
           this.props.onClick(this._shouldStartCountting)
         };
       }}>
-        <View style={[{paddingVertical: 5,
-          paddingHorizontal: 15,
+        <View style={[{paddingVertical: ScreenUtil.scaleHeight(5),
+          paddingHorizontal: ScreenUtil.scaleSize(15),
           borderColor: '#0B60BC',
-          borderWidth: 1,
-          borderRadius: 30},style]}>
-          <Text style={[{fontSize: 16},textStyle,{color: ((!counting && enable && selfEnable) ? (textStyle ? textStyle.color : '#0B60BC') : disableColor || 'gray')}]}>{timerTitle}</Text>
+          borderWidth: ScreenUtil.scaleSize(1),
+          borderRadius: ScreenUtil.scaleSize(30)},style]}>
+          <Text style={[{fontSize: ScreenUtil.setSpText(16)},textStyle,{color: ((!counting && enable && selfEnable) ? (textStyle ? textStyle.color : '#0B60BC') : disableColor || 'gray')}]}>{timerTitle}</Text>
         </View>
       </TouchableOpacity>
     )

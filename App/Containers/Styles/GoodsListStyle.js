@@ -1,5 +1,5 @@
-import { StyleSheet } from 'react-native'
-import { ApplicationStyles, Metrics, Colors } from '../../Themes'
+import {StyleSheet} from 'react-native'
+import {ApplicationStyles, Metrics, Colors, ScreenUtil} from '../../Themes'
 
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
@@ -14,9 +14,9 @@ export default StyleSheet.create({
     backgroundColor: Colors.fire,
     marginVertical: Metrics.smallMargin,
     justifyContent: 'center',
-    margin: 10,
-    padding: 5,
-    paddingVertical: 10,
+    margin: ScreenUtil.scaleSize(10),
+    padding: ScreenUtil.scaleSize(5),
+    paddingVertical: ScreenUtil.scaleHeight(10),
     borderRadius: Metrics.smallMargin
   },
   boldLabel: {

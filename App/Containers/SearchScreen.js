@@ -1,15 +1,15 @@
-import React, { Component } from 'react'
-import { View, Text, Image, TextInput, TouchableOpacity, Keyboard, ScrollView, ImageBackground } from 'react-native'
-import { connect } from 'react-redux'
+import React, {Component} from 'react'
+import {View, Text, Image, TextInput, TouchableOpacity, Keyboard, ScrollView, ImageBackground} from 'react-native'
+import {connect} from 'react-redux'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
-
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 // Styles
 import styles from './Styles/SearchScreenStyle'
-import { Metrics } from '../Themes/'
+import {Metrics, Colors, ScreenUtil} from '../Themes/'
 
 class SearchScreen extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       keyword: ''
@@ -36,13 +36,12 @@ class SearchScreen extends Component {
     })
   }
 
-  render () {
+  render() {
     let clearControl = null
     if (this.state.keyword && this.state.keyword.length >= 1) {
       clearControl = (
-        <Text style={styles.cancel} onPress={this._clearInput}>
-          X
-        </Text>
+        <Icon name='close-circle-outline' size={ScreenUtil.scaleSize(18)} color={Colors.steel} style={styles.cancel}
+              onPress={this._clearInput}/>
       )
     }
     return (
@@ -59,6 +58,7 @@ class SearchScreen extends Component {
               />
               <TextInput
                 placeholder='好宝贝 等你搜'
+                placeholderTextColor={Colors.steel}
                 defaultValue={this.state.keyword}
                 returnKeyType='search'
                 style={styles.searchInput}
@@ -75,7 +75,7 @@ class SearchScreen extends Component {
                 <Text>搜索</Text>
               </TouchableOpacity>
             </View>
-            <Text style={{marginTop: 10, color: '#fff'}}>
+            <Text style={{marginTop: ScreenUtil.scaleHeight(10), color: '#fff'}}>
               百万张淘宝优惠券等你搜
             </Text>
           </View>

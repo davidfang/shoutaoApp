@@ -3,32 +3,32 @@ import {View, Text, FlatList, Image, TouchableOpacity, RefreshControl, Clipboard
 import {connect} from 'react-redux'
 import Icon from 'react-native-vector-icons/Ionicons'
 // More info here: https://facebook.github.io/react-native/docs/flatlist.html
-import CircleActions ,{CircleSelectors} from '../Redux/CircleRedux'
+import CircleActions, {CircleSelectors} from '../Redux/CircleRedux'
 // Styles
 import styles from './Styles/CircleListStyle'
-import {Colors, Images} from '../Themes'
+import {Colors, Images, ScreenUtil} from '../Themes'
 import Toast from "../Lib/Toast";
 import {AppSetSelectors} from "../Redux/AppSetRedux";
 
 class CircleList extends React.PureComponent {
-  constructor (props) {
+  constructor(props) {
     super(props)
   }
-  _copyInvitationCode = () =>{
-    console.log('aaaa');
-    Clipboard.setString('我在使用一个超级好用的优惠券APP，淘宝天猫购物之前先在此搜一下，领内部优惠券，还可以获得购物返利，邀请别人使用，还可以获得别人购物的返利。注册时记得填我的邀请码： ' + this.props.invitation_code +  this.props.downloadUrl)
+
+  _copyInvitationCode = () => {
+    Clipboard.setString('我在使用一个超级好用的优惠券APP，淘宝天猫购物之前先在此搜一下，领内部优惠券，还可以获得购物返利，邀请别人使用，还可以获得别人购物的返利。注册时记得填我的邀请码： ' + this.props.invitation_code + this.props.downloadUrl)
     Toast.showSuccess('邀请码已复制到剪贴板，发给好友一起赚钱吧！')
   }
-  renderRow = ({item}) =>{
+  renderRow = ({item}) => {
     let picGroup
-    if(item.images.length){
-      picGroup = item.images.map((img)=><Image key={img} source={{uri: img}}
-                                               defaultSource={Images.default_middle}
-                                               style={styles.pics}  resizeMode='contain'
-                                               resizeMethod='resize'/>)
-    }else{
+    if (item.images.length) {
+      picGroup = item.images.map((img) => <Image key={img} source={{uri: img}}
+                                                 defaultSource={Images.default_middle}
+                                                 style={styles.pics} resizeMode='contain'
+                                                 resizeMethod='resize'/>)
+    } else {
       picGroup = <Image source={{uri: item.thumbnail}}
-                        style={styles.pic}  resizeMode='contain'
+                        style={styles.pic} resizeMode='contain'
                         resizeMethod='resize'/>
     }
     return (
@@ -47,7 +47,7 @@ class CircleList extends React.PureComponent {
             </View>
           </View>
           <TouchableOpacity style={styles.share} onPress={this._copyInvitationCode}>
-            <Text><Icon name={'md-share'} size={15} color={Colors.fire}/> {item.click}</Text>
+            <Text><Icon name={'md-share'} size={ScreenUtil.scaleSize(15)} color={Colors.fire}/> {item.click}</Text>
           </TouchableOpacity>
         </View>
         <Text style={styles.labelContent}>{item.body}</Text>
@@ -57,12 +57,14 @@ class CircleList extends React.PureComponent {
       </View>
     )
   }
-  componentWillMount () {
-    let {circle,category_id,getCircles,nextPage} = this.props
-    if(circle.length <1){
-      getCircles(category_id,nextPage)
+
+  componentWillMount() {
+    let {circle, category_id, getCircles, nextPage} = this.props
+    if (circle.length < 1) {
+      getCircles(category_id, nextPage)
     }
   }
+
   /* ***********************************************************
   * STEP 3
   * Consider the configurations we've set below.  Customize them
@@ -108,20 +110,21 @@ class CircleList extends React.PureComponent {
    * 上拉加载 TODO
    */
   _onLoading = () => {
-    let {fetching,more,getCircles,category_id,nextPage} = this.props
+    let {fetching, more, getCircles, category_id, nextPage} = this.props
     if (!fetching && more) {
-      getCircles(category_id,nextPage)
+      getCircles(category_id, nextPage)
     }
   }
   /**
    * 下拉刷新 TODO
    */
   _onRefreshing = () => {
-    let {fetching,category_id,nextPage,getCircles} = this.props
+    let {fetching, category_id, nextPage, getCircles} = this.props
     if (!fetching) {
-      getCircles(category_id,nextPage)
+      getCircles(category_id, nextPage)
     }
   }
+
   render() {
     return (
       <View style={styles.container}>
@@ -132,7 +135,7 @@ class CircleList extends React.PureComponent {
           numColumns={1}
           keyExtractor={this.keyExtractor}
           initialNumToRender={this.oneScreensWorth}
-          ListHeaderComponent={this.renderHeader}
+          //ListHeaderComponent={this.renderHeader}
           ListFooterComponent={this.renderFooter}
           ListEmptyComponent={this.renderEmpty}
           ItemSeparatorComponent={this.renderSeparator}
@@ -152,16 +155,16 @@ class CircleList extends React.PureComponent {
   }
 }
 
-const mapStateToProps = (state,props) => {
+const mapStateToProps = (state, props) => {
   const {category_id} = props
   const {invitation_code} = state.userInfo
-  let circle = CircleSelectors.getCircle(state.circle,category_id)
-  let more = CircleSelectors.getMore(state.circle,category_id)
-  let nextPage = CircleSelectors.getNextPage(state.circle,category_id)
-  let downloadUrl = AppSetSelectors.get(state.appSet,'downloadUrl');
+  let circle = CircleSelectors.getCircle(state.circle, category_id)
+  let more = CircleSelectors.getMore(state.circle, category_id)
+  let nextPage = CircleSelectors.getNextPage(state.circle, category_id)
+  let downloadUrl = AppSetSelectors.get(state.appSet, 'downloadUrl');
   return {
     //category_id,
-    fetching:state.circle.fetching,
+    fetching: state.circle.fetching,
     invitation_code,
     downloadUrl,
     circle,
@@ -173,7 +176,7 @@ const mapStateToProps = (state,props) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getCircles:(category_id,page) => dispatch(CircleActions.circleRequest(category_id,page))
+    getCircles: (category_id, page) => dispatch(CircleActions.circleRequest(category_id, page))
   }
 }
 

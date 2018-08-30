@@ -1,11 +1,11 @@
 import {StyleSheet} from 'react-native'
-import {ApplicationStyles, Colors, Metrics} from '../../Themes'
+import {ApplicationStyles, Colors, Metrics,ScreenUtil} from '../../Themes'
 
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
   ...ApplicationStyles.form,
   container: {
-    paddingTop: 70,
+    paddingTop: ScreenUtil.scaleHeight(70),
     // marginTop: Metrics.doubleBaseMargin,
     height: Metrics.screenHeight,
     backgroundColor: Colors.white
@@ -23,7 +23,7 @@ export default StyleSheet.create({
     borderWidth: 1,
     borderColor: Colors.charcoal,
     backgroundColor: Colors.panther,
-    padding: 6
+    padding: ScreenUtil.scaleSize(6)
   },
   loginText: {
     textAlign: 'center',
@@ -35,28 +35,26 @@ export default StyleSheet.create({
     width: Metrics.screenWidth
   },
   viewWrap: {
-    marginTop: 10,
-    marginLeft: 20,
-    marginRight: 20,
+    marginTop: ScreenUtil.scaleHeight(10),
+    marginHorizontal: ScreenUtil.scaleSize(20),
     display:'flex',
     flexDirection:'row'
   },
   button: {
-    height: 26,
+    height: ScreenUtil.scaleHeight(26),
     flex:1,
     backgroundColor: Colors.button,
     borderColor: Colors.button,
-    borderRadius: 8,
-    marginBottom: 10,
-    marginLeft: 10,
-    marginRight: 10,
+    borderRadius: ScreenUtil.scaleSize(8),
+    marginBottom: ScreenUtil.scaleHeight(10),
+    marginHorizontal: ScreenUtil.scaleSize(10),
     alignSelf: 'stretch',
     justifyContent: 'center'
   },
   buttonText: {
-    fontSize: 14,
+    fontSize: ScreenUtil.setSpText(14),
     color: 'white',
     alignSelf: 'center'
-  },
+  }
 })
 

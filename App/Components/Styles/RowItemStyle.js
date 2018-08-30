@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native'
-import { Metrics, Colors, Fonts } from '../../Themes/'
+import { Metrics, Colors, Fonts,ScreenUtil} from '../../Themes/'
 
 export default StyleSheet.create({
   container: {
@@ -20,7 +20,7 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     borderBottomColor: Colors.steel,
-    borderBottomWidth: 0.5,
+    borderBottomWidth: ScreenUtil.scaleHeight(0.5),
     marginLeft: Metrics.baseMargin
   },
   title: {

@@ -1,25 +1,26 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { View, Text, Platform, TouchableOpacity } from 'react-native'
+import {View, Text, Platform, TouchableOpacity} from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import styles from './Styles/RowItemStyle'
-import { Colors } from '../Themes'
+import {Colors, ScreenUtil} from '../Themes'
+
 export default class RowItem extends React.Component {
 
-  render () {
+  render() {
     const {title, icon, iconColor} = this.props
 
     return (
       <TouchableOpacity style={styles.container} onPress={this.props.onPress}>
         <View style={styles.left}>
-          <Icon name={icon} color={iconColor} size={32}/>
+          <Icon name={icon} color={iconColor} size={ScreenUtil.scaleSize(32)}/>
         </View>
         <View style={styles.right}>
-          <View style={{paddingBottom: 10, paddingTop: 10}}>
+          <View style={{paddingVertical: ScreenUtil.scaleHeight(10)}}>
             <Text style={styles.title}>{title}</Text>
           </View>
           <View>
-             <Icon name="keyboard-arrow-right" color={Colors.charcoal} size={18}/>
+            <Icon name="keyboard-arrow-right" color={Colors.charcoal} size={ScreenUtil.scaleSize(18)}/>
           </View>
         </View>
       </TouchableOpacity>

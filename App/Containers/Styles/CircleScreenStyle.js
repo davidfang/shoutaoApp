@@ -1,11 +1,11 @@
-import { StyleSheet } from 'react-native'
-import { ApplicationStyles, Colors, Metrics } from '../../Themes/'
+import {StyleSheet} from 'react-native'
+import {ApplicationStyles, Colors, Metrics, ScreenUtil} from '../../Themes/'
 
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
   container: {
     flex: 1,
-    marginTop: Metrics.isIOS ? 20 : 0
+    marginTop: Metrics.isIOS ? ScreenUtil.scaleHeight(20) : 0
   },
   header: {
     backgroundColor: Colors.ricePaper,

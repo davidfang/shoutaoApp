@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native'
-import { Metrics, Colors } from '../../Themes'
+import {Metrics, Colors, ScreenUtil} from '../../Themes'
 
 export default StyleSheet.create({
   container: {
@@ -15,18 +15,18 @@ export default StyleSheet.create({
   },
   body: {
     //flex: 1,
-    height: 30,
+    height: ScreenUtil.scaleHeight(30),
     borderBottomWidth: 1,
     borderBottomColor: Colors.steel,
     backgroundColor: Colors.silver
   },
   item: {
-    paddingHorizontal: 5,
+    paddingHorizontal: ScreenUtil.scaleSize(5),
     justifyContent: 'space-around',
     alignItems: 'center'
   },
   child: {
-    paddingHorizontal: 5,
+    paddingHorizontal: ScreenUtil.scaleSize(5),
     justifyContent: 'space-around',
     alignItems: 'center',
     width: Metrics.screenWidth * 0.25
@@ -44,8 +44,8 @@ export default StyleSheet.create({
     flexWrap: 'wrap'
   },
   childImage: {
-    width: 35,
-    height: 35
+    width: ScreenUtil.scaleSize(35),
+    height: ScreenUtil.scaleSize(35)
   }
 
 })

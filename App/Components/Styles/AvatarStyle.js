@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native'
-import { Colors } from '../../Themes/'
+import { Colors,ScreenUtil } from '../../Themes/'
 
 export default StyleSheet.create({
   container: {
@@ -7,9 +7,10 @@ export default StyleSheet.create({
     //paddingTop: Metrics.titlePadding
     alignItems: 'center',
     justifyContent: 'center',
-    margin: 5
+    margin: ScreenUtil.scaleSize(5)
   },
   text: {
-    color: Colors.bloodOrange
+    color: Colors.bloodOrange,
+    fontSize:ScreenUtil.setSpText(12)
   }
 })

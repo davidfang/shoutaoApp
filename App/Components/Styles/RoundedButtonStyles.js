@@ -1,10 +1,10 @@
 import { StyleSheet } from 'react-native'
-import { Fonts, Colors, Metrics } from '../../Themes/'
+import { Fonts, Colors, Metrics,ScreenUtil } from '../../Themes/'
 
 export default StyleSheet.create({
   button: {
-    height: 45,
-    borderRadius: 5,
+    height: ScreenUtil.scaleHeight(45),
+    borderRadius: ScreenUtil.scaleSize(5),
     marginHorizontal: Metrics.section,
     marginVertical: Metrics.baseMargin,
     backgroundColor: Colors.fire,

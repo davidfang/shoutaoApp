@@ -1,5 +1,5 @@
-import { StyleSheet } from 'react-native'
-import { ApplicationStyles, Metrics, Colors,Fonts } from '../../Themes'
+import {StyleSheet} from 'react-native'
+import {ApplicationStyles, Metrics, Colors, Fonts, ScreenUtil} from '../../Themes'
 
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
@@ -11,9 +11,9 @@ export default StyleSheet.create({
     // backgroundColor: Colors.fire,
     marginVertical: Metrics.smallMargin,
     justifyContent: 'center',
-    margin: 10,
-    padding: 5,
-    paddingVertical: 10,
+    margin: ScreenUtil.scaleSize(10),
+    padding: ScreenUtil.scaleSize(5),
+    paddingVertical: ScreenUtil.scaleHeight(10),
     borderRadius: Metrics.smallMargin
   },
   boldLabel: {
@@ -52,28 +52,28 @@ export default StyleSheet.create({
     flexWrap: 'wrap'
   },
   avatar: {
-    width: 40,
-    height: 40,
-    margin: 5
+    width: ScreenUtil.scaleSize(40),
+    height: ScreenUtil.scaleHeight(40),
+    margin: ScreenUtil.scaleSize(5)
   },
   pic: {
-    width: 140,
-    height: 140,
-    margin: 2
+    width: ScreenUtil.scaleSize(140),
+    height: ScreenUtil.scaleHeight(140),
+    margin: ScreenUtil.scaleSize(2)
   },
   pics: {
-    width: 100,
-    height: 100,
-    margin: 2
+    width: ScreenUtil.scaleSize(100),
+    height: ScreenUtil.scaleHeight(100),
+    margin: ScreenUtil.scaleSize(2)
   },
   listContent: {
     marginTop: Metrics.baseMargin
   },
   share: {
     //alignContent: 'center',
-    height: 20,
-    borderRadius: 10,
-    borderWidth: 1,
+    height: ScreenUtil.scaleHeight(20),
+    borderRadius: ScreenUtil.scaleSize(10),
+    borderWidth: ScreenUtil.scaleSize(1),
     borderColor: Colors.fire,
     backgroundColor: Colors.disabledBackGround,
     paddingHorizontal: Metrics.baseMargin,
@@ -81,7 +81,7 @@ export default StyleSheet.create({
   },
   separator: {
     width: Metrics.screenWidth,
-    height: 1,
+    height: ScreenUtil.scaleHeight(1),
     backgroundColor: Colors.border
   }
 })
