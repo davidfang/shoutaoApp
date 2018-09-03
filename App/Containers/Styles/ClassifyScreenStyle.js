@@ -46,6 +46,7 @@ export default StyleSheet.create({
     backgroundColor: Colors.white
   },
   rItem: {
+    width: 3 * Metrics.screenWidth / 4 / 3,
     justifyContent: 'center',
     alignItems: 'center'
   },
