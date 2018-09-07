@@ -16,6 +16,7 @@ import Empty from '../Components/Empty'
 import styles from './Styles/DetailScreenStyle'
 import {Metrics, ScreenUtil} from '../Themes'
 import Toast from "../Lib/Toast";
+import {onEventWithLable} from "../Lib/UMAnalyticsUtil";
 
 class DetailScreen extends Component {
 
@@ -46,6 +47,7 @@ class DetailScreen extends Component {
     //alert('aaaaaa')
     //RNAlibcSdk.Show(goodsInfo.SPYHQTGLJ)
     Clipboard.setString(goodsInfo.tpwd)
+    onEventWithLable('buy',goodsInfo.num_iid)
     // 2、跳转代码
     Linking.canOpenURL('taobao://').then(supported => { // weixin://  alipay://
       if (supported) {

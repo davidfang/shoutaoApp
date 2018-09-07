@@ -5,6 +5,7 @@ import { View, TouchableOpacity, Image } from 'react-native'
 import Swiper from 'react-native-swiper'
 import styles from './Styles/SWiperBannersStyle'
 import {Images} from "../Themes";
+import {onEventWithLable} from "../Lib/UMAnalyticsUtil";
 
 export default class SwiperBanners extends Component {
   // // Prop type warnings
@@ -32,7 +33,8 @@ export default class SwiperBanners extends Component {
             style={styles.swiperItem}
             onPress={() => {
               const nav = item.nav != null ? item.nav : 'html'
-              console.log(navigate)
+              //console.log(navigate)
+              onEventWithLable('swiperBanner',item.title)
               navigate &&
               navigate(nav, {
                 title: item.title,

@@ -5,6 +5,7 @@ import styles from './Styles/SectionListItemStyle'
 import {is, Map} from 'immutable'
 import MyMath from '../Lib/MyMath'
 import {Images} from '../Themes'
+import {onEventWithLable} from '../Lib/UMAnalyticsUtil'
 
 export default class SectionListItem extends Component {
   // Prop type warnings
@@ -24,6 +25,7 @@ export default class SectionListItem extends Component {
 
   _onRedirect = () => {
     const {product, navigation} = this.props
+    onEventWithLable('detail',product.num_iid)
     navigation.navigate &&
     navigation.navigate('DetailScreen', {
       goodsId: product.num_iid,

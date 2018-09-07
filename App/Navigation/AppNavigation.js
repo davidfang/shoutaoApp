@@ -1,6 +1,5 @@
 import React from 'react'
 import {StackNavigator} from 'react-navigation'
-import WithdrawalScreen from '../Containers/WithdrawalScreen'
 import FeedbackScreen from '../Containers/FeedbackScreen'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
@@ -8,7 +7,6 @@ import MainNavigation from './MainNavigation'
 
 import SearchScreen from '../Containers/SearchScreen'
 import HomeScreen from '../Containers/HomeScreen'
-import LaunchScreen from '../Containers/LaunchScreen'
 import WebScreen from '../Containers/WebScreen'
 import ResultScreen from '../Containers/ResultScreen'
 import DetailScreen from '../Containers/DetailScreen'
