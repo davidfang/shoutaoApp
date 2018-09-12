@@ -49,9 +49,9 @@ class EditUserScreen extends Component {
   }
 
   componentDidMount() {
-    if (this.props.qiniuToken == null) {
+    //if (this.props.qiniuToken == null) {
       this.props.getQiniuAvatarToken()
-    }
+    //}
   }
 
   selectPhotoTapped = () => {
