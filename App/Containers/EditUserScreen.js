@@ -6,6 +6,7 @@ import ImagePicker from 'react-native-image-crop-picker'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
 import UserInfoActions from '../Redux/UserInfoRedux'
+import QiniuActions from '../Redux/QiniuRedux'
 import Avatar from '../Components/Avatar'
 // Styles
 import styles from './Styles/EditUserScreenStyle'
@@ -47,18 +48,28 @@ class EditUserScreen extends Component {
 
   }
 
+  componentDidMount() {
+    if (this.props.qiniuToken == null) {
+      this.props.getQiniuAvatarToken()
+    }
+  }
+
   selectPhotoTapped = () => {
-    ImagePicker.openPicker({
-      width: 400,
-      height: 400,
-      cropping: true,
-      cropperCircleOverlay: true
-    }).then(image => {
-      //console.log(image);
-      let fileUrl = image.path
-      let fileName = Platform.OS == 'ios' ? image.filename : fileUrl.substr(fileUrl.lastIndexOf('/') + 1);
-      this.props.uploadAvatar(fileUrl, fileName)
-    }).catch(e => alert(e));
+    if (this.props.qiniuToken != null) {
+      const {token, key} = this.props.qiniuToken
+      ImagePicker.openPicker({
+        width: 400,
+        height: 400,
+        cropping: true,
+        cropperCircleOverlay: true
+      }).then(image => {
+        //console.log(image);
+        let fileUrl = image.path
+        let fileName = Platform.OS == 'ios' ? image.filename : fileUrl.substr(fileUrl.lastIndexOf('/') + 1);
+        //this.props.uploadAvatar(fileUrl, fileName)
+        this.props.uploadAvatarQiniu(fileUrl, fileName, token, key)
+      }).catch(e => alert(e));
+    }
   }
 
   render() {
@@ -165,14 +176,18 @@ const mapStateToProps = (state) => {
     avatar: state.userInfo.avatar,
     email: state.userInfo.email,
     age: state.userInfo.age.toString(),
-    gender: state.userInfo.gender.toString()
+    gender: state.userInfo.gender.toString(),
+    qiniuToken: state.qiniu.token,
+    qiniuData: state.qiniu.data
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     updateUserInfo: (user) => dispatch(UserInfoActions.userInfoUpdateRequest(user)),
-    uploadAvatar: (fileUrl, fileName) => dispatch(UserInfoActions.uploadAvatarRequest(fileUrl, fileName))
+    uploadAvatar: (fileUrl, fileName) => dispatch(UserInfoActions.uploadAvatarRequest(fileUrl, fileName)),
+    uploadAvatarQiniu: (fileUrl, fileName, token, key) => dispatch(UserInfoActions.uploadAvatarQiniuRequest(fileUrl, fileName, token, key)),
+    getQiniuAvatarToken: () => dispatch(QiniuActions.qiniuAvatarRequest())
   }
 }
 

@@ -7,7 +7,7 @@ const {Types, Creators} = createActions({
   bannerRequest: ['banner_type'],
   bannerSuccess: ['data', 'banner_type'],
   bannerFailure: null,
-  feedbackRequest:['body','fileUrl', 'fileName']
+  feedbackRequest:['body','fileUrl', 'fileName','token','key']
 })
 
 export const BannerTypes = Types

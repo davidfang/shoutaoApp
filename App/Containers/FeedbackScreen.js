@@ -10,6 +10,7 @@ import BannerActions from '../Redux/BannerRedux'
 // Styles
 import styles from './Styles/FeedbackScreenStyle'
 import {Colors, ScreenUtil} from "../Themes";
+import QiniuActions from "../Redux/QiniuRedux";
 
 class FeedbackScreen extends Component {
   constructor(props) {
@@ -30,7 +31,7 @@ class FeedbackScreen extends Component {
       cropping: true,
       //cropperCircleOverlay: true
     }).then(image => {
-      console.log(image);
+      //console.log(image);
       let fileUrl = image.path
       let fileName = Platform.OS == 'ios' ? image.filename : fileUrl.substr(fileUrl.lastIndexOf('/') + 1);
       this.setState({fileUrl, fileName})
@@ -38,13 +39,20 @@ class FeedbackScreen extends Component {
     }).catch(e => alert(e));
   }
 
+  componentDidMount() {
+    if (this.props.qiniuToken == null) {
+      this.props.getQiniuFeedbackToken()
+    }
+  }
+
   /**
    * 提交修改
    */
   submit() {
     if (!this.props.fetching) {
+      const {token, key} = this.props.qiniuToken
       let {body, fileUrl, fileName} = this.state
-      this.props.postFeedBack(body, fileUrl, fileName)
+      this.props.postFeedBack(body, fileUrl, fileName, token, key)
     }
   }
 
@@ -85,12 +93,15 @@ class FeedbackScreen extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return {}
+  return {
+    qiniuToken: state.qiniu.token
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    postFeedBack: (body, fileUrl, fileName) => dispatch(BannerActions.feedbackRequest(body, fileUrl, fileName))
+    postFeedBack: (body, fileUrl, fileName, token, key) => dispatch(BannerActions.feedbackRequest(body, fileUrl, fileName, token, key)),
+    getQiniuFeedbackToken: () => dispatch(QiniuActions.qiniuFeedbackRequest())
   }
 }
 

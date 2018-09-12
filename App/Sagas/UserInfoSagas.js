@@ -15,40 +15,10 @@ import UserInfoActions from '../Redux/UserInfoRedux'
 import LoginActions from '../Redux/LoginRedux'
 import Toast from '../Lib/Toast'
 import {requestFaild} from '../Lib/Request'
+
 import {callApi} from './CallApiSaga'
 // import { UserInfoSelectors } from '../Redux/UserInfoRedux'
-/*function *requestFaild (response){
-  switch (response.problem){
-    case 'CLIENT_ERROR'://400-499任何非特定的400系列错误
-      //yield put(UserInfoActions.userInfoFailure('400系列错误'))
-      let message = response.data.message
-      let msg = ''
-      //console.log(typeof message)
-      if(typeof message == "object") {
-        for (let k in message) {
-          msg += message[k].toString() + '\n'
-        }
-      }else{
-        msg = message
-      }
-      yield put(UserInfoActions.userInfoFailure(msg))
-      break;
-    case 'SERVER_ERROR'://500-599任何500系列错误
-      yield put(UserInfoActions.userInfoFailure('500系列错误'))
-      break;
-    case 'TIMEOUT_ERROR'://服务器没有及时响应
-      yield put(UserInfoActions.userInfoFailure('服务器超时'))
-      break;
-    case 'CONNECTION_ERROR'://服务器不可用，坏dns
-      yield put(UserInfoActions.userInfoFailure('服务器不可用'))
-      break;
-    case 'NETWORK_ERROR'://网络不可用
-      yield put(UserInfoActions.userInfoFailure('网络不可用'))
-      break;
-    case 'CANCEL_ERROR'://请求已被取消
-      yield put(UserInfoActions.userInfoFailure('请求已被取消'))
-  }
-}*/
+
 
 /**
  * 获得用户信息
@@ -173,6 +143,36 @@ export function* uploadAvatar(api, action) {
   const response = yield call(api.uploadAvatar, formData)
 
   //console.log(response)
+  if (response.ok) { // success?
+    //console.log('upload ok')
+    yield call(api.setJsonData)
+    Toast.showSuccess('头像上传成功')
+    yield put(UserInfoActions.uploadAvatarSuccess(response.data.data.avatar))
+
+  } else { // failure
+    //console.log('upload error')
+    yield requestFaild(response, UserInfoActions.userInfoFailure)
+  }
+  yield put({type: 'UPLOAD AVATAR END'})
+}
+/**
+ * 上传头像
+ * @param api
+ * @param action
+ * @returns {IterableIterator<*>}
+ */
+export function* uploadAvatarQiniu(api, action) {
+  const {fileUrl, fileName,key,token} = action
+  let formData = new FormData()
+
+  let file = {uri: fileUrl, type: 'application/octet-stream', name: fileName}
+  formData.append('file', file)
+  formData.append('key', key)
+  formData.append('token', token)
+  formData.append("fname", fileName);
+  yield call(api.setFormData)
+  const response = yield call(api.uploadQiniu, formData)
+  console.log(response)
   if (response.ok) { // success?
     //console.log('upload ok')
     yield call(api.setJsonData)

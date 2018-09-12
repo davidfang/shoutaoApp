@@ -48,7 +48,7 @@ export function* getBanner(api, {banner_type}) {
  * @param action
  * @returns {IterableIterator<*>}
  */
-export function* postFeedBack(api, action) {
+export function* postFeedBack2(api, action) {
   const {body, fileUrl, fileName} = action
 
   let formData = new FormData()
@@ -64,6 +64,41 @@ export function* postFeedBack(api, action) {
   console.log(response)
   if (response.ok) { // success?
     console.log('upload ok')
+    Toast.showSuccess('意见提交成功')
+    yield put(NavigationActions.back())
+  } else { // failure
+    console.log('upload error')
+    yield put({type: 'UPLOAD feedback Fail'})
+    console.log(response)
+    yield requestFaild(response,BannerActions.bannerFailure)
+  }
+  yield put({type: 'UPLOAD feedback END'})
+}
+/**
+ * 提交用户反馈
+ * @param api
+ * @param action
+ * @returns {IterableIterator<*>}
+ */
+export function* postFeedBack(api, action) {
+  const {body, fileUrl, fileName,key,token} = action
+
+  let formData = new FormData()
+
+  let file = {uri: fileUrl, type: 'application/octet-stream', name: fileName}
+  formData.append('file', file)
+  //formData.append('body', body)
+  formData.append('key', key)
+  formData.append('token', token)
+  formData.append("x:body", body);
+  let userId = yield select(selectUserId)
+  formData.append('x:userId',userId)
+  yield call(api.setFormData)
+  const response = yield call(api.uploadQiniu, formData)
+
+  //console.log(response)
+  if (response.ok) { // success?
+    //console.log('upload ok')
     Toast.showSuccess('意见提交成功')
     yield put(NavigationActions.back())
   } else { // failure

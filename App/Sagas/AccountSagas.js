@@ -37,7 +37,7 @@ export function * getAccount (api, action) {
 
 export function * getBankInfo(api, action) {
   const response = yield call(api.getBankInfo)
-  console.log(response)
+  //console.log(response)
   if(response.ok){
     yield put(AccountActions.bankInfoSuccess(response.data.data))
   }else{

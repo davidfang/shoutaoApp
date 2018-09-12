@@ -72,9 +72,15 @@ const create = (baseURL = AppConfig.apiUrl) => {
 
   // ignite-jhipster-api-method-needle
   const uploadAvatar = (formData) => api.post('user/avatar', formData) //上传图像
+  const getQiniuAvatarToken = () => api.get('qiniu/avatarToken')//上传头像获得七牛图片上传token
+  const getQiniuFeedbackToken = (userId) => api.post('qiniu/feedbackToken',{userId})//用户反馈获得七牛图片上传token
+
+  const uploadQiniu = (formData) => api.post('', formData)//七牛 上传图像到七牛
+
   const getFans = (page)=> api.get('user/fans',{page}) //获得粉丝
   const getGrandFans = (page)=> api.get('user/grand-fans',{page}) //获得孙子粉丝
-  const feedBack = (formData) => api.post('feed-back', formData) //用户反馈意见
+  // const feedBack = (formData) => api.post('feed-back', formData) //用户反馈意见
+  const feedBack = (formData) => api.post('', formData) //七牛 用户反馈意见
 
   const getCircle = (category_id,page) => api.get('circle',{category_id,page}) // 获得分类圈子的分享文章
   const getGoodsCategory = () => api.get('category') // 获得产品分类
@@ -134,6 +140,9 @@ const create = (baseURL = AppConfig.apiUrl) => {
 
     getProvince,
     uploadAvatar,
+    uploadQiniu,
+    getQiniuAvatarToken,
+    getQiniuFeedbackToken,
     feedBack,
     getCircle,
     getGoodsCategory,

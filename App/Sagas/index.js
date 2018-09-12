@@ -16,6 +16,7 @@ import {AccountTypes} from '../Redux/AccountRedux'
 import {TbTypes} from '../Redux/TbRedux'
 import {GoodsCategoryTypes} from '../Redux/GoodsCategoryRedux'
 import {CircleTypes} from '../Redux/CircleRedux'
+import {QiniuTypes} from '../Redux/QiniuRedux'
 
 /* ------------- Sagas ------------- */
 
@@ -24,7 +25,8 @@ import {getAppSet} from './AppSetSagas'
 import {getRegister} from './RegisterSagas'
 import {login,autoLogin,loginByMobileVerifyCode} from './LoginSagas'
 import {getVerifyCode} from './VerifyCodeSagas'
-import {getUserInfo,updateUserInfo,changePassword,setPassword,uploadAvatar,getFans,getGrandFans} from './UserInfoSagas'
+import {getUserInfo,updateUserInfo,changePassword,setPassword,uploadAvatar,uploadAvatarQiniu,getFans,getGrandFans} from './UserInfoSagas'
+import {getQiniuAvatarToken,getQiniuFeedbackToken} from './QiniuSagas'
 import {getAccount,getBankInfo,setBankInfo,withdrawal} from './AccountSagas'
 import {getBanner,postFeedBack} from './BannerSagas'
 import {getTbIndexRecommend, getTbChannelProduct, getTbSearch, setTbDetail, getTbDetail} from './TbSagas'
@@ -37,6 +39,7 @@ import App from "../Containers/App";
 // The API we use is only used from Sagas, so we create it here and pass along
 // to the sagas which need it.
 const api = DebugConfig.useFixtures ? FixtureAPI : API.create()
+const apiQiniu = DebugConfig.useFixtures ? FixtureAPI : API.create('http://upload.qiniup.com/')
 
 /* ------------- Connect Types To Sagas ------------- */
 
@@ -57,9 +60,14 @@ export default function* root() {
     takeLatest(UserInfoTypes.USER_INFO_CHANGE_PASSWORD_REQUEST,changePassword,api),
     takeLatest(UserInfoTypes.USER_INFO_SET_PASSWORD_REQUEST,setPassword,api),
     takeLatest(UserInfoTypes.UPLOAD_AVATAR_REQUEST,uploadAvatar,api),
+    takeLatest(UserInfoTypes.UPLOAD_AVATAR_QINIU_REQUEST,uploadAvatarQiniu,apiQiniu),
+
+    takeLatest(QiniuTypes.QINIU_AVATAR_REQUEST,getQiniuAvatarToken,api),
+    takeLatest(QiniuTypes.QINIU_FEEDBACK_REQUEST,getQiniuFeedbackToken,api),
+
     takeLatest(UserInfoTypes.FANS_REQUEST,getFans,api),
     takeLatest(UserInfoTypes.GRAND_FANS_REQUEST,getGrandFans,api),
-    takeLatest(BannerTypes.FEEDBACK_REQUEST,postFeedBack,api),
+    takeLatest(BannerTypes.FEEDBACK_REQUEST,postFeedBack,apiQiniu),
 
     takeLatest(AccountTypes.ACCOUNT_REQUEST, getAccount, api),
     takeLatest(AccountTypes.BANK_INFO_REQUEST,getBankInfo,api),
