@@ -29,6 +29,7 @@
     "lodash": "^4.17.4",
     "normalizr": "^3.2.4",
     "prop-types": "^15.6.1",
+    "puppeteer": "^1.8.0",
     "querystringify": "1.0.0",
     "ramda": "^0.25.0",
     "react": "16.3.1",

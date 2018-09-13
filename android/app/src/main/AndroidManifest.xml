@@ -32,7 +32,7 @@
       </activity>
       <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
       <meta-data android:value="5b8e30c48f4a9d1bc6000082" android:name="UMENG_APPKEY"/>
-      <meta-data android:value="ChannelOtherID" android:name="UMENG_CHANNEL"/>
+      <meta-data android:value="guanwang" android:name="UMENG_CHANNEL"/>
     </application>
 
 </manifest>

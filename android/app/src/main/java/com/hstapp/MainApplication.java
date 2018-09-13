@@ -54,6 +54,6 @@ public class MainApplication extends Application implements ReactApplication {
   public void onCreate() {
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
-    RNUMConfigure.init(this, "5b8e30c48f4a9d1bc6000082", "ChannelOtherID", UMConfigure.DEVICE_TYPE_PHONE,"");
+    RNUMConfigure.init(this, "5b8e30c48f4a9d1bc6000082", "guanwang", UMConfigure.DEVICE_TYPE_PHONE,"");
   }
 }

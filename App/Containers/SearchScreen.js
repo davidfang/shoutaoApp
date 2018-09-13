@@ -44,6 +44,7 @@ class SearchScreen extends Component {
               onPress={this._clearInput}/>
       )
     }
+    console.log(this.props.taobaoCheck)
     return (
       <ScrollView style={styles.container}>
         <ImageBackground
@@ -80,17 +81,19 @@ class SearchScreen extends Component {
             </Text>
           </View>
         </ImageBackground>
-        <Image
+        {this.props.taobaoCheck == 'true' || <Image
           source={require('../Images/jiaocheng.png')}
           style={{width: Metrics.width, resizeMode: 'stretch'}}
-        />
+        />}
       </ScrollView>
     )
   }
 }
 
 const mapStateToProps = (state) => {
-  return {}
+  return {
+    taobaoCheck: state.appSet.payload && state.appSet.payload.taobaoCheck
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {
