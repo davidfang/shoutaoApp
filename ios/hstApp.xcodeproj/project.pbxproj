@@ -1530,6 +1530,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.zhicaikeji.quanzhenduo;
 				PRODUCT_NAME = hstApp;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1560,6 +1561,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.zhicaikeji.quanzhenduo;
 				PRODUCT_NAME = hstApp;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

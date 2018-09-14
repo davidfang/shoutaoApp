@@ -1,4 +1,4 @@
-package com.hstapp;
+package com.zhicaikeji.quanzhenduo;
 
 import android.app.Application;
 
@@ -12,8 +12,8 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 
-import com.hstapp.invokenative.DplusReactPackage;
-import com.hstapp.invokenative.RNUMConfigure;
+import com.zhicaikeji.quanzhenduo.invokenative.DplusReactPackage;
+import com.zhicaikeji.quanzhenduo.invokenative.RNUMConfigure;
 import com.umeng.commonsdk.UMConfigure;
 
 import java.util.Arrays;

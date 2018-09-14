@@ -1,4 +1,4 @@
-package com.hstapp.invokenative;
+package com.zhicaikeji.quanzhenduo.invokenative;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

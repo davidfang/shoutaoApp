@@ -1,4 +1,4 @@
-package com.hstapp.invokenative;
+package com.zhicaikeji.quanzhenduo.invokenative;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -1,4 +1,4 @@
-package com.hstapp;
+package com.zhicaikeji.quanzhenduo;
 
 import android.os.Bundle; // here
 import com.facebook.react.ReactActivity;
