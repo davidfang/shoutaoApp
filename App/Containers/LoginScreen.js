@@ -5,6 +5,7 @@ import {connect} from 'react-redux'
 import styles from './Styles/LoginScreenStyle'
 import {Images, Colors} from '../Themes'
 import LoginActions, {LoginSelector} from '../Redux/LoginRedux'
+import ThirdLogin from './ThirdLogin'
 
 class LoginScreen extends React.Component {
 
@@ -24,12 +25,6 @@ class LoginScreen extends React.Component {
       this.props.navigation.navigate('MainStack')
     }
   }
-
-  componentWillReceiveProps(newProps) {
-    // Did the login attempt complete?
-
-  }
-
   handlePressLogin = () => {
     const {mobile, password} = this.state
     if (!this.props.fetching) {
@@ -97,6 +92,7 @@ class LoginScreen extends React.Component {
               <Text style={styles.buttonText}>短信登录</Text>
             </TouchableOpacity>
           </View>
+          <ThirdLogin/>
         </View>
       </TouchableWithoutFeedback>
     )
@@ -114,7 +110,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     login: (mobile, password) => dispatch(LoginActions.loginRequest(mobile, password)),
-    logout: () => dispatch(LoginActions.logout())
+    logout: () => dispatch(LoginActions.logout()),
+
   }
 }
 

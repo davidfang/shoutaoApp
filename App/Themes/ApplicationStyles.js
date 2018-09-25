@@ -141,6 +141,28 @@ const ApplicationStyles = {
     formButtonGroup: {
       marginTop: ScreenUtil.scaleHeight(40),
       marginHorizontal: ScreenUtil.scaleSize(10)
+    },
+    thirdLoginGroup: {
+      width: Metrics.screenWidth,
+      borderTopColor: '#E6E6E6',
+      borderTopWidth: ScreenUtil.scaleHeight(0.5),
+      justifyContent:'center',
+      marginTop:Metrics.doubleBaseMargin * 5
+    },
+    thirdLogin: {
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center'
+    },
+    thirdLogo: {
+      alignSelf: 'center',
+      resizeMode: 'contain',
+      width: ScreenUtil.scaleHeight(35),
+    },
+    thirdText: {
+      fontSize: ScreenUtil.setSpText(11),
+      color: Colors.steel,
+      marginVertical:Metrics.smallMargin
     }
   },
   darkLabelContainer: {

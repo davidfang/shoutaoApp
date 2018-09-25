@@ -20,13 +20,26 @@
 	<string>1.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>wx817233cd6c70c0e3</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>alipay</string>
+		<string>alipayshare</string>
 		<string>taobao</string>
-		<string>weixin </string>
+		<string>wechat</string>
+		<string>weixin</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
@@ -36,6 +49,11 @@
 		<true/>
 		<key>NSExceptionDomains</key>
 		<dict>
+			<key>*.zhicaikeji.com</key>
+			<dict>
+				<key>NSAllowsArbitraryLoads</key>
+				<true/>
+			</dict>
 			<key>localhost</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>

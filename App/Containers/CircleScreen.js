@@ -1,13 +1,13 @@
-import React, { Component } from 'react'
-import { View, Text } from 'react-native'
-import { connect } from 'react-redux'
-import ScrollableTabView, { ScrollableTabBar } from 'react-native-scrollable-tab-view'
+import React, {Component} from 'react'
+import {View, Text} from 'react-native'
+import {connect} from 'react-redux'
+import ScrollableTabView, {ScrollableTabBar} from 'react-native-scrollable-tab-view'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
 import CircleList from './CircleList'
 // Styles
 import styles from './Styles/CircleScreenStyle'
-import {Colors } from '../Themes'
+import {Colors} from '../Themes'
 
 class CircleScreen extends Component {
   // constructor (props) {
@@ -15,7 +15,8 @@ class CircleScreen extends Component {
   //   this.state = {}
   // }
 
-  render () {
+  render() {
+    let circles = this.props.circles
     return (
       <View style={styles.container}>
         <View style={styles.header}><Text style={styles.normal}>圈子</Text></View>
@@ -26,8 +27,7 @@ class CircleScreen extends Component {
 
                            renderTabBar={() => <ScrollableTabBar/>}
         >
-          <CircleList tabLabel='每日爆款' category_id={6}></CircleList>
-          <CircleList tabLabel='宣传材料' category_id={5}></CircleList>
+          {circles.map((circle) => <CircleList key={circle.category} tabLabel={circle.label} category_id={circle.category}></CircleList>)}
         </ScrollableTabView>
       </View>
     )
@@ -35,7 +35,9 @@ class CircleScreen extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return {}
+  return {
+    circles: state.appSet.payload.hasOwnProperty('circle') ? JSON.parse(state.appSet.payload.circle) : []
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {

@@ -18,7 +18,7 @@ export default Creators
 
 export const INITIAL_STATE = Immutable({
   data: null,
-  token: null,
+  token: {},
   fetching: null,
   payload: null,
   error: null
@@ -34,7 +34,7 @@ export const QiniuSelectors = {
 
 // request the data from an api
 export const request = (state) =>
-  state.merge({fetching: true, token: null, data: null})
+  state.merge({fetching: true, token: {}, data: null})
 
 // successful api lookup
 export const success = (state, action) => {
@@ -44,7 +44,7 @@ export const success = (state, action) => {
 
 // Something went wrong somewhere.
 export const failure = (state, {error}) =>
-  state.merge({fetching: false, error, data: null, token: null})
+  state.merge({fetching: false, error, data: null, token: {}})
 
 /* ------------- Hookup Reducers To Types ------------- */
 

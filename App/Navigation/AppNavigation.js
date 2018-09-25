@@ -1,5 +1,6 @@
 import React from 'react'
 import {StackNavigator} from 'react-navigation'
+import ThirdLogin from '../Containers/ThirdLogin'
 import FeedbackScreen from '../Containers/FeedbackScreen'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
@@ -18,6 +19,7 @@ import SetPasswordScreen from "../Containers/SetPasswordScreen";
 import {ScreenUtil} from '../Themes'
 // Manifest of possible screens
 const PrimaryNav = StackNavigator({
+  ThirdLogin: { screen: ThirdLogin },
   FeedbackScreen: {
     screen: FeedbackScreen,
     navigationOptions: {

@@ -1,11 +1,14 @@
 package com.zhicaikeji.quanzhenduo;
 
+import android.content.Intent;
 import android.os.Bundle; // here
 import com.facebook.react.ReactActivity;
 import org.devio.rn.splashscreen.SplashScreen; // here
 
+import com.zhicaikeji.quanzhenduo.invokenative.ShareModule;
 import com.umeng.analytics.MobclickAgent;
 import  com.umeng.analytics.MobclickAgent.EScenarioType;
+import com.umeng.socialize.UMShareAPI;
 
 public class MainActivity extends ReactActivity {
 
@@ -23,6 +26,12 @@ public class MainActivity extends ReactActivity {
         MobclickAgent.setSessionContinueMillis(1000);
         MobclickAgent.setScenarioType(this, EScenarioType.E_DUM_NORMAL);
         super.onCreate(savedInstanceState);
+        ShareModule.initSocialSDK(this);
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
     }
     @Override
     public void onResume() {

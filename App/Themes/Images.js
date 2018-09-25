@@ -27,6 +27,8 @@ const images = {
   default: require('../Images/default.png'),
   default_middle: require('../Images/default-middle.png'),
   default_small: require('../Images/default-small.png'),
+  wxLogo: require('../Images/wx.png'),
+  load: require('../Images/load.png'),
 }
 
 export default images

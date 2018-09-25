@@ -14,7 +14,7 @@ class WebScreen extends Component {
   webview: WebView
   handleMessage = (evt: any) => {
     // doSomething()
-    const message = JSON.parse(evt.nativeEvent.data)
+    const message = evt.nativeEvent.hasOwnProperty('data') ? JSON.parse(evt.nativeEvent.data):{}
     console.log(message)
     const {commond,payload} = message
     Toast.show('dddddddd')

@@ -49,7 +49,7 @@ export default class SectionListItem extends Component {
         style={styles.productItem}
       >
         <Image style={styles.zhutu} source={{uri: product.pict_url}} resizeMode='contain'
-               resizeMethod='resize' defaultSource={Images.default}/>
+               resizeMethod='resize' loadingIndicatorSource={Images.load} defaultSource={Images.default}/>
         <View style={styles.info}>
           <Text style={styles.title} numberOfLines={2}>
             {product.title}

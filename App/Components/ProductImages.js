@@ -39,6 +39,7 @@ export default class ProductImages extends Component {
                   }}
                   resizeMode='cover'
                   resizeMethod='auto'
+                  loadingIndicatorSource={Images.load}
                   defaultSource={Images.default}
                 />
               )

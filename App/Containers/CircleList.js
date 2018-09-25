@@ -2,8 +2,10 @@ import React from 'react'
 import {View, Text, FlatList, Image, TouchableOpacity, RefreshControl, Clipboard} from 'react-native'
 import {connect} from 'react-redux'
 import Icon from 'react-native-vector-icons/Ionicons'
+import UMShare from '../Lib/UMShareUtil'
 // More info here: https://facebook.github.io/react-native/docs/flatlist.html
 import CircleActions, {CircleSelectors} from '../Redux/CircleRedux'
+import ShareActions from '../Redux/ShareRedux'
 // Styles
 import styles from './Styles/CircleListStyle'
 import {Colors, Images, ScreenUtil} from '../Themes'
@@ -14,7 +16,18 @@ class CircleList extends React.PureComponent {
   constructor(props) {
     super(props)
   }
-
+  _share = (text,img,url,title,id) => {
+    //调用模板分享
+    UMShare.shareboard(text,img,url,title,(code,message) =>{
+    //UMShare.shareboard(text,img,url,title,(code,message) =>{
+        //console.log(code,message);
+        //console.warn(code,message)
+        let uid = this.props.uid;
+        //console.warn(uid,text,img,url,title)
+        let other = {id}
+        this.props.postShare(uid,text,img,url,title,2,1,code,message,JSON.stringify(other))
+      });
+  }
   _copyInvitationCode = () => {
     Clipboard.setString('我在使用一个超级好用的优惠券APP，淘宝天猫购物之前先在此搜一下，领内部优惠券，还可以获得购物返利，邀请别人使用，还可以获得别人购物的返利。注册时记得填我的邀请码： ' + this.props.invitation_code + this.props.downloadUrl)
     Toast.showSuccess('邀请码已复制到剪贴板，发给好友一起赚钱吧！')
@@ -46,7 +59,7 @@ class CircleList extends React.PureComponent {
               <View><Text>{item.created_at}</Text></View>
             </View>
           </View>
-          <TouchableOpacity style={styles.share} onPress={this._copyInvitationCode}>
+          <TouchableOpacity style={styles.share} onPress={()=>this._share(item.body,item.thumbnail,item.url,item.title,item.id)}>
             <Text><Icon name={'md-share'} size={ScreenUtil.scaleSize(15)} color={Colors.fire}/> {item.click}</Text>
           </TouchableOpacity>
         </View>
@@ -157,7 +170,7 @@ class CircleList extends React.PureComponent {
 
 const mapStateToProps = (state, props) => {
   const {category_id} = props
-  const {invitation_code} = state.userInfo
+  const {invitation_code,id} = state.userInfo
   let circle = CircleSelectors.getCircle(state.circle, category_id)
   let more = CircleSelectors.getMore(state.circle, category_id)
   let nextPage = CircleSelectors.getNextPage(state.circle, category_id)
@@ -165,18 +178,21 @@ const mapStateToProps = (state, props) => {
   return {
     //category_id,
     fetching: state.circle.fetching,
+    uid:id,
     invitation_code,
     downloadUrl,
     circle,
     more,
     nextPage
+
     // ...redux state to props here
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getCircles: (category_id, page) => dispatch(CircleActions.circleRequest(category_id, page))
+    getCircles: (category_id, page) => dispatch(CircleActions.circleRequest(category_id, page)),
+    postShare: (uid,content,img,url,title,platform,type,code,message,other) => dispatch(ShareActions.shareRequest({uid,content,img,url,title,platform,type,code,message,other}))
   }
 }
 

@@ -18,7 +18,7 @@ import com.facebook.react.bridge.ReadableType;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.analytics.dplus.UMADplus;
 import com.umeng.analytics.game.UMGameAgent;
-import com.umeng.socialize.utils.Log;
+//import com.umeng.socialize.utils.Log;
 
 /**
  * Created by wangfei on 17/8/28.
@@ -108,7 +108,7 @@ public class AnalyticsModule extends ReactContextBaseJavaModule {
     /********************************U-App(Game)统计*********************************/
     @ReactMethod
     public void track(String eventName) {
-        Log.e("xxxxxx dddddd="+context);
+        //Log.e("xxxxxx dddddd="+context);
         UMADplus.track(context,eventName);
     }
     @ReactMethod

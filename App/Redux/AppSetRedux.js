@@ -17,7 +17,7 @@ export default Creators
 export const INITIAL_STATE = Immutable({
   data: null,
   fetching: null,
-  payload: null,
+  payload: {},
   error: null
 })
 
@@ -32,7 +32,7 @@ export const AppSetSelectors = {
 
 // request the data from an api
 export const request = (state, { data }) =>
-  state.merge({ fetching: true, data, payload: null })
+  state.merge({ fetching: true, data, payload: {} })
 
 // successful api lookup
 export const success = (state, action) => {
@@ -42,7 +42,7 @@ export const success = (state, action) => {
 
 // Something went wrong somewhere.
 export const failure = (state,{error}) =>
-  state.merge({ fetching: false, error, payload: null })
+  state.merge({ fetching: false, error, payload: {} })
 
 /* ------------- Hookup Reducers To Types ------------- */
 

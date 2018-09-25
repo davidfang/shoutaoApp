@@ -1,9 +1,9 @@
 /**
  * 友盟统计
  */
-import {NativeModules,Platform} from 'react-native'
+import {NativeModules} from 'react-native'
 var UMTJ = NativeModules.UMAnalyticsModule
-console.log(UMTJ)
+//console.log(UMTJ)
 export const onPageStart = pageName => {
   //用于统计单个自定义页面的起始和onPageEnd同时使用，不可单独使用
   // if(Platform.OS === 'ios') {

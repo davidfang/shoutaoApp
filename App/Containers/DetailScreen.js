@@ -14,7 +14,7 @@ import GuessLike from '../Components/GuessLike'
 import Empty from '../Components/Empty'
 // Styles
 import styles from './Styles/DetailScreenStyle'
-import {Metrics, ScreenUtil} from '../Themes'
+import {Images, Metrics, ScreenUtil} from '../Themes'
 import Toast from "../Lib/Toast";
 import {onEventWithLable} from "../Lib/UMAnalyticsUtil";
 
@@ -67,6 +67,7 @@ class DetailScreen extends Component {
                  source={{uri: item}}
                  resizeMode='contain'
                  resizeMethod='resize'
+                 loadingIndicatorSource={Images.load}
       />
     )
   }

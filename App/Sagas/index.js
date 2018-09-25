@@ -17,22 +17,32 @@ import {TbTypes} from '../Redux/TbRedux'
 import {GoodsCategoryTypes} from '../Redux/GoodsCategoryRedux'
 import {CircleTypes} from '../Redux/CircleRedux'
 import {QiniuTypes} from '../Redux/QiniuRedux'
+import {ShareTypes} from '../Redux/ShareRedux'
 
 /* ------------- Sagas ------------- */
 
 import {startup} from './StartupSagas'
 import {getAppSet} from './AppSetSagas'
 import {getRegister} from './RegisterSagas'
-import {login,autoLogin,loginByMobileVerifyCode} from './LoginSagas'
+import {login, autoLogin, loginByMobileVerifyCode} from './LoginSagas'
 import {getVerifyCode} from './VerifyCodeSagas'
-import {getUserInfo,updateUserInfo,changePassword,setPassword,uploadAvatar,uploadAvatarQiniu,getFans,getGrandFans} from './UserInfoSagas'
-import {getQiniuAvatarToken,getQiniuFeedbackToken} from './QiniuSagas'
-import {getAccount,getBankInfo,setBankInfo,withdrawal} from './AccountSagas'
-import {getBanner,postFeedBack} from './BannerSagas'
+import {
+  getUserInfo,
+  updateUserInfo,
+  changePassword,
+  setPassword,
+  uploadAvatar,
+  uploadAvatarQiniu,
+  getFans,
+  getGrandFans
+} from './UserInfoSagas'
+import {getQiniuAvatarToken, getQiniuFeedbackToken} from './QiniuSagas'
+import {getAccount, getBankInfo, setBankInfo, withdrawal} from './AccountSagas'
+import {getBanner, postFeedBack} from './BannerSagas'
 import {getTbIndexRecommend, getTbChannelProduct, getTbSearch, setTbDetail, getTbDetail} from './TbSagas'
 import {getGoodsCategory} from './GoodsCategorySagas'
 import {getCircle} from './CircleSagas'
-import App from "../Containers/App";
+import {postShare, thirdLogin, thirdBind} from './ShareSagas'
 
 /* ------------- API ------------- */
 
@@ -47,32 +57,32 @@ export default function* root() {
   yield all([
     // some sagas only receive an action
     takeLatest(StartupTypes.STARTUP, startup),
-    takeLatest(AppSetTypes.APP_SET_REQUEST,getAppSet,api),
+    takeLatest(AppSetTypes.APP_SET_REQUEST, getAppSet, api),
 
     // some sagas receive extra parameters in addition to an action
-    takeLatest(RegisterTypes.REGISTER_REQUEST,getRegister,api),
+    takeLatest(RegisterTypes.REGISTER_REQUEST, getRegister, api),
     takeLatest(LoginTypes.LOGIN_REQUEST, login, api),
     takeLatest(LoginTypes.LOGIN_MOBILE_VERIFY_CODE_REQUEST, loginByMobileVerifyCode, api),
     takeLatest(LoginTypes.AUTO_LOGIN, autoLogin, api),
     takeLatest(VerifyCodeTypes.VERIFY_CODE_REQUEST, getVerifyCode, api),
-    takeLatest(UserInfoTypes.USER_INFO_REQUEST,getUserInfo,api),
-    takeLatest(UserInfoTypes.USER_INFO_UPDATE_REQUEST,updateUserInfo,api),
-    takeLatest(UserInfoTypes.USER_INFO_CHANGE_PASSWORD_REQUEST,changePassword,api),
-    takeLatest(UserInfoTypes.USER_INFO_SET_PASSWORD_REQUEST,setPassword,api),
-    takeLatest(UserInfoTypes.UPLOAD_AVATAR_REQUEST,uploadAvatar,api),
-    takeLatest(UserInfoTypes.UPLOAD_AVATAR_QINIU_REQUEST,uploadAvatarQiniu,apiQiniu),
+    takeLatest(UserInfoTypes.USER_INFO_REQUEST, getUserInfo, api),
+    takeLatest(UserInfoTypes.USER_INFO_UPDATE_REQUEST, updateUserInfo, api),
+    takeLatest(UserInfoTypes.USER_INFO_CHANGE_PASSWORD_REQUEST, changePassword, api),
+    takeLatest(UserInfoTypes.USER_INFO_SET_PASSWORD_REQUEST, setPassword, api),
+    takeLatest(UserInfoTypes.UPLOAD_AVATAR_REQUEST, uploadAvatar, api),
+    takeLatest(UserInfoTypes.UPLOAD_AVATAR_QINIU_REQUEST, uploadAvatarQiniu, apiQiniu),
 
-    takeLatest(QiniuTypes.QINIU_AVATAR_REQUEST,getQiniuAvatarToken,api),
-    takeLatest(QiniuTypes.QINIU_FEEDBACK_REQUEST,getQiniuFeedbackToken,api),
+    takeLatest(QiniuTypes.QINIU_AVATAR_REQUEST, getQiniuAvatarToken, api),
+    takeLatest(QiniuTypes.QINIU_FEEDBACK_REQUEST, getQiniuFeedbackToken, api),
 
-    takeLatest(UserInfoTypes.FANS_REQUEST,getFans,api),
-    takeLatest(UserInfoTypes.GRAND_FANS_REQUEST,getGrandFans,api),
-    takeLatest(BannerTypes.FEEDBACK_REQUEST,postFeedBack,apiQiniu),
+    takeLatest(UserInfoTypes.FANS_REQUEST, getFans, api),
+    takeLatest(UserInfoTypes.GRAND_FANS_REQUEST, getGrandFans, api),
+    takeLatest(BannerTypes.FEEDBACK_REQUEST, postFeedBack, apiQiniu),
 
     takeLatest(AccountTypes.ACCOUNT_REQUEST, getAccount, api),
-    takeLatest(AccountTypes.BANK_INFO_REQUEST,getBankInfo,api),
-    takeLatest(AccountTypes.BANK_INFO_SET_REQUEST,setBankInfo,api),
-    takeLatest(AccountTypes.WITHDRAWAL_REQUEST,withdrawal,api),
+    takeLatest(AccountTypes.BANK_INFO_REQUEST, getBankInfo, api),
+    takeLatest(AccountTypes.BANK_INFO_SET_REQUEST, setBankInfo, api),
+    takeLatest(AccountTypes.WITHDRAWAL_REQUEST, withdrawal, api),
 
     takeEvery(BannerTypes.BANNER_REQUEST, getBanner, api),
     takeLatest(GoodsCategoryTypes.GOODS_CATEGORY_REQUEST, getGoodsCategory, api),
@@ -81,6 +91,9 @@ export default function* root() {
     takeLatest(TbTypes.TB_SEARCH_REQUEST, getTbSearch, api),
     takeLatest(TbTypes.TB_SET_DETAIL_REQUEST, setTbDetail, api),
     takeLatest(TbTypes.TB_DETAIL_REQUEST, getTbDetail, api),
-    takeLatest(CircleTypes.CIRCLE_REQUEST,getCircle,api)
+    takeLatest(CircleTypes.CIRCLE_REQUEST, getCircle, api),
+    takeLatest(ShareTypes.SHARE_REQUEST, postShare, api),
+    takeLatest(ShareTypes.SHARE_LOGIN_REQUEST, thirdLogin, api),
+    takeLatest(ShareTypes.SHARE_BIND_REQUEST, thirdBind, api)
   ])
 }

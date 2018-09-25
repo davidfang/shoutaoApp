@@ -10,6 +10,7 @@ import LoginScreen from "../Containers/LoginScreen";
 import FansScreen from "../Containers/FansScreen";
 import BindingBankCardScreen from "../Containers/BindingBankCardScreen";
 import WithdrawalScreen from "../Containers/WithdrawalScreen";
+import BindMobileScreen from "../Containers/BindMobileScreen";
 
 // Manifest of possible screens
 const UserNav = StackNavigator({
@@ -24,6 +25,12 @@ const UserNav = StackNavigator({
     screen: ChangePasswordScreen,
     navigationOptions:{
       title:'修改密码'
+    }
+  },
+  BindMobileScreen: {
+    screen: BindMobileScreen,
+    navigationOptions:{
+      title:'三方登录绑定手机号'
     }
   },
   EditUserScreen: {

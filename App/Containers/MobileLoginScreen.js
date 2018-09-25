@@ -12,6 +12,7 @@ import Toast from "../Lib/Toast";
 import CountDownButton from '../Components/CountDownButton'
 import VerifyCodeActions from "../Redux/VerifyCodeRedux";
 import {Colors, Images} from "../Themes";
+import ThirdLogin from './ThirdLogin'
 
 class MobileLoginScreen extends Component {
   constructor(props) {
@@ -104,6 +105,7 @@ class MobileLoginScreen extends Component {
                 <Text style={styles.buttonText}>密码登录</Text>
               </TouchableOpacity>
             </View>
+            <ThirdLogin/>
           </View>
         </View>
       </TouchableWithoutFeedback>

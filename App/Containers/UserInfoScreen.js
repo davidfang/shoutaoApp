@@ -10,6 +10,7 @@ import {
 } from 'react-native'
 
 import Icon from 'react-native-vector-icons/MaterialIcons'
+import UMShare from '../Lib/UMShareUtil'
 import {connect} from 'react-redux'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
@@ -30,6 +31,7 @@ import CustomButton from '../Components/CustomButton'
 import {Colors, ScreenUtil} from '../Themes'
 import styles from './Styles/UserInfoScreenStyle'
 import AppConfig from "../Config/AppConfig";
+import ShareActions from "../Redux/ShareRedux";
 
 class UserInfoScreen extends Component {
 
@@ -49,10 +51,37 @@ class UserInfoScreen extends Component {
     navigation.navigate &&
     navigation.navigate('EditUserScreen')
   }
-  _copyInvitationCode = () => {
+  _share = () => {
+    //console.log('分享开始')
+    //console.log(UMShare)
+    let {shareTitle,shareText,shareImage,shareUrl,uid} = this.props
+    //调用模板分享
+    UMShare.shareboard(shareText,shareImage,shareUrl,shareTitle,
+            (code, message) => {
+            //console.warn(code,message);
+            //console.warn(uid, shareText, shareImage, shareUrl, shareTitle)
+            this.props.postShare(uid, shareText, shareImage, shareUrl, shareTitle, 2, 2, code, message)
+      });
+    // UMShare.shareboard(
+    //   '好多优惠券，还能赚钱，真的好实惠呀',
+    //   'http://dev.umeng.com/images/tab2_1.png',
+    //   'http://quanzhenduo.zhicaikeji.com',
+    //   '一个可以领优惠券的APP', (code, message) => {
+    //     //console.log(code,message);
+    //
+    //     let uid = this.props.uid;
+    //     this.props.postShare(uid, text, img, url, title, 2, 1, code, message)
+    //   });
 
-    Clipboard.setString('我在使用一个超级好用的优惠券APP，淘宝天猫购物之前先在此搜一下，领内部优惠券，还可以获得购物返利，邀请别人使用，还可以获得别人购物的返利。注册时记得填我的邀请码： ' + this.props.invitation_code + this.props.downloadUrl)
-    Toast.showSuccess('邀请码已复制到剪贴板，发给好友一起赚钱吧！')
+    console.log('分享结束')
+  }
+  _copyInvitationCode = () => {
+    let msg = '我在使用一个超级好用的优惠券APP，淘宝天猫购物之前先在此搜一下，领内部优惠券，还可以获得购物返利，邀请别人使用，还可以获得别人购物的返利。注册时记得填我的邀请码： ' + this.props.invitation_code + this.props.downloadUrl
+    Clipboard.setString(this.props.invitation_code)
+    Toast.showSuccess('邀请码已复制，发给好友一起赚钱吧！')
+    // UMShare.share(msg,'','','',2,(code,message)=> {
+    //   console.log(code,message)
+    // })
   }
   userHead = () => {
     const {loggedIn, nickname, invitation_code, grade, avatar} = this.props
@@ -192,7 +221,7 @@ class UserInfoScreen extends Component {
               <Image style={styles.gridIcon} source={require('../Images/users.png')}/>
               <Text>粉丝</Text>
             </TouchableOpacity>)}
-          {this.props.loggedIn && (<TouchableOpacity style={styles.gridItem} onPress={this._copyInvitationCode}>
+          {this.props.loggedIn && (<TouchableOpacity style={styles.gridItem} onPress={this._share}>
             <Image style={styles.gridIcon} source={require('../Images/invite.png')}/>
             <Text>邀请</Text>
           </TouchableOpacity>)}
@@ -232,12 +261,18 @@ class UserInfoScreen extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const {mobile, nickname, invitation_code, grade, avatar} = state.userInfo
+  const {mobile, nickname, invitation_code, grade, avatar, id} = state.userInfo
   const {accountInfo, bankInfo, fetching} = state.account
   let downloadUrl = AppSetSelectors.get(state.appSet, 'downloadUrl');
+  let shareTitle = AppSetSelectors.get(state.appSet, 'shareTitle');
+  let shareText = AppSetSelectors.get(state.appSet, 'shareText');
+  let shareImage = AppSetSelectors.get(state.appSet, 'shareImage');
+  let shareUrl = AppSetSelectors.get(state.appSet, 'shareUrl');
+
   return {
     loggedIn: LoginSelector.isLoggedIn(state.login),
     grade,
+    uid: id,
     mobile,
     nickname,
     invitation_code,
@@ -245,7 +280,8 @@ const mapStateToProps = (state) => {
     avatar,
     accountInfo,
     bankInfo,
-    fetching
+    fetching,
+    shareTitle,shareText,shareImage,shareUrl
   }
 }
 
@@ -259,7 +295,18 @@ const mapDispatchToProps = (dispatch) => {
     },
     uploadAvatar: (fileUrl, fileName) => dispatch(UserInfoActions.uploadAvatarRequest(fileUrl, fileName)),
     getAccountInfo: () => dispatch(AccountActions.accountRequest()),
-    getBankInfo: () => dispatch(AccountActions.bankInfoRequest())
+    getBankInfo: () => dispatch(AccountActions.bankInfoRequest()),
+    postShare: (uid, content, img, url, title, platform, type, code, message) => dispatch(ShareActions.shareRequest({
+      uid,
+      content,
+      img,
+      url,
+      title,
+      platform,
+      type,
+      code,
+      message
+    }))
   }
 }
 
