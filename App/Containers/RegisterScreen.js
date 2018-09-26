@@ -11,7 +11,7 @@ import {LoginSelector} from '../Redux/LoginRedux'
 import Toast from '../Lib/Toast'
 
 import CountDownButton from '../Components/CountDownButton'
-
+import ThirdLogin from './ThirdLogin'
 // Styles
 import styles from './Styles/RegisterScreenStyle'
 import {Colors, ScreenUtil} from '../Themes'
@@ -190,6 +190,7 @@ class RegisterScreen extends Component {
               <Text style={styles.formButtonText}>注册</Text>
             </TouchableOpacity>
           </View>
+          <ThirdLogin/>
         </View>
       </TouchableWithoutFeedback>
     )

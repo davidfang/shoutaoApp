@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Alert, Image, View, Text, TextInput, TouchableOpacity, Keyboard, TouchableWithoutFeedback} from 'react-native'
+import { Image, View, Text, TextInput, TouchableOpacity, Keyboard, TouchableWithoutFeedback} from 'react-native'
 import {connect} from 'react-redux'
 import styles from './Styles/LoginScreenStyle'
 import {Images, Colors} from '../Themes'
