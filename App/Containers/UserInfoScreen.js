@@ -54,13 +54,13 @@ class UserInfoScreen extends Component {
   _share = () => {
     //console.log('分享开始')
     //console.log(UMShare)
-    let {shareTitle,shareText,shareImage,shareUrl,uid} = this.props
+    let {shareTitle,shareText,shareImage,shareUrl,uid,invitation_code} = this.props
     //调用模板分享
-    UMShare.shareboard(shareText,shareImage,shareUrl,shareTitle,
+    UMShare.shareboard(shareText+ ' 邀请码:' + invitation_code,shareImage,shareUrl,shareTitle,
             (code, message) => {
             //console.warn(code,message);
             //console.warn(uid, shareText, shareImage, shareUrl, shareTitle)
-            this.props.postShare(uid, shareText, shareImage, shareUrl, shareTitle, 2, 2, code, message)
+            this.props.postShare(uid, shareText , shareImage, shareUrl, shareTitle, 2, 2, code, message,'{}')
       });
     // UMShare.shareboard(
     //   '好多优惠券，还能赚钱，真的好实惠呀',
@@ -296,7 +296,7 @@ const mapDispatchToProps = (dispatch) => {
     uploadAvatar: (fileUrl, fileName) => dispatch(UserInfoActions.uploadAvatarRequest(fileUrl, fileName)),
     getAccountInfo: () => dispatch(AccountActions.accountRequest()),
     getBankInfo: () => dispatch(AccountActions.bankInfoRequest()),
-    postShare: (uid, content, img, url, title, platform, type, code, message) => dispatch(ShareActions.shareRequest({
+    postShare: (uid, content, img, url, title, platform, type, code, message,other) => dispatch(ShareActions.shareRequest({
       uid,
       content,
       img,
@@ -305,7 +305,8 @@ const mapDispatchToProps = (dispatch) => {
       platform,
       type,
       code,
-      message
+      message,
+      other
     }))
   }
 }
