@@ -221,7 +221,7 @@ class UserInfoScreen extends Component {
               <Image style={styles.gridIcon} source={require('../Images/users.png')}/>
               <Text>粉丝</Text>
             </TouchableOpacity>)}
-          {this.props.loggedIn && (<TouchableOpacity style={styles.gridItem} onPress={this._share}>
+          {this.props.loggedIn && (<TouchableOpacity style={styles.gridItem} onPress={() => this._press('InviteScreen', {})}>
             <Image style={styles.gridIcon} source={require('../Images/invite.png')}/>
             <Text>邀请</Text>
           </TouchableOpacity>)}

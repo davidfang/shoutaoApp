@@ -18,6 +18,7 @@ import {GoodsCategoryTypes} from '../Redux/GoodsCategoryRedux'
 import {CircleTypes} from '../Redux/CircleRedux'
 import {QiniuTypes} from '../Redux/QiniuRedux'
 import {ShareTypes} from '../Redux/ShareRedux'
+import {InviteTypes} from '../Redux/InviteRedux'
 
 /* ------------- Sagas ------------- */
 
@@ -43,6 +44,7 @@ import {getTbIndexRecommend, getTbChannelProduct, getTbSearch, setTbDetail, getT
 import {getGoodsCategory} from './GoodsCategorySagas'
 import {getCircle} from './CircleSagas'
 import {postShare, thirdLogin, thirdBind} from './ShareSagas'
+import {getInvite} from './InviteSagas'
 
 /* ------------- API ------------- */
 
@@ -94,6 +96,7 @@ export default function* root() {
     takeLatest(CircleTypes.CIRCLE_REQUEST, getCircle, api),
     takeLatest(ShareTypes.SHARE_REQUEST, postShare, api),
     takeLatest(ShareTypes.SHARE_LOGIN_REQUEST, thirdLogin, api),
-    takeLatest(ShareTypes.SHARE_BIND_REQUEST, thirdBind, api)
+    takeLatest(ShareTypes.SHARE_BIND_REQUEST, thirdBind, api),
+    takeLatest(InviteTypes.INVITE_REQUEST,getInvite,api)
   ])
 }

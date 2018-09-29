@@ -93,6 +93,7 @@ const create = (baseURL = AppConfig.apiUrl) => {
   const postShare = (data) => api.post('share',data)//提交分享信息
   const thirdLogin = (data) => api.post('thirdLogin/login',data)//三方登录
   const thirdBind = (data) => api.post('thirdLogin/bind',data)//三方登录绑定用户
+  const getInvite = () => api.get('invite')//获得邀请模板信息
   // ------
   // STEP 3
   // ------
@@ -156,7 +157,8 @@ const create = (baseURL = AppConfig.apiUrl) => {
     setTbDetail,
     postShare,
     thirdLogin,
-    thirdBind
+    thirdBind,
+    getInvite
   }
 }
 

@@ -17,9 +17,16 @@ import ChannelScreen from '../Containers/ChannelScreen'
 import styles from './Styles/NavigationStyles'
 import SetPasswordScreen from "../Containers/SetPasswordScreen";
 import {ScreenUtil} from '../Themes'
+import InviteScreen from "../Containers/InviteScreen";
 // Manifest of possible screens
 const PrimaryNav = StackNavigator({
-  ThirdLogin: { screen: ThirdLogin },
+  ThirdLogin: {screen: ThirdLogin},
+  InviteScreen: {
+    screen: InviteScreen,
+    navigationOptions: {
+      title: '邀请好友'
+    }
+  },
   FeedbackScreen: {
     screen: FeedbackScreen,
     navigationOptions: {
@@ -94,7 +101,7 @@ const PrimaryNav = StackNavigator({
       headerLeft: <Icon name='chevron-left' onPress={() => {
         goBack()
       }} size={ScreenUtil.scaleSize(24)} color='#fff'
-                        style={{marginLeft: ScreenUtil.scaleSize(20)}}/>,
+                        style={{marginLeft: ScreenUtil.scaleSize(10)}}/>,
       headerRight: <Icon name='home' onPress={() => {
         navigate('MainStack')
       }} size={ScreenUtil.scaleSize(24)} color='#fff'

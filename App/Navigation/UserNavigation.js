@@ -16,39 +16,39 @@ import BindMobileScreen from "../Containers/BindMobileScreen";
 const UserNav = StackNavigator({
   MobileLoginScreen: {
     screen: MobileLoginScreen,
-    navigationOptions:{
-      title:'短信登录',
+    navigationOptions: {
+      title: '短信登录',
       header: null
     }
   },
   ChangePasswordScreen: {
     screen: ChangePasswordScreen,
-    navigationOptions:{
-      title:'修改密码'
+    navigationOptions: {
+      title: '修改密码'
     }
   },
   BindMobileScreen: {
     screen: BindMobileScreen,
-    navigationOptions:{
-      title:'三方登录绑定手机号'
+    navigationOptions: {
+      title: '三方登录绑定手机号'
     }
   },
   EditUserScreen: {
     screen: EditUserScreen,
-    navigationOptions:{
-      title:'用户信息'
+    navigationOptions: {
+      title: '用户信息'
     }
   },
   BindingBankCardScreen: {
     screen: BindingBankCardScreen,
-    navigationOptions:{
-      title:'绑定提现支付宝'
+    navigationOptions: {
+      title: '绑定提现支付宝'
     }
   },
   WithdrawalScreen: {
     screen: WithdrawalScreen,
-    navigationOptions:{
-      title:'提现申请'
+    navigationOptions: {
+      title: '提现申请'
     }
   },
   RegisterScreen: {
@@ -72,15 +72,15 @@ const UserNav = StackNavigator({
   },
   UserInfoScreen: {
     screen: UserInfoScreen,
-    navigationOptions:{
-      title:'我的',
+    navigationOptions: {
+      title: '我的',
       header: null
     }
   },
   FansScreen: {
-    screen: FansScreen ,
-    navigationOptions:{
-      title:'粉丝'
+    screen: FansScreen,
+    navigationOptions: {
+      title: '粉丝'
     }
   }
 }, {

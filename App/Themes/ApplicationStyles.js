@@ -11,7 +11,8 @@ const ApplicationStyles = {
   screen: {
     mainContainer: {
       flex: 1,
-      backgroundColor: Colors.transparent
+      backgroundColor: Colors.transparent,
+      padding: Metrics.smallMargin
     },
     backgroundImage: {
       position: 'absolute',
@@ -76,7 +77,12 @@ const ApplicationStyles = {
       width: Metrics.screenWidth,
       height: ScreenUtil.scaleHeight(0.5),
       backgroundColor: '#E6E6E6'
-    }
+    },
+    description:{
+      fontSize:Fonts.size.small,
+      fontFamily:Fonts.type.base,
+      color:Colors.descText
+    },
   },
   form: {
     form: {
