@@ -14,7 +14,8 @@ class SetPasswordScreen extends Component {
     super(props)
     this.state = {
       password: '',
-      secret: true
+      secret: true,
+      invitation_code: ''
     }
   }
 
@@ -23,9 +24,18 @@ class SetPasswordScreen extends Component {
    */
   submit() {
     if (!this.props.fetching) {
-      let user = {
-        mobile: this.props.mobile,
-        password: this.state.password
+      let user
+      if (this.state.invitation_code != '') {
+        user = {
+          mobile: this.props.mobile,
+          password: this.state.password,
+          invitation_code: this.state.invitation_code
+        }
+      }else {
+        user = {
+          mobile: this.props.mobile,
+          password: this.state.password
+        }
       }
       this.props.setPassword(user)
     }
@@ -63,6 +73,22 @@ class SetPasswordScreen extends Component {
             <Switch
               onValueChange={value => this.setState({secret: value})}
               value={this.state.secret}
+            />
+          </View>
+
+          <View style={styles.formRow}>
+            <Text style={styles.formRowLabel}>邀请码</Text>
+            <TextInput
+              style={styles.formTextInput}
+              placeholder={'朋友发给你的邀请码，如无可不填'}
+              placeholderTextColor={Colors.steel}
+              returnKeyType='done'
+              onChangeText={text => {
+                text = text.replace(/ /g, '')
+                this.setState({invitation_code: text})
+              }}
+              value={this.state.invitation_code}
+              underlineColorAndroid='transparent'
             />
           </View>
 

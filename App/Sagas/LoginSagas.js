@@ -9,11 +9,11 @@ export const selectTokenInfo = (state) => state.login.tokenInfo
 export const selectInvitationCode = (state) => state.register.invitation_code
 
 // attempts to login
-export function * login(api, {mobile, password}) {
+export function* login(api, {mobile, password}) {
   const authObj = {mobile, password}
 
   const response = yield call(api.login, authObj)
-  onEventWithMap('login',{'type':'密码登录'})
+  onEventWithMap('login', {'type': '密码登录'})
   //console.log(response)
   // success?
   if (response.ok) { // 网络请求成功
@@ -23,27 +23,19 @@ export function * login(api, {mobile, password}) {
     yield put(LoginActions.loginSuccess(data))
     yield put(UserInfoActions.userInfoRequest())
     //NavigationActions.account()
-    if(data.password){
-      yield put(NavigationActions.navigate({routeName:'MainStack'}))
-    }else{
-      yield put(NavigationActions.navigate({routeName:'SetPasswordScreen'}))
+    if (data.password) {
+      yield put(NavigationActions.navigate({routeName: 'MainStack'}))
+    } else {
+      yield put(NavigationActions.navigate({routeName: 'SetPasswordScreen'}))
     }
   } else { // 网络请求失败
-    yield requestFaild(response,LoginActions.loginFailure)
+    yield requestFaild(response, LoginActions.loginFailure)
   }
 }
 
-export function *loginByMobileVerifyCode(api,{mobile,verifyCode}) {
-  const invitation_code = yield select(selectInvitationCode)
-  let authObj,haveInvitation
-  if(invitation_code !='') {
-    authObj = {mobile, verifyCode,invitation_code}
-    haveInvitation = '推荐用户'
-  }else {
-    authObj = {mobile, verifyCode}
-    haveInvitation = '自然用户'
-  }
-  onEventWithMap('login',{'type':'验证码登录'})
+export function* loginByMobileVerifyCode(api, {mobile, verifyCode}) {
+  let authObj = {mobile, verifyCode}
+  onEventWithMap('login', {'type': '验证码登录'})
   const response = yield call(api.loginByVerifyCode, authObj)
 
   //console.log(response)
@@ -55,17 +47,16 @@ export function *loginByMobileVerifyCode(api,{mobile,verifyCode}) {
     yield put(LoginActions.loginSuccess(data))
     yield put(UserInfoActions.userInfoRequest())
     //NavigationActions.account()
-    console.log('data.password:',data.password)
-    if(data.password){
-      yield put(NavigationActions.navigate({routeName:'UserInfoScreen'}))
-      onEventWithMap('loginByMobile',{'type':'用户登录','status':'验证码登录成功','haveInvitation':haveInvitation})
-    }else{
-      yield put(NavigationActions.navigate({'type':'用户注册',routeName:'SetPasswordScreen'}))
-      onEventWithMap('loginByMobile',{'type':'用户登录','status':'验证码登录成功','haveInvitation':haveInvitation})
+    console.log('data.password:', data.password)
+    if (data.password) {
+      yield put(NavigationActions.navigate({routeName: 'UserInfoScreen'}))
+    } else {
+      yield put(NavigationActions.navigate({'type': '用户注册', routeName: 'SetPasswordScreen'}))
     }
+    onEventWithMap('loginByMobile', {'type': '用户登录', 'status': '验证码登录成功'})
   } else { // 网络请求失败
-    onEventWithMap('loginByMobile',{'type':'用户登录','status':'验证码登录失败','haveInvitation':haveInvitation})
-    yield requestFaild(response,LoginActions.loginFailure)
+    onEventWithMap('loginByMobile', {'type': '用户登录', 'status': '验证码登录失败', 'haveInvitation': haveInvitation})
+    yield requestFaild(response, LoginActions.loginFailure)
   }
 }
 

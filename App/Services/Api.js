@@ -60,8 +60,8 @@ const create = (baseURL = AppConfig.apiUrl) => {
   const withdrawal = (withdrawal)=> api.post('account/withdrawal',withdrawal)//提现申请
   const getUserInfo = () => api.get('user/info') // 用户中心 获得用户信息
   const updateUserInfo = (user) => api.post('user/update', user) // 更新用户信息
-  const resetPassword = (data) => api.post('passport/password-reset', data) // 重置密码
-  const changePassword = (data) => api.post('passport/password-reset', data) // 修改密码
+  const setPassword = (data) => api.post('passport/password-set', data) // 设置密码
+  const changePassword = (data) => api.post('passport/password-change', data) // 修改密码
 
   const getCaptcha = () => api.get('site/captcha', {refresh: 'refresh'}) // 获取图片验证码
   const checkCaptcha = (code) => api.get('site/check-captcha', {code}) // 校验图片验证码
@@ -135,7 +135,7 @@ const create = (baseURL = AppConfig.apiUrl) => {
     getBankInfo,
     setBankInfo,
     withdrawal,
-    resetPassword,
+    setPassword,
     changePassword,
 
     getCaptcha,

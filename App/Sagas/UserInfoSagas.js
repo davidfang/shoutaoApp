@@ -110,7 +110,7 @@ export function* setPassword(api, action) {
   // get current data from Store
   // const currentData = yield select(UserInfoSelectors.getData)
   // make the call to the api
-  const response = yield call(api.changePassword, user)
+  const response = yield call(api.setPassword, user)
   //const response = yield call(callApi, apiCall,api)
 
   //console.log(response)

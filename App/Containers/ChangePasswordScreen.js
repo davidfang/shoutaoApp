@@ -58,23 +58,21 @@ class ChangePasswordScreen extends Component {
                 underlineColorAndroid='transparent'
               />
             </View>
-            <View style={styles.form}>
-              <View style={styles.formRow}>
-                <Text style={styles.formRowLabel}>密码</Text>
-                <TextInput
-                  style={styles.formTextInput}
-                  placeholder={'6-20位字母、数字、符号'}
-                  placeholderTextColor={Colors.steel}
-                  secureTextEntry={this.state.secret}
-                  onChangeText={text => this.setState({password: text.trim()})}
-                  value={this.state.password}
-                  underlineColorAndroid='transparent'
-                />
-                <Switch
-                  onValueChange={value => this.setState({secret: value})}
-                  value={this.state.secret}
-                />
-              </View>
+            <View style={styles.formRow}>
+              <Text style={styles.formRowLabel}>密码</Text>
+              <TextInput
+                style={styles.formTextInput}
+                placeholder={'6-20位字母、数字、符号'}
+                placeholderTextColor={Colors.steel}
+                secureTextEntry={this.state.secret}
+                onChangeText={text => this.setState({password: text.trim()})}
+                value={this.state.password}
+                underlineColorAndroid='transparent'
+              />
+              <Switch
+                onValueChange={value => this.setState({secret: value})}
+                value={this.state.secret}
+              />
             </View>
             {/*按钮部分*/}
             <View style={styles.formButtonGroup}>
