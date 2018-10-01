@@ -114,8 +114,8 @@ android {
         applicationId "com.zhicaikeji.quanzhenduo"
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode 1
-        versionName "1.1"
+        versionCode 2
+        versionName "1.2"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }

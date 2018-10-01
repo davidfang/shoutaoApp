@@ -14,6 +14,10 @@ export default StyleSheet.create({
   left: {
     flex: 1
   },
+  leftImage:{
+    width: ScreenUtil.scaleSize(25),
+    height: ScreenUtil.scaleSize(25)
+  },
   right: {
     flex: 9,
     flexDirection: 'row',

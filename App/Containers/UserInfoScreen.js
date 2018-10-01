@@ -239,18 +239,20 @@ class UserInfoScreen extends Component {
           </TouchableOpacity>
         </View>
         {this.props.loggedIn && (<View style={styles.rowItemGroup}>
-          <RowItem title='修改密码' icon='vpn-key' iconColor='lightskyblue'
-                   onPress={() => this.props.navigation.navigate('ChangePasswordScreen')}/>
+          <RowItem title='修改密码' icon={require('../Images/change-password.png')} iconColor={Colors.blue}
+                   onPress={() => this._press('ChangePasswordScreen',{})}/>
+         <RowItem title='专属邀请码' icon={require('../Images/qrcode-scan.png')} iconColor={Colors.orange}
+                   onPress={() => this._press('InviteScreen', {})}/>
 
         </View>)
         }
 
         <View style={styles.rowItemGroup}>
-          <RowItem title='官方公告' icon='volume-up' iconColor='lightskyblue'
+          <RowItem title='官方公告' icon={require('../Images/volume-up.png')} iconColor={Colors.blue}
                    onPress={() => this._webPress('article-category/4', '官方公告')}/>
-          <RowItem title='意见反馈' icon='create' iconColor='lightskyblue'
+          <RowItem title='意见反馈' icon={require('../Images/feedback.png')} iconColor={Colors.blue}
                    onPress={() => this._press('FeedbackScreen', {title: '意见反馈'})}/>
-          <RowItem title='分享' icon='share' iconColor={Colors.fire} onPress={this._copyInvitationCode}/>
+          <RowItem title='分享' icon={require('../Images/share.png')} iconColor={Colors.fire} onPress={this._copyInvitationCode}/>
 
         </View>
         <View/>
