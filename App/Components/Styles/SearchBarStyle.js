@@ -10,7 +10,7 @@ export default StyleSheet.create({
   },
   logo: {
     height: ScreenUtil.scaleHeight(24),
-    width: ScreenUtil.scaleSize(80),
+    width: ScreenUtil.scaleSize(24),
     resizeMode: 'stretch' // 拉伸模式
   },
   searchBox: {
