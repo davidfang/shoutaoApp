@@ -108,9 +108,10 @@ class DetailScreen extends Component {
       fetch('http://hws.m.taobao.com/cache/mtop.wdetail.getItemDescx/4.1/?data={"item_num_id":"' + goodsInfo.num_iid + '"}')
         .then(response => response.json())
         .then(responseJson => {
-          //console.log(responseJson);
-          this.props.setTbDetailRequest(goodsInfo.num_iid, responseJson.data.images)
-
+          console.log(responseJson);
+          if(responseJson.hasOwnProperty('data')) {
+            this.props.setTbDetailRequest(goodsInfo.num_iid, responseJson.data.images)
+          }
         })
         .catch(error => {
           console.error(error);
