@@ -71,14 +71,17 @@ export function scaleSize(size: Number) {
  */
 export function setSpText(size: Number) {
   const scale = Math.min(_scaleWidth, _scaleHeight);
-  return size * scale * fontScale;
+  //size = Math.round((size * scale + 0.5) * pixelRatio / fontScale);
+  size = Math.round(size * scale  * pixelRatio / fontScale);
+  // console.log(size,'a-'+ scale,fontScale, pixelRatio,size / scale * fontScale)
+  return size / DEFAULT_DENSITY * fontScale;
 }
 
 export function setSpText2(size: Number) {
   let scaleWidth = screenW / w2;
   let scaleHeight = screenH / h2;
   let scale = Math.min(scaleWidth, scaleHeight);
-  size = Math.round((size * scale + 0.5));
+  size = Math.round((size * scale + 0.5) * pixelRatio / fontScale);
 
   return size / DEFAULT_DENSITY * fontScale;
 }

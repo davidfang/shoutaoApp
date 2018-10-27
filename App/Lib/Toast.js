@@ -7,14 +7,14 @@ const Toast = {
   toast: null,
 
   show: (msg) => {
-    this.toast = RootToast.show(msg, {
+    this.toast = RootToast.show(<Text style={styles.message}>{msg}</Text>, {
       position: 0,
       duration: 1500
     })
   },
 
   showLong: (msg) => {
-    this.toast = RootToast.show(msg, {
+    this.toast = RootToast.show(<Text style={styles.message}>{msg}</Text>, {
       position: 0,
       duration: 2000
     })

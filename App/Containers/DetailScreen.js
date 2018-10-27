@@ -104,7 +104,7 @@ class DetailScreen extends Component {
     let {goodsInfo} = this.state
     let {productInfo} = this.props
     if (productInfo.detail == null) {//没有产品详情时
-
+      console.log()
       fetch('http://hws.m.taobao.com/cache/mtop.wdetail.getItemDescx/4.1/?data={"item_num_id":"' + goodsInfo.num_iid + '"}')
         .then(response => response.json())
         .then(responseJson => {

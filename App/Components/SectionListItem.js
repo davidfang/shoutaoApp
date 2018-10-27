@@ -61,7 +61,7 @@ export default class SectionListItem extends Component {
               <Text style={styles.couponInfo}>￥{product.coupon_info}</Text>
             </View>
             <View
-              style={{flexDirection: 'row', alignItems: 'baseline', flex: 1}}
+              style={{flexDirection: 'row', alignItems: 'baseline'}}
             >
               <Text style={styles.priceLabel}>券后价</Text>
               <Text style={styles.cprice}>￥{MyMath.subtract(product.zk_final_price, product.coupon_info)}</Text>
@@ -73,7 +73,7 @@ export default class SectionListItem extends Component {
               <Text style={styles.saleInfo}>月销{product.volume}</Text>
             </View>
             <View
-              style={{flexDirection: 'row', alignItems: 'baseline', flex: 1}}
+              style={{flexDirection: 'row', alignItems: 'baseline'}}
             >
               <Text style={styles.priceLabel}>原价</Text>
               <Text style={styles.rprice}>￥{product.zk_final_price}</Text>

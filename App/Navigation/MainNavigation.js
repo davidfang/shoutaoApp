@@ -107,7 +107,8 @@ const TabNav = TabNavigator(
     lazy: true,
     tabBarOptions: {
       activeTintColor: Colors.selected,
-      inactiveTintColor: Colors.charcoal
+      inactiveTintColor: Colors.charcoal,
+      allowFontScaling: false
     }
   }
 )

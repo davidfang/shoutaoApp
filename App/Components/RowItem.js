@@ -31,7 +31,7 @@ export default class RowItem extends React.Component {
 // Prop type warnings
 RowItem.propTypes = {
   title: PropTypes.string.isRequired,
-  icon: PropTypes.string.isRequired,
+  // icon: PropTypes.string.isRequired,
   iconColor: PropTypes.string.isRequired,
   onPress: PropTypes.func
 }

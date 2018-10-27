@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native'
-import {Colors, ScreenUtil} from '../../Themes'
+import {Colors, ScreenUtil, Metrics} from '../../Themes'
 
 export default StyleSheet.create({
   productItem: {
@@ -16,17 +16,20 @@ export default StyleSheet.create({
   },
   info: {
     flex: 1,
+    width: Metrics.screenWidth - ScreenUtil.scaleSize(150),
     paddingLeft: ScreenUtil.scaleSize(5),
+    paddingRight: ScreenUtil.scaleSize(5),
     justifyContent: 'space-around',
     height: ScreenUtil.scaleHeight(150)
   },
   title: {
-    height: ScreenUtil.scaleHeight(40),
+    height: ScreenUtil.scaleHeight(45),
+    fontSize: ScreenUtil.setSpText(12),
     alignItems: 'center'
   },
   coupon: {
     flexDirection: 'row',
-    flex: 1,
+    //flex: 1,
     alignItems: 'center'
   },
   couponTitle: {
@@ -35,12 +38,14 @@ export default StyleSheet.create({
     paddingHorizontal: ScreenUtil.scaleSize(3),
     borderWidth: 1,
     borderColor: Colors.orange,
+    fontSize: ScreenUtil.setSpText(11),
     textAlign: 'center'
   },
   couponInfo: {
     borderWidth: 1,
     borderColor: Colors.orange,
-    paddingHorizontal: ScreenUtil.scaleSize(5)
+    paddingHorizontal: ScreenUtil.scaleSize(5),
+    fontSize: ScreenUtil.setSpText(11)
   },
   sale: {
     flexDirection: 'row',
@@ -53,13 +58,17 @@ export default StyleSheet.create({
     resizeMode: 'stretch'
   },
   saleInfo: {
-    flex: 1
+    //flex: 1,
+    fontSize: ScreenUtil.setSpText(8)
   },
   price: {
     flexDirection: 'row',
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'space-around'
+    // flex: 1,
+    //alignItems: 'center',
+    justifyContent: 'space-around',
+    // paddingLeft: ScreenUtil.scaleSize(5),
+    // paddingRight: ScreenUtil.scaleSize(5),
+
   },
   cprice: {
     color: Colors.selected,
@@ -69,10 +78,10 @@ export default StyleSheet.create({
   rprice: {
     paddingLeft: ScreenUtil.scaleSize(5),
     textDecorationLine: 'line-through',
-    flex: 1,
-    fontSize: ScreenUtil.setSpText(12.5)
+    //flex: 1,
+    fontSize: ScreenUtil.setSpText(14)
   },
   priceLabel:{
-    fontSize:ScreenUtil.setSpText(12)
+    fontSize:ScreenUtil.setSpText(13)
   }
 })

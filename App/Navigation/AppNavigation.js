@@ -106,6 +106,7 @@ const PrimaryNav = StackNavigator({
         navigate('MainStack')
       }} size={ScreenUtil.scaleSize(24)} color='#fff'
                          style={{marginRight: ScreenUtil.scaleSize(20)}}/>,
+      headerTitleAllowFontScaling: false
     }
   }
 })

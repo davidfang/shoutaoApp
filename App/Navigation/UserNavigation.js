@@ -88,6 +88,11 @@ const UserNav = StackNavigator({
   headerMode: 'screen',
   mode: 'card',
   initialRouteName: 'UserInfoScreen',
+  navigationOptions: ({navigation}) => {
+    return {
+      headerTitleAllowFontScaling: false
+    }
+  }
   // navigationOptions: ({navigation}) => {
   //   let {goBack, navigate} = navigation
   //   return {
