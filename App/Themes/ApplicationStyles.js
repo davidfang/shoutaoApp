@@ -111,19 +111,19 @@ const ApplicationStyles = {
     formRowLabel: {
       color: '#646464',
       marginRight: ScreenUtil.scaleSize(10),
-      fontSize: ScreenUtil.setSpText(15)
+      fontSize: ScreenUtil.setSpText(14)
     },
     formTextInput: {
       flex: 1,
       marginHorizontal: ScreenUtil.scaleSize(10),
-      fontSize: ScreenUtil.setSpText(14),
+      fontSize: ScreenUtil.setSpText(10),
       //backgroundColor: Colors.textInput,
       padding: 0
     },
     formTextArea: {
       flex: 1,
       marginHorizontal: ScreenUtil.scaleSize(10),
-      fontSize: ScreenUtil.setSpText(14),
+      fontSize: ScreenUtil.setSpText(10),
       height: ScreenUtil.scaleHeight(100),
       borderBottomColor: Colors.steel,
       borderBottomWidth: ScreenUtil.scaleHeight(1),

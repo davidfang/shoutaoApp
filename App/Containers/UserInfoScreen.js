@@ -98,7 +98,7 @@ class UserInfoScreen extends Component {
                   <View>
                     <View style={{flexDirection: 'row'}}>
                       <Text style={styles.nickName}>{nickname}</Text>
-                      <View style={styles.memberButton}><Text>{grade}</Text></View>
+                      <View style={styles.memberButton}><Text style={styles.memberButtonText}>{grade}</Text></View>
                     </View>
                     <View style={{flexDirection: 'row'}}>
                       <Text style={styles.invitationCode}>邀请码:{invitation_code}</Text>

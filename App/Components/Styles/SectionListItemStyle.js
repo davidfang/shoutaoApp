@@ -72,16 +72,16 @@ export default StyleSheet.create({
   },
   cprice: {
     color: Colors.selected,
-    fontSize: ScreenUtil.setSpText(14),
+    fontSize: ScreenUtil.setSpText(13),
     fontWeight: 'bold'
   },
   rprice: {
     paddingLeft: ScreenUtil.scaleSize(5),
     textDecorationLine: 'line-through',
     //flex: 1,
-    fontSize: ScreenUtil.setSpText(14)
+    fontSize: ScreenUtil.setSpText(13)
   },
   priceLabel:{
-    fontSize:ScreenUtil.setSpText(13)
+    fontSize:ScreenUtil.setSpText(10)
   }
 })

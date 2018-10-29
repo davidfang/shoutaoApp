@@ -71,35 +71,38 @@ export default StyleSheet.create({
   },
   nickName: {
     color: Colors.text,
-    ...Fonts.style.normal
+    fontSize: ScreenUtil.setSpText(14)
   },
   invitationCode: {
     color: Colors.text,
-    ...Fonts.style.normal
+    fontSize: ScreenUtil.setSpText(14)
   },
   memberButton: {
-    borderRadius: ScreenUtil.scaleSize(20),
+    borderRadius: ScreenUtil.scaleSize(12),
     backgroundColor: Colors.disabledBackGround,
     paddingVertical: ScreenUtil.scaleHeight(2),
-    paddingHorizontal: ScreenUtil.scaleSize(10)
+    paddingHorizontal: ScreenUtil.scaleSize(5)
   },
-  memberText: {
-    color: Colors.fire
+  memberButtonText: {
+    color: Colors.fire,
+    textAlign: 'center',
+    fontSize: ScreenUtil.setSpText(10)
   },
   copyButton: {
-    borderRadius: ScreenUtil.scaleSize(20),
-    borderWidth: ScreenUtil.scaleSize(1),
+    borderRadius: ScreenUtil.scaleSize(14),
+    // borderWidth: ScreenUtil.scaleSize(1),
     borderColor: Colors.disabledBackGround,
-    padding: ScreenUtil.scaleSize(2),
-    paddingHorizontal: ScreenUtil.scaleSize(10),
+    //padding: ScreenUtil.scaleSize(2),
+    paddingHorizontal: ScreenUtil.scaleSize(7),
     backgroundColor: Colors.selected
   },
   withdrawButton: {
-    borderRadius: ScreenUtil.scaleSize(20),
+    borderRadius: ScreenUtil.scaleSize(14),
     backgroundColor: Colors.button,
-    padding: ScreenUtil.scaleSize(2),
-    paddingHorizontal: ScreenUtil.scaleSize(10),
-    marginVertical: ScreenUtil.scaleHeight(15)
+    // borderWidth: ScreenUtil.scaleSize(1),
+    //padding: ScreenUtil.scaleSize(2),
+    paddingHorizontal: ScreenUtil.scaleSize(7),
+    marginVertical: ScreenUtil.scaleHeight(12)
   },
   setting: {
     height: Metrics.screenWidth / 3 - ScreenUtil.scaleHeight(20),

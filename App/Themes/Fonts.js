@@ -16,6 +16,7 @@ const size = {
   regular: ScreenUtil.setSpText(17),
   medium: ScreenUtil.setSpText(14),
   small: ScreenUtil.setSpText(12),
+  smaller: ScreenUtil.setSpText(10),
   tiny: ScreenUtil.setSpText(8.5)
 }
 
@@ -46,11 +47,11 @@ const style = {
   },
   normal: {
     fontFamily: type.base,
-    fontSize: size.regular
+    fontSize: size.medium
   },
   description: {
     fontFamily: type.base,
-    fontSize: size.medium
+    fontSize: size.smaller
   }
 }
 

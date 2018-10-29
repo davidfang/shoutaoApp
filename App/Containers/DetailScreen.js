@@ -102,15 +102,16 @@ class DetailScreen extends Component {
       //this.props.getTbDetail(this.state.goodsId)   暂时取消远程获取产品详情
     }
     let {goodsInfo} = this.state
-    let {productInfo} = this.props
+    let {productInfo, taobaoDetailUrl} = this.props
     if (productInfo.detail == null) {//没有产品详情时
-      console.log()
-      fetch('http://hws.m.taobao.com/cache/mtop.wdetail.getItemDescx/4.1/?data={"item_num_id":"' + goodsInfo.num_iid + '"}')
+      console.log(taobaoDetailUrl)
+      console.log(taobaoDetailUrl.replace(/<productId>/,goodsInfo.num_iid))
+      fetch(taobaoDetailUrl.replace(/<productId>/,goodsInfo.num_iid))
         .then(response => response.json())
         .then(responseJson => {
           console.log(responseJson);
           if(responseJson.hasOwnProperty('data')) {
-            this.props.setTbDetailRequest(goodsInfo.num_iid, responseJson.data.images)
+            this.props.setTbDetailRequest(goodsInfo.num_iid, responseJson.data)
           }
         })
         .catch(error => {
@@ -180,6 +181,7 @@ const mapStateToProps = (state, props) => {
     detailImages: TbSelectors.getDetailImages(state.tb, params.goodsId),
     guessLike: TbSelectors.getGuessLikePrds(state.tb, params.goodsId),
     productInfo: TbSelectors.getProductInfo(state.tb, params.goodsId),
+    taobaoDetailUrl: state.appSet.payload.taobaoDetailUrl,
     ...params
   }
 }

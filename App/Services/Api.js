@@ -88,7 +88,7 @@ const create = (baseURL = AppConfig.apiUrl) => {
   const getTbChannelProduct = (channelId, sortId, page) => api.get('goods/category', {categoryId:channelId, sortId, page}) // 获得频道推荐产品
   const getTbSearchKeyWord = (keyWord, page, sortId) => api.get('search', {keyWord, page, sortId}) // 获得搜索产品
   const getTbDetail = (goodsId) => api.get('goods/show/'+ goodsId) // 获得产品详情
-  const setTbDetail = (num_iid,detail) => api.post('goods/set-detail',{num_iid,detail}) // 设置产品详情
+  const setTbDetail = (num_iid,detail) => api.post('goods/set-detail2',{num_iid,detail}) // 设置产品详情
   const getAppSet = (data) => api.post('app-set',data)//获得系统设置
   const postShare = (data) => api.post('share',data)//提交分享信息
   const thirdLogin = (data) => api.post('thirdLogin/login',data)//三方登录

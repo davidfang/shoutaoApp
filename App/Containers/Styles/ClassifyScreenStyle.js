@@ -65,7 +65,7 @@ export default StyleSheet.create({
     marginLeft: ScreenUtil.scaleSize(8)
   },
   categoryText: {
-    fontSize: Fonts.size.medium,
+    fontSize: Fonts.size.small,
     fontFamily: Fonts.type.base,
     color: Colors.descText
   }

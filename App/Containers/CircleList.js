@@ -60,7 +60,7 @@ class CircleList extends React.PureComponent {
             </View>
           </View>
           <TouchableOpacity style={styles.share} onPress={()=>this._share(item.body,item.thumbnail,item.url,item.title,item.id)}>
-            <Text><Icon name={'md-share'} size={ScreenUtil.scaleSize(15)} color={Colors.fire}/> {item.click}</Text>
+            <Text><Icon name={'md-share'} size={ScreenUtil.scaleSize(11)} color={Colors.fire}/> {item.click}</Text>
           </TouchableOpacity>
         </View>
         <Text style={styles.labelContent}>{item.body}</Text>

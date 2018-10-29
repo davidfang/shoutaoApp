@@ -71,7 +71,7 @@ export default StyleSheet.create({
   },
   share: {
     //alignContent: 'center',
-    height: ScreenUtil.scaleHeight(20),
+    height: ScreenUtil.scaleHeight(18),
     borderRadius: ScreenUtil.scaleSize(10),
     borderWidth: ScreenUtil.scaleSize(1),
     borderColor: Colors.fire,
