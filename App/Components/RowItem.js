@@ -31,7 +31,7 @@ export default class RowItem extends React.Component {
 // Prop type warnings
 RowItem.propTypes = {
   title: PropTypes.string.isRequired,
-  icon: PropTypes.string.isRequired,
+  //icon: PropTypes.string.isRequired,
   iconColor: PropTypes.string.isRequired,
   onPress: PropTypes.func
 }
@@ -39,6 +39,6 @@ RowItem.propTypes = {
 // Defaults for props
 RowItem.defaultProps = {
   title: '标题',
-  icon: 'md-reorder',
+  //icon: 'md-reorder',
   iconColor: '#fb5f26'
 }
