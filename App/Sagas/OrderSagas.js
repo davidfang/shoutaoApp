@@ -11,25 +11,25 @@
 *************************************************************/
 
 import { call, put } from 'redux-saga/effects'
-import CircleActions from '../Redux/CircleRedux'
-import {requestFaild} from '../Lib/Request'
-// import { CircleSelectors } from '../Redux/CircleRedux'
+import OrderActions from '../Redux/OrderRedux'
+import CircleActions from "../Redux/CircleRedux";
+import {requestFaild} from "../Lib/Request";
+// import { OrderSelectors } from '../Redux/OrderRedux'
 
-export function * getCircle (api, action) {
-  const { category_id,page } = action
+export function * getOrder (api, action) {
+  const { status,page } = action
   // get current data from Store
-  // const currentData = yield select(CircleSelectors.getData)
+  // const currentData = yield select(OrderSelectors.getData)
   // make the call to the api
-  const response = yield call(api.getCircle, category_id,page)
+  const response = yield call(api.getOrder, status,page)
 
+  console.log(response)
   // success?
   if (response.ok) {
     // You might need to change the response here - do this with a 'transform',
     // located in ../Transforms/. Otherwise, just pass the data back from the api.
-
-    yield put(CircleActions.circleSuccess(category_id,response.data.data))
+    yield put(OrderActions.orderSuccess(status,response.data.data))
   } else {
-    //yield put(CircleActions.circleFailure(response))
     yield requestFaild(response,CircleActions.circleFailure)
   }
 }

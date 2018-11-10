@@ -11,6 +11,7 @@ import FansScreen from "../Containers/FansScreen";
 import BindingBankCardScreen from "../Containers/BindingBankCardScreen";
 import WithdrawalScreen from "../Containers/WithdrawalScreen";
 import BindMobileScreen from "../Containers/BindMobileScreen";
+import OrderScreen from "../Containers/OrderScreen";
 
 // Manifest of possible screens
 const UserNav = StackNavigator({
@@ -81,6 +82,12 @@ const UserNav = StackNavigator({
     screen: FansScreen,
     navigationOptions: {
       title: '粉丝'
+    }
+  },
+  OrderScreen: {
+    screen: OrderScreen,
+    navigationOptions: {
+      title: '订单'
     }
   }
 }, {

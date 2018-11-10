@@ -3,6 +3,8 @@ const colors = {
   orange: '#ff6600',
   clear: 'rgba(0,0,0,0)',
   blue: '#1296db',
+  gray: '#8b8b8b',
+  green:'#24820c',
   transparent: 'rgba(0,0,0,0)',
   silver: '#F7F7F7',
   steel: '#CCCCCC',

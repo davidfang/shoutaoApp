@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native'
+import {StyleSheet} from 'react-native'
 import {Colors, ScreenUtil, Metrics} from '../../Themes'
 
 export default StyleSheet.create({
@@ -72,16 +72,17 @@ export default StyleSheet.create({
   },
   cprice: {
     color: Colors.selected,
-    fontSize: ScreenUtil.setSpText(13),
+    fontSize: ScreenUtil.setSpText(14),
     fontWeight: 'bold'
   },
   rprice: {
     paddingLeft: ScreenUtil.scaleSize(5),
     textDecorationLine: 'line-through',
     //flex: 1,
-    fontSize: ScreenUtil.setSpText(13)
+    fontSize: ScreenUtil.setSpText(11)
   },
-  priceLabel:{
-    fontSize:ScreenUtil.setSpText(10)
+  priceLabel: {
+    fontSize: ScreenUtil.setSpText(10),
+    color: Colors.descText
   }
 })

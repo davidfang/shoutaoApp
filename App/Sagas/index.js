@@ -19,6 +19,7 @@ import {CircleTypes} from '../Redux/CircleRedux'
 import {QiniuTypes} from '../Redux/QiniuRedux'
 import {ShareTypes} from '../Redux/ShareRedux'
 import {InviteTypes} from '../Redux/InviteRedux'
+import {OrderTypes} from '../Redux/OrderRedux'
 
 /* ------------- Sagas ------------- */
 
@@ -40,11 +41,12 @@ import {
 import {getQiniuAvatarToken, getQiniuFeedbackToken} from './QiniuSagas'
 import {getAccount, getBankInfo, setBankInfo, withdrawal} from './AccountSagas'
 import {getBanner, postFeedBack} from './BannerSagas'
-import {getTbIndexRecommend, getTbChannelProduct, getTbSearch, setTbDetail, getTbDetail} from './TbSagas'
+import {getTbIndexRecommend, getTbChannelProduct, getTbSearch, setTbDetail, getTbDetail, getTpwd} from './TbSagas'
 import {getGoodsCategory} from './GoodsCategorySagas'
 import {getCircle} from './CircleSagas'
 import {postShare, thirdLogin, thirdBind} from './ShareSagas'
 import {getInvite} from './InviteSagas'
+import {getOrder} from './OrderSagas'
 
 /* ------------- API ------------- */
 
@@ -93,10 +95,12 @@ export default function* root() {
     takeLatest(TbTypes.TB_SEARCH_REQUEST, getTbSearch, api),
     takeLatest(TbTypes.TB_SET_DETAIL_REQUEST, setTbDetail, api),
     takeLatest(TbTypes.TB_DETAIL_REQUEST, getTbDetail, api),
+    takeLatest(TbTypes.TB_TPWD_REQUEST, getTpwd, api),
     takeLatest(CircleTypes.CIRCLE_REQUEST, getCircle, api),
     takeLatest(ShareTypes.SHARE_REQUEST, postShare, api),
     takeLatest(ShareTypes.SHARE_LOGIN_REQUEST, thirdLogin, api),
     takeLatest(ShareTypes.SHARE_BIND_REQUEST, thirdBind, api),
-    takeLatest(InviteTypes.INVITE_REQUEST,getInvite,api)
+    takeLatest(InviteTypes.INVITE_REQUEST, getInvite, api),
+    takeLatest(OrderTypes.ORDER_REQUEST, getOrder, api)
   ])
 }

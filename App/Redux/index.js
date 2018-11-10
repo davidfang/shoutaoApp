@@ -19,7 +19,8 @@ export const reducers = combineReducers({
   circle: require('./CircleRedux').reducer,
   qiniu: require('./QiniuRedux').reducer,
   share: require('./ShareRedux').reducer,
-  invite: require('./InviteRedux').reducer
+  invite: require('./InviteRedux').reducer,
+  order: require('./OrderRedux').reducer
 })
 
 export default () => {

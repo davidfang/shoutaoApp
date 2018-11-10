@@ -86,6 +86,7 @@ const create = (baseURL = AppConfig.apiUrl) => {
   const getGoodsCategory = () => api.get('category') // 获得产品分类
   const getTbIndexRecommend = (page) => api.get('goods/recommend', {page}) // 获得首页淘宝推荐产品
   const getTbChannelProduct = (channelId, sortId, page) => api.get('goods/category', {categoryId:channelId, sortId, page}) // 获得频道推荐产品
+  const getOrder = (status,  page) => api.get('order', {status, page}) // 获得订单列表信息
   const getTbSearchKeyWord = (keyWord, page, sortId) => api.get('search', {keyWord, page, sortId}) // 获得搜索产品
   const getTbDetail = (goodsId) => api.get('goods/show/'+ goodsId) // 获得产品详情
   const setTbDetail = (num_iid,detail) => api.post('goods/set-detail2',{num_iid,detail}) // 设置产品详情
@@ -94,6 +95,8 @@ const create = (baseURL = AppConfig.apiUrl) => {
   const thirdLogin = (data) => api.post('thirdLogin/login',data)//三方登录
   const thirdBind = (data) => api.post('thirdLogin/bind',data)//三方登录绑定用户
   const getInvite = () => api.get('invite')//获得邀请模板信息
+  const getTpwd = (goodsId)=> api.get('goods/tpwd/'+ goodsId)//获得淘口令
+  const getDTpwd = (goodsId)=> api.get('goods/dtpwd/'+ goodsId)//获得淘口令
   // ------
   // STEP 3
   // ------
@@ -152,13 +155,16 @@ const create = (baseURL = AppConfig.apiUrl) => {
     getGoodsCategory,
     getTbIndexRecommend,
     getTbChannelProduct,
+    getOrder,
     getTbSearchKeyWord,
     getTbDetail,
     setTbDetail,
     postShare,
     thirdLogin,
     thirdBind,
-    getInvite
+    getInvite,
+    getTpwd,
+    getDTpwd
   }
 }
 

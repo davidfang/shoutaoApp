@@ -6,7 +6,7 @@ import unionBy from "lodash/unionBy";
 
 const {Types, Creators} = createActions({
   circleRequest: ['category_id', 'page'],
-  circleSuccess: ['category_id', 'data', 'more'],
+  circleSuccess: ['category_id', 'data'],
   circleFailure: ['error']
 })
 
@@ -39,7 +39,8 @@ export const request = (state, {category_id}) =>
 
 // successful api lookup
 export const success = (state, action) => {
-  const {category_id, data, more} = action
+  const {category_id, data} = action
+  let more = data.length >= 20
   let newData
   let {data: oldData, more: oldMore, nextPage} = state
   if (oldMore.hasOwnProperty(category_id)) {

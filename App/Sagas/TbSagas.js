@@ -12,7 +12,9 @@
 import {requestFaild} from '../Lib/Request'
 import { call, put, select } from 'redux-saga/effects'
 import TbActions, { TbSelectors } from '../Redux/TbRedux'
+import {LoginSelector} from "../Redux/LoginRedux";
 
+const selectLoggedInStatus = (state) => LoginSelector.isLoggedIn(state.login)
 export const indexRecommendPageNo = (state) => TbSelectors.getIndexRecommendPageNo(state.tb)
 export const channelProductPageNo = (state, channelId) => TbSelectors.getChannelProductPageNo(state.tb, channelId)
 export const searchPageNo = (state, keyWord) => TbSelectors.getSearchPageNo(state.tb, keyWord)
@@ -25,6 +27,7 @@ export function * getTbIndexRecommend (api, action) {
   // make the call to the api
   const response = yield call(api.getTbIndexRecommend, page)
   // yield put(TbActions.tbFailure(response, response))
+  console.log(response)
   // success?
   if (response.ok) {
     // You might need to change the response here - do this with a 'transform',
@@ -126,4 +129,32 @@ export function * setTbDetail(api,action) {
 
   }
 
+}
+export function * getTpwd (api, action) {
+  const {num_iid} = action
+  // get current data from Store
+  // const currentData = yield select(TbSelectors.getData)
+  // make the call to the api
+  const isLoggedIn = yield select(selectLoggedInStatus)
+  let response
+  if(isLoggedIn){//登录用户
+     response = yield call(api.getTpwd, num_iid)
+  }else{//未登录用户
+     response = yield call(api.getDTpwd, num_iid)
+  }
+
+  console.log(response)
+  // success?
+  if (response.ok) {
+    // You might need to change the response here - do this with a 'transform',
+    // located in ../Transforms/. Otherwise, just pass the data back from the api.
+    // yield put(TbActions.tbSuccess(response.data))
+    if (response.data.status) {
+      yield put(TbActions.tbTpwdSuccess(num_iid, response.data.data.tpwd))
+    } else {
+      yield requestFaild(response,TbActions.tbFailure)
+    }
+  } else {
+    yield requestFaild(response,TbActions.tbFailure)
+  }
 }

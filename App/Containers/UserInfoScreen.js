@@ -128,11 +128,11 @@ class UserInfoScreen extends Component {
             <View style={styles.incomeBottom}>
               <View style={styles.incomeBottomItem}>
                 <View><Text>￥{accountInfo.hasOwnProperty('uncash_balance') ? accountInfo.uncash_balance : 0}</Text></View>
-                <View><Text>本月确认</Text></View>
+                <View><Text>已结算收益</Text></View>
               </View>
               <View style={styles.incomeBottomItem}>
                 <View><Text>￥{accountInfo.hasOwnProperty('freeze_uncash_balance') ? accountInfo.freeze_uncash_balance : 0}</Text></View>
-                <View><Text>未确认</Text></View>
+                <View><Text>已付款收益</Text></View>
               </View>
               <View style={styles.incomeBottomItem}>
                 <View><Text>{accountInfo.hasOwnProperty('fans') ? accountInfo.fans : 0}人</Text></View>
@@ -223,8 +223,14 @@ class UserInfoScreen extends Component {
             </TouchableOpacity>)}
           {this.props.loggedIn && (<TouchableOpacity style={styles.gridItem} onPress={() => this._press('InviteScreen', {})}>
             <Image style={styles.gridIcon} source={require('../Images/invite.png')}/>
-            <Text>邀请</Text>
+            <Text>邀请赚钱</Text>
           </TouchableOpacity>)}
+          {this.props.loggedIn && (<TouchableOpacity style={styles.gridItem} onPress={() => this._press('OrderScreen', {})}>
+            <Image style={styles.gridIcon} source={require('../Images/dd.png')}/>
+            <Text>订单</Text>
+          </TouchableOpacity>)}
+        </View>
+        <View style={styles.gridItemGroup}>
           <TouchableOpacity style={styles.gridItem} onPress={() => this._webPress('article-category/1', '新手攻略')}>
             <Image style={styles.gridIcon} source={require('../Images/guide.png')}/>
             <Text>新手攻略</Text>

@@ -103,6 +103,10 @@ class DetailScreen extends Component {
     }
     let {goodsInfo} = this.state
     let {productInfo, taobaoDetailUrl} = this.props
+    console.log(productInfo)
+    if(productInfo.tpwd == null){//获得淘口令
+      this.props.getTpwdRequest(productInfo.num_iid)
+    }
     if (productInfo.detail == null) {//没有产品详情时
       console.log(taobaoDetailUrl)
       console.log(taobaoDetailUrl.replace(/<productId>/,goodsInfo.num_iid))
@@ -189,7 +193,8 @@ const mapStateToProps = (state, props) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getTbDetail: (goodsId) => dispatch(TbActions.tbDetailRequest(goodsId)),
-    setTbDetailRequest: (goodsId, detail) => dispatch(TbActions.tbSetDetailRequest(goodsId, detail))
+    setTbDetailRequest: (goodsId, detail) => dispatch(TbActions.tbSetDetailRequest(goodsId, detail)),
+    getTpwdRequest: (goodsId) => dispatch(TbActions.tbTpwdRequest(goodsId))
   }
 }
 

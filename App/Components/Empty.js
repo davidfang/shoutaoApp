@@ -11,7 +11,7 @@ export default class Empty extends Component {
 
   // Defaults for props
   static defaultProps = {
-    text: '亲，木有了哦~'
+    text: '亲，产品上架中,稍后回来~'
   }
 
   render () {

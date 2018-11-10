@@ -21,7 +21,10 @@ const {Types, Creators} = createActions({
   tbSetDetail: ['num_iid','detail'],
   tbDetailRequest: ['num_iid'],
   tbDetailSuccess: ['num_iid', 'smallImages', 'detailImages', 'guessLike', 'payload'],
-  tbDetailFailure: ['error', 'payload']
+  tbDetailFailure: ['error', 'payload'],
+  tbTpwdRequest: ['num_iid'],
+  tbTpwdSuccess: ['num_iid','tpwd'],
+
 })
 
 export const TbTypes = Types
@@ -241,7 +244,17 @@ export const tbSetDetail = (state, action) => {
 // Something went wrong somewhere.
 export const tbDetailFailure = state =>
   state.merge({fetching: false, error: true, payload: null})
+// request the data from an api
+export const tbTpwdRequest = (state, {num_iid}) =>
+  state.merge({fetching: true, payload: null})
 
+// successful api lookup
+export const tbTpwdSuccess = (state, action) => {
+  const {num_iid, tpwd} = action
+
+  const productLists = lodash.defaultsDeep({[num_iid]:{tpwd:tpwd}},state.productLists)
+  return state.merge({fetching: false, error: null,productLists})
+}
 /* ------------- Hookup Reducers To Types ------------- */
 
 export const reducer = createReducer(INITIAL_STATE, {
@@ -260,5 +273,8 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.TB_SET_DETAIL]: tbSetDetail,
   [Types.TB_DETAIL_REQUEST]: tbDetailRequest,
   [Types.TB_DETAIL_SUCCESS]: tbDetailSuccess,
-  [Types.TB_DETAIL_FAILURE]: tbDetailFailure
+  [Types.TB_DETAIL_FAILURE]: tbDetailFailure,
+  [Types.TB_TPWD_REQUEST]: tbTpwdRequest,
+  [Types.TB_TPWD_SUCCESS]: tbTpwdSuccess
+
 })
