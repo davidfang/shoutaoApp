@@ -1,6 +1,7 @@
 // a library to wrap and simplify api calls
 import apisauce from 'apisauce'
 import AppConfig from '../Config/AppConfig'
+import {upgradeRequest} from "../Redux/AppSetRedux";
 
 // our "constructor"
 const create = (baseURL = AppConfig.apiUrl) => {
@@ -84,19 +85,22 @@ const create = (baseURL = AppConfig.apiUrl) => {
 
   const getCircle = (category_id,page) => api.get('circle',{category_id,page}) // 获得分类圈子的分享文章
   const getGoodsCategory = () => api.get('category') // 获得产品分类
-  const getTbIndexRecommend = (page) => api.get('goods/recommend', {page}) // 获得首页淘宝推荐产品
-  const getTbChannelProduct = (channelId, sortId, page) => api.get('goods/category', {categoryId:channelId, sortId, page}) // 获得频道推荐产品
+  const getTbIndexRecommend = (page) => api.get('product/recommend', {page}) // 获得首页淘宝推荐产品
+  const getTbChannelProduct = (channelId, sortId, page) => api.get('product/category', {categoryId:channelId, sortId, page}) // 获得频道推荐产品
   const getOrder = (status,  page) => api.get('order', {status, page}) // 获得订单列表信息
   const getTbSearchKeyWord = (keyWord, page, sortId) => api.get('search', {keyWord, page, sortId}) // 获得搜索产品
-  const getTbDetail = (goodsId) => api.get('goods/show/'+ goodsId) // 获得产品详情
-  const setTbDetail = (num_iid,detail) => api.post('goods/set-detail2',{num_iid,detail}) // 设置产品详情
+  const getTbDetail = (goodsId) => api.get('product/show/'+ goodsId) // 获得产品详情
+  const setTbDetail = (num_iid,detail) => api.post('product/set-detail2',{num_iid,detail}) // 设置产品详情
   const getAppSet = (data) => api.post('app-set',data)//获得系统设置
+  const getAppUpgrade = (platform,name,version) => api.get('app-upgrade',{platform,name,version})//获得系统设置
+  const getNotice = () => api.get('notice')//获得系统广播消息
   const postShare = (data) => api.post('share',data)//提交分享信息
   const thirdLogin = (data) => api.post('thirdLogin/login',data)//三方登录
   const thirdBind = (data) => api.post('thirdLogin/bind',data)//三方登录绑定用户
   const getInvite = () => api.get('invite')//获得邀请模板信息
-  const getTpwd = (goodsId)=> api.get('goods/tpwd/'+ goodsId)//获得淘口令
-  const getDTpwd = (goodsId)=> api.get('goods/dtpwd/'+ goodsId)//获得淘口令
+  const getTpwd = (goodsId)=> api.get('product/tpwd/'+ goodsId)//获得淘口令
+  const getDTpwd = (goodsId)=> api.get('product/dtpwd/'+ goodsId)//获得淘口令
+  const postTpwdBuy = (tpwd) => api.post('product/tpwd-buy',{tpwd})//提交淘口令购买
   // ------
   // STEP 3
   // ------
@@ -120,6 +124,8 @@ const create = (baseURL = AppConfig.apiUrl) => {
     getUser,
     singUp,
     getAppSet,
+    getAppUpgrade,
+    getNotice,
     login,
     loginByVerifyCode,
     getVerifyCode,
@@ -164,7 +170,8 @@ const create = (baseURL = AppConfig.apiUrl) => {
     thirdBind,
     getInvite,
     getTpwd,
-    getDTpwd
+    getDTpwd,
+    postTpwdBuy
   }
 }
 

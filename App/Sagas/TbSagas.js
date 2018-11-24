@@ -10,8 +10,8 @@
 *    you'll need to define a constant in that file.
 *************************************************************/
 import {requestFaild} from '../Lib/Request'
-import { call, put, select } from 'redux-saga/effects'
-import TbActions, { TbSelectors } from '../Redux/TbRedux'
+import {call, put, select} from 'redux-saga/effects'
+import TbActions, {TbSelectors} from '../Redux/TbRedux'
 import {LoginSelector} from "../Redux/LoginRedux";
 
 const selectLoggedInStatus = (state) => LoginSelector.isLoggedIn(state.login)
@@ -19,7 +19,7 @@ export const indexRecommendPageNo = (state) => TbSelectors.getIndexRecommendPage
 export const channelProductPageNo = (state, channelId) => TbSelectors.getChannelProductPageNo(state.tb, channelId)
 export const searchPageNo = (state, keyWord) => TbSelectors.getSearchPageNo(state.tb, keyWord)
 
-export function * getTbIndexRecommend (api, action) {
+export function* getTbIndexRecommend(api, action) {
   // const {page} = action
   const page = yield select(indexRecommendPageNo)
   // get current data from Store
@@ -36,14 +36,14 @@ export function * getTbIndexRecommend (api, action) {
     if (response.data.status) {
       yield put(TbActions.tbIndexRecommendSuccess(response.data.data))
     } else {
-      yield requestFaild(response,TbActions.tbFailure)
+      yield requestFaild(response, TbActions.tbFailure)
     }
   } else {
-    yield requestFaild(response,TbActions.tbFailure)
+    yield requestFaild(response, TbActions.tbFailure)
   }
 }
 
-export function * getTbChannelProduct (api, action) {
+export function* getTbChannelProduct(api, action) {
   const {channelId, sortId} = action
   const page = yield select(channelProductPageNo, channelId)
   // get current data from Store
@@ -59,14 +59,14 @@ export function * getTbChannelProduct (api, action) {
     if (response.data.status) {
       yield put(TbActions.tbChannelProductSuccess(channelId, response.data.data))
     } else {
-      yield requestFaild(response,TbActions.tbFailure)
+      yield requestFaild(response, TbActions.tbFailure)
     }
   } else {
-    yield requestFaild(response,TbActions.tbFailure)
+    yield requestFaild(response, TbActions.tbFailure)
   }
 }
 
-export function * getTbSearch (api, action) {
+export function* getTbSearch(api, action) {
   //const {page} = action
   const {keyWord, sortId} = action
   const page = yield select(searchPageNo, keyWord)
@@ -83,14 +83,14 @@ export function * getTbSearch (api, action) {
     if (response.data.status) {
       yield put(TbActions.tbSearchSuccess(keyWord, response.data.data))
     } else {
-      yield requestFaild(response,TbActions.tbFailure)
+      yield requestFaild(response, TbActions.tbFailure)
     }
   } else {
-    yield requestFaild(response,TbActions.tbFailure)
+    yield requestFaild(response, TbActions.tbFailure)
   }
 }
 
-export function * getTbDetail (api, action) {
+export function* getTbDetail(api, action) {
   const {goodsId} = action
   // get current data from Store
   // const currentData = yield select(TbSelectors.getData)
@@ -106,41 +106,42 @@ export function * getTbDetail (api, action) {
       const {smallImages, detailImages, guessLike} = response.data.data
       yield put(TbActions.tbDetailSuccess(goodsId, smallImages, detailImages, guessLike, response.data.data))
     } else {
-      yield requestFaild(response,TbActions.tbFailure)
+      yield requestFaild(response, TbActions.tbFailure)
     }
   } else {
-    yield requestFaild(response,TbActions.tbFailure)
+    yield requestFaild(response, TbActions.tbFailure)
   }
 }
 
-export function * setTbDetail(api,action) {
-  const {num_iid,detail} = action
+export function* setTbDetail(api, action) {
+  const {num_iid, detail} = action
 
-  const response = yield call(api.setTbDetail,num_iid,detail)
+  const response = yield call(api.setTbDetail, num_iid, detail)
 
   console.log(response)
-  if(response.ok) {
-    if(response.data.status){
+  if (response.ok) {
+    if (response.data.status) {
       yield put(TbActions.tbSetDetail(num_iid, response.data.data))
-    }else{//失败时不处理
+    } else {//失败时不处理
 
     }
-  }else {//失败时不处理
+  } else {//失败时不处理
 
   }
 
 }
-export function * getTpwd (api, action) {
+
+export function* getTpwd(api, action) {
   const {num_iid} = action
   // get current data from Store
   // const currentData = yield select(TbSelectors.getData)
   // make the call to the api
   const isLoggedIn = yield select(selectLoggedInStatus)
   let response
-  if(isLoggedIn){//登录用户
-     response = yield call(api.getTpwd, num_iid)
-  }else{//未登录用户
-     response = yield call(api.getDTpwd, num_iid)
+  if (isLoggedIn) {//登录用户
+    response = yield call(api.getTpwd, num_iid)
+  } else {//未登录用户
+    response = yield call(api.getDTpwd, num_iid)
   }
 
   console.log(response)
@@ -152,9 +153,23 @@ export function * getTpwd (api, action) {
     if (response.data.status) {
       yield put(TbActions.tbTpwdSuccess(num_iid, response.data.data.tpwd))
     } else {
-      yield requestFaild(response,TbActions.tbFailure)
+      yield requestFaild(response, TbActions.tbFailure)
     }
   } else {
-    yield requestFaild(response,TbActions.tbFailure)
+    yield requestFaild(response, TbActions.tbFailure)
   }
+}
+
+/**
+ * 提交淘口令购买
+ * @param api
+ * @param action
+ * @returns {IterableIterator<*|CallEffect>}
+ */
+export function* postTpwdBuy(api, action) {
+  const {tpwd} = action
+  const response = yield call(api.postTpwdBuy, tpwd)
+
+  console.log(response)
+
 }

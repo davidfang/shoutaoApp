@@ -10,7 +10,7 @@ export default StyleSheet.create({
     height: ScreenUtil.scaleHeight(44)
   },
   footerText: {
-    fontSize: ScreenUtil.setSpText(14),
+    fontSize: ScreenUtil.setSpText(10),
     color: Colors.charcoal
   }
 })

@@ -19,6 +19,7 @@ export const INITIAL_STATE = Immutable({
   items: {},
   swiper: [],
   recommend: [],
+  bestSelling:[],
   fetching: false,
   payload: null,
   error: null
@@ -29,7 +30,8 @@ export const INITIAL_STATE = Immutable({
 export const BannerSelectors = {
   getItems: state => state.items,
   getSwiper: state => state.swiper,
-  getRecommend: state => state.recommend
+  getRecommend: state => state.recommend,
+  getBestSelling: state => state.bestSelling
 }
 
 /* ------------- Reducers ------------- */

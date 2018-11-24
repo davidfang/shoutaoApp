@@ -7,7 +7,8 @@ import unionBy from "lodash/unionBy";
 const {Types, Creators} = createActions({
   orderRequest: ['status', 'page'],
   orderSuccess: ['status', 'data'],
-  orderFailure: null
+  orderFailure: null,
+  orderLogout: null
 })
 
 export const OrderTypes = Types
@@ -51,11 +52,12 @@ return state.merge({fetching: false, error: null, status, more: newMore, pageNo:
 // Something went wrong somewhere.
 export const failure = state =>
   state.merge({fetching: false, error: true, payload: null})
-
+export const logout =  state => INITIAL_STATE
 /* ------------- Hookup Reducers To Types ------------- */
 
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.ORDER_REQUEST]: request,
   [Types.ORDER_SUCCESS]: success,
-  [Types.ORDER_FAILURE]: failure
+  [Types.ORDER_FAILURE]: failure,
+  [Types.ORDER_LOGOUT]: logout
 })

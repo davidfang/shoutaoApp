@@ -17,6 +17,7 @@ import styles from './Styles/DetailScreenStyle'
 import {Images, Metrics, ScreenUtil} from '../Themes'
 import Toast from "../Lib/Toast";
 import {onEventWithLable} from "../Lib/UMAnalyticsUtil";
+import {LoginSelector} from "../Redux/LoginRedux";
 
 class DetailScreen extends Component {
 
@@ -42,16 +43,23 @@ class DetailScreen extends Component {
     this._flatList.scrollToOffset({offset: 0, animated: true})
   }
   _goBuy = () => {
-    let {goodsInfo} = this.state
+    let {productInfo,loggedIn,taobaoPid} = this.props
     this.destory = 1
-    //alert('aaaaaa')
     //RNAlibcSdk.Show(goodsInfo.SPYHQTGLJ)
-    Clipboard.setString(goodsInfo.tpwd)
-    onEventWithLable('buy',goodsInfo.num_iid)
+    //Clipboard.setString(productInfo.tpwd)//不用复制淘口令了
+    onEventWithLable('buy', productInfo.num_iid)//友盟统计
+
+    let coupon_share_url
+    if(loggedIn){//登录
+      coupon_share_url = '//uland.taobao.com/coupon/edetail?activityId=' + productInfo.coupon_id+'&pid='+taobaoPid +'&itemId=' + productInfo.num_iid
+    }else{//没登录
+      coupon_share_url = productInfo.coupon_share_url
+    }
+
     // 2、跳转代码
     Linking.canOpenURL('taobao://').then(supported => { // weixin://  alipay://
       if (supported) {
-        Linking.openURL('taobao://')
+        Linking.openURL('taobao:' + coupon_share_url)
       } else {
         Toast.showError('请先安装淘宝')
       }
@@ -104,17 +112,17 @@ class DetailScreen extends Component {
     let {goodsInfo} = this.state
     let {productInfo, taobaoDetailUrl} = this.props
     console.log(productInfo)
-    if(productInfo.tpwd == null){//获得淘口令
-      this.props.getTpwdRequest(productInfo.num_iid)
-    }
+    // if(productInfo.tpwd == null){//获得淘口令
+    //   this.props.getTpwdRequest(productInfo.num_iid)
+    // }
     if (productInfo.detail == null) {//没有产品详情时
       console.log(taobaoDetailUrl)
-      console.log(taobaoDetailUrl.replace(/<productId>/,goodsInfo.num_iid))
-      fetch(taobaoDetailUrl.replace(/<productId>/,goodsInfo.num_iid))
+      console.log(taobaoDetailUrl.replace(/<productId>/, goodsInfo.num_iid))
+      fetch(taobaoDetailUrl.replace(/<productId>/, goodsInfo.num_iid))
         .then(response => response.json())
         .then(responseJson => {
           console.log(responseJson);
-          if(responseJson.hasOwnProperty('data')) {
+          if (responseJson.hasOwnProperty('data')) {
             this.props.setTbDetailRequest(goodsInfo.num_iid, responseJson.data)
           }
         })
@@ -147,7 +155,7 @@ class DetailScreen extends Component {
         <TouchableOpacity
           style={styles.buyCard}
           activeOpacity={1}
-          onPress={this._goBuy}
+          onPress={() => this._goBuy()}
         >
           <Text style={{marginLeft: ScreenUtil.scaleSize(5), flex: 1}}>
             券后价：
@@ -155,14 +163,14 @@ class DetailScreen extends Component {
             <Text
               style={styles.salePrice}
             >
-              {MyMath.subtract(goodsInfo.zk_final_price, goodsInfo.coupon_info)}
+              {MyMath.subtract(goodsInfo.zk_final_price, goodsInfo.coupon_info_price)}
             </Text>
           </Text>
           <View
             style={styles.coupon}
           >
             <Text style={{color: '#fff'}}>优惠券</Text>
-            <Text style={{color: '#fff'}}>{goodsInfo.coupon_info}元</Text>
+            <Text style={{color: '#fff'}}>{goodsInfo.coupon_info_price}元</Text>
           </View>
           <View style={styles.getCoupon}>
             <Text
@@ -180,7 +188,10 @@ class DetailScreen extends Component {
 const mapStateToProps = (state, props) => {
   //const {nav: {routes: [, {params}]}} = state
   const {navigation: {state: {params}}} = props
+  const {taobao_pid} = state.userInfo
   return {
+    loggedIn: LoginSelector.isLoggedIn(state.login),
+    taobaoPid: state.userInfo.hasOwnProperty('taobao_pid') ? state.userInfo.taobao_pid : null,
     smallImages: TbSelectors.getSmallImages(state.tb, params.goodsId),
     detailImages: TbSelectors.getDetailImages(state.tb, params.goodsId),
     guessLike: TbSelectors.getGuessLikePrds(state.tb, params.goodsId),

@@ -78,11 +78,17 @@ const ApplicationStyles = {
       height: ScreenUtil.scaleHeight(0.5),
       backgroundColor: '#E6E6E6'
     },
-    description:{
-      fontSize:Fonts.size.small,
-      fontFamily:Fonts.type.base,
-      color:Colors.descText
+    description: {
+      fontSize: Fonts.size.small,
+      fontFamily: Fonts.type.base,
+      color: Colors.descText
     },
+    row: {
+      flexDirection: 'row',
+      width: Metrics.screenWidth,
+      alignItems: 'center',
+      justifyContent: 'space-around'
+    }
   },
   form: {
     form: {
@@ -152,8 +158,8 @@ const ApplicationStyles = {
       width: Metrics.screenWidth,
       borderTopColor: '#E6E6E6',
       borderTopWidth: ScreenUtil.scaleHeight(0.5),
-      justifyContent:'center',
-      marginTop:Metrics.doubleBaseMargin * 5
+      justifyContent: 'center',
+      marginTop: Metrics.doubleBaseMargin * 5
     },
     thirdLogin: {
       flexDirection: 'column',
@@ -168,7 +174,7 @@ const ApplicationStyles = {
     thirdText: {
       fontSize: ScreenUtil.setSpText(11),
       color: Colors.steel,
-      marginVertical:Metrics.smallMargin
+      marginVertical: Metrics.smallMargin
     }
   },
   darkLabelContainer: {

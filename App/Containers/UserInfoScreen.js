@@ -16,6 +16,7 @@ import {connect} from 'react-redux'
 // import YourActions from '../Redux/YourRedux'
 import LoginActions, {LoginSelector} from '../Redux/LoginRedux'
 import AccountActions from '../Redux/AccountRedux'
+import OrderActions from '../Redux/OrderRedux'
 import UserInfoActions from '../Redux/UserInfoRedux'
 import {AppSetSelectors} from '../Redux/AppSetRedux'
 
@@ -26,6 +27,7 @@ import RoundedButton from '../Components/RoundedButton'
 import Avatar from '../Components/Avatar'
 import RowItem from '../Components/RowItem'
 import CustomButton from '../Components/CustomButton'
+import LoginScreen from './LoginScreen'
 
 // Styles
 import {Colors, ScreenUtil} from '../Themes'
@@ -35,10 +37,10 @@ import ShareActions from "../Redux/ShareRedux";
 
 class UserInfoScreen extends Component {
 
-  // constructor (props) {
-  //   super(props)
-  //   this.state = {}
-  // }
+  constructor (props) {
+    super(props)
+    this.state = {modalVisible: !props.loggedIn}
+  }
   componentDidMount() {
     if (this.props.loggedIn) {
       this.props.getAccountInfo()
@@ -128,7 +130,7 @@ class UserInfoScreen extends Component {
             <View style={styles.incomeBottom}>
               <View style={styles.incomeBottomItem}>
                 <View><Text>￥{accountInfo.hasOwnProperty('uncash_balance') ? accountInfo.uncash_balance : 0}</Text></View>
-                <View><Text>已结算收益</Text></View>
+                <View><Text>预估收益</Text></View>
               </View>
               <View style={styles.incomeBottomItem}>
                 <View><Text>￥{accountInfo.hasOwnProperty('freeze_uncash_balance') ? accountInfo.freeze_uncash_balance : 0}</Text></View>
@@ -300,6 +302,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(LoginActions.logout())
       dispatch(UserInfoActions.userInfoLogout())
       dispatch(AccountActions.accountLogout())
+      dispatch(OrderActions.orderLogout())
     },
     uploadAvatar: (fileUrl, fileName) => dispatch(UserInfoActions.uploadAvatarRequest(fileUrl, fileName)),
     getAccountInfo: () => dispatch(AccountActions.accountRequest()),

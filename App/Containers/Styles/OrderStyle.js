@@ -32,20 +32,20 @@ export default StyleSheet.create({
   priceLabel: {
     textAlign: 'center',
     color: Colors.descText,
-    fontSize: ScreenUtil.setSpText(12)
+    fontSize: ScreenUtil.setSpText(10)
   },
   price: {
     fontWeight: 'bold',
     textAlign: 'center',
     color: Colors.descText,
     fontFamily: Fonts.type.bold,
-    fontSize: ScreenUtil.setSpText(14)
+    fontSize: ScreenUtil.setSpText(12)
   },
   productTitle: {
     alignSelf: 'flex-start',
     color: Colors.black,
     textAlign: 'left',
-    fontSize: ScreenUtil.setSpText(12),
+    fontSize: ScreenUtil.setSpText(10),
     marginBottom: Metrics.smallMargin,
     width: Metrics.screenWidth / 10 * 6,
   },
@@ -92,7 +92,7 @@ export default StyleSheet.create({
   },
   buttonText:{
     color:Colors.white,
-    fontSize:ScreenUtil.setSpText(10),
+    fontSize:ScreenUtil.setSpText(8),
     alignSelf: 'center'
   }
 })

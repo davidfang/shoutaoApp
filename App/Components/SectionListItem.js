@@ -58,13 +58,13 @@ export default class SectionListItem extends Component {
             <View style={styles.coupon}>
               {/* 券信息 */}
               <Text style={styles.couponTitle}>券</Text>
-              <Text style={styles.couponInfo}>￥{product.coupon_info}</Text>
+              <Text style={styles.couponInfo}>￥{product.coupon_info_price}</Text>
             </View>
             <View
               style={{flexDirection: 'row', alignItems: 'baseline'}}
             >
               <Text style={styles.priceLabel}>券后价</Text>
-              <Text style={styles.cprice}>￥{MyMath.subtract(product.zk_final_price, product.coupon_info)}</Text>
+              <Text style={styles.cprice}>￥{MyMath.subtract(product.zk_final_price, product.coupon_info_price)}</Text>
             </View>
           </View>
           <View style={styles.price}>

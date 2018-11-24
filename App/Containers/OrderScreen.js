@@ -50,13 +50,13 @@ class OrderScreen extends Component {
                            renderTabBar={() => <ScrollableTabBar/>}
         >
           <Order tabLabel='全部' status={1} fetching={fetching} pageNo={pageNo[1]} more={more[1]} data={data}
-                 getOrder={this.props.getOrder} onLoading={this._onLoading} onRefreshing={this._onRefreshing}></Order>
+                 getOrder={this.props.getOrder} onLoading={this._onLoading} onRefreshing={this._onRefreshing} />
           <Order tabLabel='已付款' status={12} fetching={fetching} pageNo={pageNo[1]} more={more[1]} data={data}
-                 getOrder={this.props.getOrder} onLoading={this._onLoading} onRefreshing={this._onRefreshing}></Order>
+                 getOrder={this.props.getOrder} onLoading={this._onLoading} onRefreshing={this._onRefreshing} />
           <Order tabLabel='已结算' status={3} fetching={fetching} pageNo={pageNo[1]} more={more[1]} data={data}
-                 getOrder={this.props.getOrder} onLoading={this._onLoading} onRefreshing={this._onRefreshing}></Order>
+                 getOrder={this.props.getOrder} onLoading={this._onLoading} onRefreshing={this._onRefreshing} />
           <Order tabLabel='已失效' status={13} fetching={fetching} pageNo={pageNo[1]} more={more[1]} data={data}
-                 getOrder={this.props.getOrder} onLoading={this._onLoading} onRefreshing={this._onRefreshing}></Order>
+                 getOrder={this.props.getOrder} onLoading={this._onLoading} onRefreshing={this._onRefreshing} />
         </ScrollableTabView>
       </View>
     )

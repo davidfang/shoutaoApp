@@ -1,12 +1,11 @@
-import React, { Component } from 'react'
-import { View, FlatList, RefreshControl } from 'react-native'
-import { connect } from 'react-redux'
+import React, {Component} from 'react'
+import {View, FlatList, RefreshControl, Text, Image, Linking, TouchableOpacity, Platform} from 'react-native'
+import {connect} from 'react-redux'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 import {BannerSelectors} from '../Redux/BannerRedux'
 import TbActions, {TbSelectors} from '../Redux/TbRedux'
 
-
-
+import NoticeBar from '../Components/NoticeBar'
 import SearchBar from '../Components/SearchBar'
 import ScrollToTop from '../Components/ScrollToTop'
 import SwiperBanners from '../Components/SwiperBanners'
@@ -15,22 +14,28 @@ import BannerBar from '../Components/BannerBar'
 import Empty from '../Components/Empty'
 import Footer from '../Components/Footer'
 import SectionListItem from '../Components/SectionListItem'
+import Upgrade from '../Components/Upgrade'
 
 // Styles
 import styles from './Styles/HomeScreenStyle'
+import {Colors, Metrics} from "../Themes";
+import BestSelling from "../Components/BestSelling";
 
 const itemHeight = 50
 
 class HomeScreen extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       scrollIsShow: false
     }
     this.flag = 1
-
   }
 
+
+  _noticePress = () => {
+
+  }
   /**
    * 头部模块
    */
@@ -41,6 +46,7 @@ class HomeScreen extends Component {
           dataSource={this.props.swiper}
           navigation={this.props.navigation}
         />
+        {this.props.notice.length > 0  && <NoticeBar notices={this.props.notice} navigation={this.props.navigation}/>}
         <BannerBar dataSource={this.props.recommend} navigation={this.props.navigation}/>
         {/*<Lanmu navigation={this.props.navigation}/>*/}
       </View>
@@ -92,22 +98,24 @@ class HomeScreen extends Component {
     }
   }
 
-  _renderItem = ({item}) => (
-    <SectionListItem navigation={this.props.navigation} product={item} />
-  )
+  _renderItem = ({item}) => <SectionListItem navigation={this.props.navigation} product={item}/>
+
   componentWillMount() {
-    if(this.props.tbIndexRecommend.length == 0) {
+    if (this.props.tbIndexRecommend.length == 0) {
       this.props.getTbIndexRecommend()
     }
   }
-  render () {
-    const {navigate} = this.props.navigation
+
+  render() {
+    const {navigation, upgrade, bestSelling} = this.props
     return (
       <View style={styles.container}>
+        {upgrade && <Upgrade upgrade={upgrade}/>}
+        {!upgrade && bestSelling.length > 0  && <BestSelling navigation={navigation} data={bestSelling[0]}/>}
         <SearchBar
           showLogo={true}
           onSubmit={key => {
-            navigate('ResultScreen', {
+            navigation.navigate('ResultScreen', {
               keyWord: key
             })
           }}
@@ -120,7 +128,7 @@ class HomeScreen extends Component {
           onEndReachedThreshold={0.1}
           ref={flat => (this._flatList = flat)}
           keyExtractor={(item, index) => index.toString()}
-          ListEmptyComponent={<Empty />}
+          ListEmptyComponent={<Empty/>}
           getItemLayout={this._itemLayout}
           onEndReached={this._onLoading}
           renderItem={this._renderItem}
@@ -141,7 +149,7 @@ class HomeScreen extends Component {
             />
           }
         />
-        <ScrollToTop isShow={this.state.scrollIsShow} scrollTo={this._scrollToTop} />
+        <ScrollToTop isShow={this.state.scrollIsShow} scrollTo={this._scrollToTop}/>
       </View>
     )
   }
@@ -152,6 +160,7 @@ const mapStateToProps = (state) => {
   const items = BannerSelectors.getItems(state.banner)
   const swiper = BannerSelectors.getSwiper(state.banner).map(id => items[id])
   const recommend = BannerSelectors.getRecommend(state.banner).map(id => items[id])
+  const bestSelling = BannerSelectors.getBestSelling(state.banner).map(id => items[id])
   //静态固定的推荐位s
   // const staticRecommend = [
   //   {
@@ -185,7 +194,10 @@ const mapStateToProps = (state) => {
   //console.log(tbIndexRecommend)
   return {
     swiper,
-    recommend: recommend,
+    recommend,
+    bestSelling,
+    upgrade: state.appSet.upgrade,
+    notice: state.appSet.notice,
     tbIndexRecommend, // 首页淘宝推荐的产品
     fetching: state.tb.fetching, // 加载
     tbIndexRecommendMore: state.tb.indexRecommendMore // 更多

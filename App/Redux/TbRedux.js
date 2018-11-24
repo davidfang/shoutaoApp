@@ -24,7 +24,7 @@ const {Types, Creators} = createActions({
   tbDetailFailure: ['error', 'payload'],
   tbTpwdRequest: ['num_iid'],
   tbTpwdSuccess: ['num_iid','tpwd'],
-
+  tbTpwdBuyRequest: ['tpwd']
 })
 
 export const TbTypes = Types
@@ -228,6 +228,7 @@ export const tbDetailSuccess = (state, action) => {
     productGuessLike: Object.assign({}, state.productGuessLike, {[num_iid]: result})
   })
 }
+export const tpwdBuyRequest = (state,{tpwd}) => state
 /**
  * 设置产品详情
  * @param state
@@ -255,6 +256,7 @@ export const tbTpwdSuccess = (state, action) => {
   const productLists = lodash.defaultsDeep({[num_iid]:{tpwd:tpwd}},state.productLists)
   return state.merge({fetching: false, error: null,productLists})
 }
+export const tbTpwdBuyRequest = (state,{tpwd}) => state
 /* ------------- Hookup Reducers To Types ------------- */
 
 export const reducer = createReducer(INITIAL_STATE, {
@@ -275,6 +277,7 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.TB_DETAIL_SUCCESS]: tbDetailSuccess,
   [Types.TB_DETAIL_FAILURE]: tbDetailFailure,
   [Types.TB_TPWD_REQUEST]: tbTpwdRequest,
-  [Types.TB_TPWD_SUCCESS]: tbTpwdSuccess
+  [Types.TB_TPWD_SUCCESS]: tbTpwdSuccess,
+  [Types.TB_TPWD_BUY_REQUEST]: tbTpwdBuyRequest,
 
 })

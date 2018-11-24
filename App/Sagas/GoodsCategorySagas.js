@@ -33,6 +33,6 @@ export function * getGoodsCategory (api, action) {
     }
   } else {
 
-    yield Request(response,GoodsCategoryActions.goodsCategoryFailure)
+    yield requestFaild(response,GoodsCategoryActions.goodsCategoryFailure)
   }
 }

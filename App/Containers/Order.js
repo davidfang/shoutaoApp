@@ -2,7 +2,7 @@ import React from 'react'
 import {View, Text, FlatList, RefreshControl, Image} from 'react-native'
 
 // More info here: https://facebook.github.io/react-native/docs/flatlist.html
-
+import Empty from '../Components/Empty'
 // Styles
 import styles from './Styles/OrderStyle'
 import {Images} from "../Themes";
@@ -40,34 +40,37 @@ export default class Order extends React.PureComponent {
     switch (item.tk_status) {
       case '12':
         renderStatus = <View style={styles.buttonBlue}><Text style={styles.buttonText}>已付款</Text></View>
-            break
+        break
       case '3':
         renderStatus = <View style={styles.buttonGreen}><Text style={styles.buttonText}>已结算</Text></View>
-            break
+        break
       case '13':
         renderStatus = <View style={styles.buttonGray}><Text style={styles.buttonText}>已失效</Text></View>
-            break
+        break
       default:
         renderStatus = <View style={styles.buttonGray}><Text style={styles.buttonText}>没命中</Text></View>
-            break
+        break
     }
 
     return (
 
       <View style={styles.row}>
         <View style={styles.rowItem}>
-          <Image  source={Images.default_middle} resizeMode='contain'
-                  resizeMethod='resize' loadingIndicatorSource={Images.load} defaultSource={Images.default}/>
-          <Text style={styles.productTitle}  numberOfLines={2}>{item.item_title}</Text>
+          <Image source={Images.default_middle} resizeMode='contain'
+                 resizeMethod='resize' loadingIndicatorSource={Images.load} defaultSource={Images.default}/>
+          <Text style={styles.productTitle} numberOfLines={2}>{item.item_title}</Text>
           {renderStatus}
         </View>
-        <View  style={styles.rowItem} >
-          <View style={styles.priceGroup}><Text style={styles.priceLabel}>付款金额</Text><Text style={styles.price}>{item.alipay_total_price}</Text></View>
-          <View style={styles.priceGroup}><Text style={styles.priceLabel}>预估佣金</Text><Text style={styles.price}>{item.pub_share_pre_fee}</Text></View>
+        <View style={styles.rowItem}>
+          <View style={styles.priceGroup}><Text style={styles.priceLabel}>付款金额</Text><Text
+            style={styles.price}>{item.alipay_total_price}</Text></View>
+          <View style={styles.priceGroup}><Text style={styles.priceLabel}>预估佣金</Text><Text
+            style={styles.price}>{item.pub_share_pre_fee}</Text></View>
         </View>
 
 
-        <Text style={styles.time}>{item.create_time}创建</Text>
+        <View style={styles.rowItem}><Text
+          style={styles.time}>{item.create_time}创建</Text><Text style={styles.time}>{item.adzone_id == item.self_pid ? '自购返利' : '粉丝贡献'}</Text></View>
       </View>
     )
   }
@@ -128,7 +131,7 @@ export default class Order extends React.PureComponent {
           initialNumToRender={this.oneScreensWorth}
           //ListHeaderComponent={this.renderHeader}
           ListFooterComponent={this.renderFooter}
-          ListEmptyComponent={this.renderEmpty}
+          ListEmptyComponent={<Empty/>}
           //ItemSeparatorComponent={this.renderSeparator}
           extraData={this.props.data}
           onEndReachedThreshold={0.1}

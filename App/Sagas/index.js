@@ -24,7 +24,7 @@ import {OrderTypes} from '../Redux/OrderRedux'
 /* ------------- Sagas ------------- */
 
 import {startup} from './StartupSagas'
-import {getAppSet} from './AppSetSagas'
+import {getAppSet, getAppSetUpgrade,getAppSetNotice} from './AppSetSagas'
 import {getRegister} from './RegisterSagas'
 import {login, autoLogin, loginByMobileVerifyCode} from './LoginSagas'
 import {getVerifyCode} from './VerifyCodeSagas'
@@ -62,6 +62,8 @@ export default function* root() {
     // some sagas only receive an action
     takeLatest(StartupTypes.STARTUP, startup),
     takeLatest(AppSetTypes.APP_SET_REQUEST, getAppSet, api),
+    takeLatest(AppSetTypes.APP_SET_UPGRADE_REQUEST, getAppSetUpgrade, api),
+    takeLatest(AppSetTypes.APP_SET_NOTICE_REQUEST, getAppSetNotice, api),
 
     // some sagas receive extra parameters in addition to an action
     takeLatest(RegisterTypes.REGISTER_REQUEST, getRegister, api),

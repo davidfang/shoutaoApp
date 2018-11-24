@@ -3,33 +3,34 @@ import {Colors, ScreenUtil, Metrics} from '../../Themes'
 
 export default StyleSheet.create({
   productItem: {
-    height: ScreenUtil.scaleHeight(150),
+    height: ScreenUtil.scaleHeight(130),
     flexDirection: 'row',
-    padding: ScreenUtil.scaleSize(10),
+    padding: ScreenUtil.scaleSize(5),
     backgroundColor: Colors.white,
     borderBottomWidth: ScreenUtil.scaleHeight(1),
-    borderBottomColor: Colors.border
+    borderBottomColor: Colors.border,
+    alignItems:'flex-start'
   },
   zhutu: {
-    width: ScreenUtil.scaleSize(150),
-    height: ScreenUtil.scaleHeight(150)
+    width: ScreenUtil.scaleSize(120),
+    height: ScreenUtil.scaleHeight(120)
   },
   info: {
     flex: 1,
-    width: Metrics.screenWidth - ScreenUtil.scaleSize(150),
+    width: Metrics.screenWidth - ScreenUtil.scaleSize(120),
     paddingLeft: ScreenUtil.scaleSize(5),
     paddingRight: ScreenUtil.scaleSize(5),
     justifyContent: 'space-around',
-    height: ScreenUtil.scaleHeight(150)
+    height: ScreenUtil.scaleHeight(120)
   },
   title: {
     height: ScreenUtil.scaleHeight(45),
-    fontSize: ScreenUtil.setSpText(12),
+    fontSize: ScreenUtil.setSpText(10),
     alignItems: 'center'
   },
   coupon: {
     flexDirection: 'row',
-    //flex: 1,
+    flex: 1,
     alignItems: 'center'
   },
   couponTitle: {
@@ -38,14 +39,14 @@ export default StyleSheet.create({
     paddingHorizontal: ScreenUtil.scaleSize(3),
     borderWidth: 1,
     borderColor: Colors.orange,
-    fontSize: ScreenUtil.setSpText(11),
+    fontSize: ScreenUtil.setSpText(10),
     textAlign: 'center'
   },
   couponInfo: {
     borderWidth: 1,
     borderColor: Colors.orange,
     paddingHorizontal: ScreenUtil.scaleSize(5),
-    fontSize: ScreenUtil.setSpText(11)
+    fontSize: ScreenUtil.setSpText(10)
   },
   sale: {
     flexDirection: 'row',
@@ -53,8 +54,8 @@ export default StyleSheet.create({
     alignItems: 'center'
   },
   saleImage: {
-    width: ScreenUtil.scaleSize(16),
-    height: ScreenUtil.scaleSize(16),
+    width: ScreenUtil.scaleSize(14),
+    height: ScreenUtil.scaleSize(14),
     resizeMode: 'stretch'
   },
   saleInfo: {
@@ -72,17 +73,17 @@ export default StyleSheet.create({
   },
   cprice: {
     color: Colors.selected,
-    fontSize: ScreenUtil.setSpText(14),
+    fontSize: ScreenUtil.setSpText(12),
     fontWeight: 'bold'
   },
   rprice: {
     paddingLeft: ScreenUtil.scaleSize(5),
     textDecorationLine: 'line-through',
     //flex: 1,
-    fontSize: ScreenUtil.setSpText(11)
+    fontSize: ScreenUtil.setSpText(9)
   },
   priceLabel: {
-    fontSize: ScreenUtil.setSpText(10),
+    fontSize: ScreenUtil.setSpText(8),
     color: Colors.descText
   }
 })

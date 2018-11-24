@@ -99,13 +99,10 @@ export default class GoodsList extends React.PureComponent {
         return R.sort(by, data)
         break
       case  2:
-        by = R.descend(R.prop('coupon_info'))//券
+        by = R.descend(R.prop('coupon_info_price'))//券
         return R.sort(by, data)
         break
       case  3:
-        by = R.descend(R.prop('zk_final_price_wap'))//到手价价
-        return R.sort(by, data)
-        break
       default:
         return data
     }
@@ -138,13 +135,13 @@ export default class GoodsList extends React.PureComponent {
               title={this.props.fetching ? '刷新数据中' : '松开立即更新'}
             />
           }
-          ListFooterComponent={
-            <Footer
-              reloading={this._onLoading}
-              fetching={this.props.fetching}
-              more={this.props.more}
-            />
-          }
+          // ListFooterComponent={
+          //   <Footer
+          //     reloading={this._onLoading}
+          //     fetching={this.props.fetching}
+          //     more={this.props.more}
+          //   />
+          // }
         />
         <ScrollToTop isShow={this.state.isShow} scrollTo={this._scrollToTop}/>
       </View>
