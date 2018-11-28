@@ -4,7 +4,7 @@ import { Metrics, Colors,ScreenUtil } from '../../Themes'
 export default StyleSheet.create({
   container: {
     width: Metrics.width,
-    height: ScreenUtil.scaleHeight(100),
+    //height: ScreenUtil.scaleHeight(100),
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'center',
@@ -12,7 +12,7 @@ export default StyleSheet.create({
     backgroundColor: Colors.silver
   },
   item: {
-    flex: 1,
+    //flex: 1,
     height: ScreenUtil.scaleHeight(75),
     alignItems: 'center',
     justifyContent: 'center',
