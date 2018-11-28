@@ -1,8 +1,10 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types';
-import {TouchableOpacity, Image} from 'react-native'
+import {TouchableOpacity, Text} from 'react-native'
 import styles from './Styles/ScrollToTopStyle'
-import {ScreenUtil} from '../Themes'
+import {Colors, ScreenUtil} from '../Themes'
+
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 export default class ScrollToTop extends Component {
   // // Prop type warnings
@@ -23,10 +25,8 @@ export default class ScrollToTop extends Component {
     }
     return isShow ? (
       <TouchableOpacity style={styles.toTop} activeOpacity={1} onPress={_onPress}>
-        <Image
-          source={require('../Images/scroll.png')}
-          style={{height: ScreenUtil.scaleSize(32), width: ScreenUtil.scaleSize(32)}}
-        />
+        <Icon name='arrow-collapse-up' size={ScreenUtil.scaleSize(15)} color={Colors.descText}/>
+        <Text style={{fontSize:ScreenUtil.setSpText(8),color:Colors.charcoal}}>到顶</Text>
       </TouchableOpacity>
     ) : null
   }

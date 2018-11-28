@@ -6,8 +6,8 @@ export default StyleSheet.create({
     backgroundColor: Colors.background
   },
   icon: {
-    width: ScreenUtil.scaleSize(24),
-    height: ScreenUtil.scaleSize(24)
+    width: ScreenUtil.scaleSize(18),
+    height: ScreenUtil.scaleSize(18)
   },
   headerTitleStyle: {
     color: Colors.text,

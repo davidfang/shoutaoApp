@@ -2,8 +2,9 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types';
 import {View, Text, Image, TouchableOpacity} from 'react-native'
 import styles from './Styles/NoticeBarStyle'
-
+import Icon from 'react-native-vector-icons/Octicons'
 import Notice from './Notice'
+import {ScreenUtil, Colors} from "../Themes";
 
 export default class NoticeBar extends Component {
   // Prop type warnings
@@ -39,7 +40,7 @@ export default class NoticeBar extends Component {
     const {notices} = this.props
     return (
       <View style={styles.row}>
-        <Image source={require('../Images/volume-up.png')} style={styles.noticeImg}/>
+        <Icon name='megaphone' size={ScreenUtil.scaleSize(20)} color={Colors.descText}/>
         <View style={styles.noticeContainer}>
           <Notice>
             {notices && notices.map(this._renderItem)}

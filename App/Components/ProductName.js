@@ -28,7 +28,7 @@ export default class ProductName extends Component {
         <View style={styles.price}>
           <View style={styles.oldPrice}>
             <Image style={styles.saleImage} source={user_type}/>
-            <Text>券后价</Text>
+            <Text style={styles.priceLabel}>券后价</Text>
             <Text style={styles.salePrice}>￥{MyMath.subtract(product.zk_final_price , product.coupon_info_price)}</Text>
             <Text style={styles.rprice}>￥{product.zk_final_price}</Text>
           </View>
@@ -36,7 +36,7 @@ export default class ProductName extends Component {
             <Text style={styles.couponTitle}>券</Text>
             <Text style={styles.couponInfo}>{product.coupon_info_price}</Text>
           </View>
-          <Text >已售{product.volume}件</Text>
+          <Text style={styles.priceLabel} >已售{product.volume}件</Text>
         </View>
         <Text
           style={styles.xiangguanatuijian}

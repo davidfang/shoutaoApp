@@ -15,13 +15,13 @@ import OrderScreen from "../Containers/OrderScreen";
 
 // Manifest of possible screens
 const UserNav = StackNavigator({
-  MobileLoginScreen: {
-    screen: MobileLoginScreen,
-    navigationOptions: {
-      title: '短信登录',
-      header: null
-    }
-  },
+  // MobileLoginScreen: {
+  //   screen: MobileLoginScreen,
+  //   navigationOptions: {
+  //     title: '短信登录',
+  //     header: null
+  //   }
+  // },
   ChangePasswordScreen: {
     screen: ChangePasswordScreen,
     navigationOptions: {
@@ -52,25 +52,25 @@ const UserNav = StackNavigator({
       title: '提现申请'
     }
   },
-  RegisterScreen: {
-    screen: RegisterScreen,
-    navigationOptions: ({navigation}) => {
-      const {state} = navigation
-      return {
-        title: '注册'
-      }
-    }
-  },
-  LoginScreen: {
-    screen: LoginScreen,
-    navigationOptions: ({navigation}) => {
-      const {state} = navigation
-      return {
-        title: '登录',
-        header: null
-      }
-    }
-  },
+  // RegisterScreen: {
+  //   screen: RegisterScreen,
+  //   navigationOptions: ({navigation}) => {
+  //     const {state} = navigation
+  //     return {
+  //       title: '注册'
+  //     }
+  //   }
+  // },
+  // LoginScreen: {
+  //   screen: LoginScreen,
+  //   navigationOptions: ({navigation}) => {
+  //     const {state} = navigation
+  //     return {
+  //       title: '登录',
+  //       header: null
+  //     }
+  //   }
+  // },
   UserInfoScreen: {
     screen: UserInfoScreen,
     navigationOptions: {

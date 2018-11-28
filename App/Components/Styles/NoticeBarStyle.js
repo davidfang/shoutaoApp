@@ -20,7 +20,7 @@ export default StyleSheet.create({
     borderRadius: ScreenUtil.scaleSize(10),
     //borderWidth:ScreenUtil.scaleSize(.5),
     // borderColor:'red',
-    width: ScreenUtil.scaleSize(320)
+    width: ScreenUtil.scaleSize(340)
   },
   noticeImg: {
     width: ScreenUtil.scaleSize(25),

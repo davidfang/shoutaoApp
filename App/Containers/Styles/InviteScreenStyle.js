@@ -32,7 +32,7 @@ export default StyleSheet.create({
     justifyContent: 'center'
   },
   buttonText: {
-    fontSize: ScreenUtil.setSpText(14),
+    fontSize: ScreenUtil.setSpText(12),
     color: 'white',
     alignSelf: 'center'
   }

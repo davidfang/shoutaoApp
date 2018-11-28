@@ -1,15 +1,16 @@
-import React, { Component } from 'react'
-import {View, TouchableOpacity } from 'react-native'
+import React, {Component} from 'react'
+import {View, TouchableOpacity} from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import { connect } from 'react-redux'
+import {connect} from 'react-redux'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
-import TbActions, { TbSelectors } from '../Redux/TbRedux'
+import TbActions, {TbSelectors} from '../Redux/TbRedux'
 import GoodsList from './GoodsList'
 // Styles
 import styles from './Styles/ResultScreenStyle'
 import {ScreenUtil} from '../Themes'
 
 import SearchBar from '../Components/SearchBar'
+import {LoginSelector} from "../Redux/LoginRedux";
 
 let _this = null
 
@@ -26,7 +27,7 @@ class ResultScreen extends Component {
     }
   }
 
-  componentDidMount () {
+  componentDidMount() {
     _this = this
     this._fetchRequest(4)
   }
@@ -36,7 +37,7 @@ class ResultScreen extends Component {
     this.props.searchKeyWord(keyWord)
   }
 
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       keyWord: props.keyWord
@@ -49,7 +50,7 @@ class ResultScreen extends Component {
     }
   }
 
-  render () {
+  render() {
     return (
       <View style={styles.container}>
         <TouchableOpacity style={styles.backIcon} onPress={() => this.props.navigation.goBack()}>
@@ -63,6 +64,7 @@ class ResultScreen extends Component {
           fetchRequest={this._fetchRequest}
           navigation={this.props.navigation}
           data={this.props.searchResult}
+          loggedIn={this.props.loggedIn}
         />
       </View>
     )
@@ -74,6 +76,7 @@ const mapStateToProps = (state, props) => {
   let {keyWord} = params
   let searchResult = TbSelectors.getSearchKeyWordPrds(state.tb, keyWord)
   return {
+    loggedIn: LoginSelector.isLoggedIn(state.login),
     keyWord,
     searchResult,
     fetching: state.tb.fetching, // 加载

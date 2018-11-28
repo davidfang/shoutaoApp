@@ -75,6 +75,7 @@ export function* getTbSearch(api, action) {
   // make the call to the api
   const response = yield call(api.getTbSearchKeyWord, keyWord, page, sortId)
 
+  console.log(response)
   // success?
   if (response.ok) {
     // You might need to change the response here - do this with a 'transform',
@@ -154,6 +155,35 @@ export function* getTpwd(api, action) {
       yield put(TbActions.tbTpwdSuccess(num_iid, response.data.data.tpwd))
     } else {
       yield requestFaild(response, TbActions.tbFailure)
+    }
+  } else {
+    yield requestFaild(response, TbActions.tbFailure)
+  }
+}
+
+export function* getBuy(api, action) {
+  const {num_iid} = action
+  // get current data from Store
+  // const currentData = yield select(TbSelectors.getData)
+  // make the call to the api
+  const isLoggedIn = yield select(selectLoggedInStatus)
+  let response
+  if (isLoggedIn) {//登录用户
+    response = yield call(api.getBuy, num_iid)
+  } else {//未登录用户
+    response = yield call(api.getBuyNo, num_iid)
+  }
+
+  console.log(response)
+  // success?
+  if (response.ok) {
+    // You might need to change the response here - do this with a 'transform',
+    // located in ../Transforms/. Otherwise, just pass the data back from the api.
+    // yield put(TbActions.tbSuccess(response.data))
+    if (response.data.status) {
+      yield put(TbActions.tbBuySuccess())
+    } else {
+      yield put(TbActions.tbBuySuccess())
     }
   } else {
     yield requestFaild(response, TbActions.tbFailure)

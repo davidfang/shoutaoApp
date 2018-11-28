@@ -1,10 +1,11 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React, {Component} from 'react'
+import {connect} from 'react-redux'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
-import { GoodsCategorySelectors } from '../Redux/GoodsCategoryRedux'
-import TbActions, { TbSelectors } from '../Redux/TbRedux'
+import {GoodsCategorySelectors} from '../Redux/GoodsCategoryRedux'
+import TbActions, {TbSelectors} from '../Redux/TbRedux'
 
 import GoodsList from './GoodsList'
+import {LoginSelector} from "../Redux/LoginRedux";
 
 // Styles
 //import styles from './Styles/ClassifyListScreenStyle'
@@ -13,7 +14,7 @@ class ClassifyListScreen extends Component {
   currentCat = 0
   currentSort = 0
 
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       scrollIsShow: false,
@@ -33,18 +34,19 @@ class ClassifyListScreen extends Component {
   }
 
 
-  render () {
+  render() {
     return (
-        <GoodsList
-          ref={flat => (this._flatList = flat)}
-          fetching={this.props.fetching}
-          more={this.props.more}
-          fetchRequest={this._fetchRequest}
-          navigation={this.props.navigation}
-          data={this.props.channelProductPrds}
-          //channels={null}
-          channelId={this.props.channelId}
-        />
+      <GoodsList
+        ref={flat => (this._flatList = flat)}
+        fetching={this.props.fetching}
+        more={this.props.more}
+        fetchRequest={this._fetchRequest}
+        navigation={this.props.navigation}
+        data={this.props.channelProductPrds}
+        //channels={null}
+        channelId={this.props.channelId}
+        loggedIn={this.props.loggedIn}
+      />
     )
   }
 }
@@ -65,6 +67,7 @@ const mapStateToProps = (state, props) => {
   // 更多
   const more = state.tb.channelProductMore.hasOwnProperty(channelId) ? state.tb.channelProductMore[channelId] : true
   return {
+    loggedIn: LoginSelector.isLoggedIn(state.login),
     channelId,
     goodsCategories,
     channelProductIds,

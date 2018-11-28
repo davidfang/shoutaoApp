@@ -24,6 +24,8 @@ const {Types, Creators} = createActions({
   tbDetailFailure: ['error', 'payload'],
   tbTpwdRequest: ['num_iid'],
   tbTpwdSuccess: ['num_iid','tpwd'],
+  tbBuyRequest: ['num_iid'],
+  tbBuySuccess: null,
   tbTpwdBuyRequest: ['tpwd']
 })
 
@@ -256,6 +258,12 @@ export const tbTpwdSuccess = (state, action) => {
   const productLists = lodash.defaultsDeep({[num_iid]:{tpwd:tpwd}},state.productLists)
   return state.merge({fetching: false, error: null,productLists})
 }
+// request the data from an api
+export const tbBuyRequest = (state, {num_iid}) =>
+  state.merge({fetching: true, payload: null})
+
+// successful api lookup
+export const tbBuySuccess = (state, action) => state.merge({fetching: false, error: null})
 export const tbTpwdBuyRequest = (state,{tpwd}) => state
 /* ------------- Hookup Reducers To Types ------------- */
 
@@ -278,6 +286,8 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.TB_DETAIL_FAILURE]: tbDetailFailure,
   [Types.TB_TPWD_REQUEST]: tbTpwdRequest,
   [Types.TB_TPWD_SUCCESS]: tbTpwdSuccess,
+  [Types.TB_BUY_REQUEST]: tbBuyRequest,
+  [Types.TB_BUY_SUCCESS]: tbBuySuccess,
   [Types.TB_TPWD_BUY_REQUEST]: tbTpwdBuyRequest,
 
 })

@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {View, Text, TouchableOpacity, Image, TextInput, Keyboard, TouchableWithoutFeedback} from 'react-native'
 import {connect} from 'react-redux'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
 
@@ -11,7 +12,7 @@ import LoginActions from "../Redux/LoginRedux";
 import Toast from "../Lib/Toast";
 import CountDownButton from '../Components/CountDownButton'
 import VerifyCodeActions from "../Redux/VerifyCodeRedux";
-import {Colors, Images} from "../Themes";
+import {Colors, Images, ScreenUtil} from "../Themes";
 import ThirdLogin from './ThirdLogin'
 
 class MobileLoginScreen extends Component {
@@ -46,6 +47,7 @@ class MobileLoginScreen extends Component {
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <View style={styles.container}>
+          <Icon name='close-circle-outline' size={ScreenUtil.scaleSize(25)} color={Colors.steel}   onPress={()=>this.props.navigation.goBack()} style={styles.loginCancel}/>
           <Image source={Images.logoLogin} style={styles.topLogo}/>
           {/*表单部分*/}
           <View style={styles.form}>

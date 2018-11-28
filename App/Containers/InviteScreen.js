@@ -14,7 +14,10 @@ import ShareActions from "../Redux/ShareRedux";
 import ScreenUtil from "../Themes/ScreenUtil";
 
 class InviteScreen extends Component {
-  state = {pic: 0}
+  constructor(props) {
+    super(props)
+    this.state = {pic: 0}
+  }
 
   componentDidMount() {
     if (this.props.shareImages == null) {

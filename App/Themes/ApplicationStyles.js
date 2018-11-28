@@ -88,6 +88,10 @@ const ApplicationStyles = {
       width: Metrics.screenWidth,
       alignItems: 'center',
       justifyContent: 'space-around'
+    },
+    loginCancel: {
+      alignSelf:'flex-end',
+      padding: ScreenUtil.scaleSize(10)
     }
   },
   form: {

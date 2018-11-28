@@ -21,7 +21,7 @@ export default StyleSheet.create({
     resizeMode: 'stretch'
   },
   buyCard: {
-    height: ScreenUtil.scaleHeight(50),
+    height: ScreenUtil.scaleHeight(40),
     backgroundColor: Colors.white,
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -29,7 +29,7 @@ export default StyleSheet.create({
   },
   coupon: {
     backgroundColor: Colors.orange,
-    height: ScreenUtil.scaleHeight(50),
+    height: ScreenUtil.scaleHeight(40),
     justifyContent: 'center',
     alignItems: 'center',
     minWidth: ScreenUtil.scaleSize(70)
@@ -38,12 +38,12 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: Colors.selected,
-    width: ScreenUtil.scaleSize(120),
-    height: ScreenUtil.scaleHeight(50)
+    width: ScreenUtil.scaleSize(100),
+    height: ScreenUtil.scaleHeight(40)
   },
   getCouponText: {
     fontWeight: 'bold',
-    fontSize: ScreenUtil.setSpText(18),
+    fontSize: ScreenUtil.setSpText(11),
     color: Colors.text,
     textAlign: 'center',
     textAlignVertical: 'center'
@@ -52,16 +52,30 @@ export default StyleSheet.create({
     borderLeftColor: Colors.selected,
     borderLeftWidth: ScreenUtil.scaleSize(3),
     borderStyle: 'solid',
-    height: ScreenUtil.scaleHeight(45),
+    height: ScreenUtil.scaleHeight(30),
     padding: ScreenUtil.scaleSize(3),
     justifyContent: 'center',
     backgroundColor: Colors.white,
     marginTop: ScreenUtil.scaleHeight(5)
   },
   salePrice: {
-    fontSize: ScreenUtil.setSpText(24),
+    fontSize: ScreenUtil.setSpText(9),
     color: Colors.selected,
     fontWeight: 'bold',
     marginHorizontal: ScreenUtil.scaleSize(5)
+  },
+  share: {
+    flex: 1,
+    alignItems:'center',
+    justifyContent:'center',
+    // paddingLeft: ScreenUtil.scaleSize(1),
+    // width:ScreenUtil.scaleSize(40),
+    backgroundColor:Colors.blue,
+    height: ScreenUtil.scaleHeight(40)
+  },
+  zprice:{
+    color:Colors.white,
+    fontSize:ScreenUtil.setSpText(8)
   }
+
 })

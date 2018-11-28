@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {Text, View, FlatList, TouchableOpacity, Clipboard, Linking} from 'react-native'
-import Icon from 'react-native-vector-icons/FontAwesome'
+import Icon from 'react-native-vector-icons/Entypo'
 import AutoImage from 'react-native-scalable-image'
 import {connect} from 'react-redux'
 import MyMath from '../Lib/MyMath'
@@ -14,7 +14,7 @@ import GuessLike from '../Components/GuessLike'
 import Empty from '../Components/Empty'
 // Styles
 import styles from './Styles/DetailScreenStyle'
-import {Images, Metrics, ScreenUtil} from '../Themes'
+import {Colors, Images, Metrics, ScreenUtil} from '../Themes'
 import Toast from "../Lib/Toast";
 import {onEventWithLable} from "../Lib/UMAnalyticsUtil";
 import {LoginSelector} from "../Redux/LoginRedux";
@@ -43,19 +43,19 @@ class DetailScreen extends Component {
     this._flatList.scrollToOffset({offset: 0, animated: true})
   }
   _goBuy = () => {
-    let {productInfo,loggedIn,taobaoPid} = this.props
+    let {productInfo, loggedIn, taobaoPid} = this.props
     this.destory = 1
     //RNAlibcSdk.Show(goodsInfo.SPYHQTGLJ)
     //Clipboard.setString(productInfo.tpwd)//不用复制淘口令了
     onEventWithLable('buy', productInfo.num_iid)//友盟统计
 
     let coupon_share_url
-    if(loggedIn){//登录
-      coupon_share_url = '//uland.taobao.com/coupon/edetail?activityId=' + productInfo.coupon_id+'&pid='+taobaoPid +'&itemId=' + productInfo.num_iid
-    }else{//没登录
+    if (loggedIn) {//登录
+      coupon_share_url = '//uland.taobao.com/coupon/edetail?activityId=' + productInfo.coupon_id + '&pid=' + taobaoPid + '&itemId=' + productInfo.num_iid
+    } else {//没登录
       coupon_share_url = productInfo.coupon_share_url
     }
-
+    this.props.getBuyRequest(productInfo.num_iid)
     // 2、跳转代码
     Linking.canOpenURL('taobao://').then(supported => { // weixin://  alipay://
       if (supported) {
@@ -93,7 +93,7 @@ class DetailScreen extends Component {
         >
           <Text
             style={{
-              fontSize: ScreenUtil.setSpText(18),
+              fontSize: ScreenUtil.setSpText(12),
               paddingLeft: ScreenUtil.scaleSize(10)
             }}
           >
@@ -131,15 +131,24 @@ class DetailScreen extends Component {
         });
     }
   }
+  _onShareInfo = () => {
+    const {productInfo, navigation,loggedIn} = this.props
+    onEventWithLable('shareInfo', productInfo.num_iid)
 
+    navigation.navigate &&
+    navigation.navigate(loggedIn ? 'ProductShare':'LoginScreen', {
+      goodsId: productInfo.num_iid,
+      title: productInfo.title,
+      goodsInfo: productInfo
+    })
+  }
   render() {
     let {goodsInfo} = this.state
     let {productInfo} = this.props
     return (
       <View style={styles.container}>
         <TouchableOpacity style={styles.backIcon} onPress={() => this.props.navigation.goBack()}>
-          <Icon name='chevron-left' size={ScreenUtil.scaleSize(24)} color='#fff'
-          />
+          <Icon name='chevron-with-circle-left' size={ScreenUtil.scaleSize(24)} color='#fff'/>
         </TouchableOpacity>
         <FlatList
           ref={flat => (this._flatList = flat)}
@@ -157,25 +166,24 @@ class DetailScreen extends Component {
           activeOpacity={1}
           onPress={() => this._goBuy()}
         >
-          <Text style={{marginLeft: ScreenUtil.scaleSize(5), flex: 1}}>
+          <TouchableOpacity  style={styles.share} onPress={this._onShareInfo} >
+            <Icon name='export' size={ScreenUtil.scaleSize(14)} color={Colors.white}>
+            <Text style={styles.zprice}>分享赚￥{goodsInfo.commission_amount }</Text>
+            </Icon>
+          </TouchableOpacity>
+          <Text style={{marginLeft: ScreenUtil.scaleSize(5), flex: 1,fontSize:ScreenUtil.setSpText(8)}}>
             券后价：
-            <Text style={{color: '#fc3616'}}>￥</Text>
-            <Text
-              style={styles.salePrice}
-            >
+            <Text style={{color: '#fc3616',fontSize:ScreenUtil.setSpText(9)}}>￥</Text>
+            <Text style={styles.salePrice}>
               {MyMath.subtract(goodsInfo.zk_final_price, goodsInfo.coupon_info_price)}
             </Text>
           </Text>
-          <View
-            style={styles.coupon}
-          >
-            <Text style={{color: '#fff'}}>优惠券</Text>
-            <Text style={{color: '#fff'}}>{goodsInfo.coupon_info_price}元</Text>
+          <View style={styles.coupon}>
+            <Text style={{color: '#fff',fontSize:ScreenUtil.setSpText(8)}}>优惠券</Text>
+            <Text style={{color: '#fff',fontSize:ScreenUtil.setSpText(8)}}>{goodsInfo.coupon_info_price}元</Text>
           </View>
           <View style={styles.getCoupon}>
-            <Text
-              style={styles.getCouponText}
-            >
+            <Text style={styles.getCouponText}>
               领券购买
             </Text>
           </View>
@@ -205,7 +213,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getTbDetail: (goodsId) => dispatch(TbActions.tbDetailRequest(goodsId)),
     setTbDetailRequest: (goodsId, detail) => dispatch(TbActions.tbSetDetailRequest(goodsId, detail)),
-    getTpwdRequest: (goodsId) => dispatch(TbActions.tbTpwdRequest(goodsId))
+    getTpwdRequest: (goodsId) => dispatch(TbActions.tbTpwdRequest(goodsId)),
+    getBuyRequest:(goodsId)=>dispatch(TbActions.tbBuyRequest(goodsId))
   }
 }
 

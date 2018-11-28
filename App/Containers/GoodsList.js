@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, FlatList, RefreshControl } from 'react-native'
+import {View, FlatList, RefreshControl} from 'react-native'
 import R from 'ramda'
 import ScrollToTop from '../Components/ScrollToTop'
 import Empty from '../Components/Empty'
@@ -18,7 +18,7 @@ export default class GoodsList extends React.PureComponent {
     data: []
   }
 
-  componentWillMount () {
+  componentWillMount() {
     if (this.props.data.length < 1) {
       this.props.fetchRequest(this.state.currentSort)
       data = this._sort(this.props.data)
@@ -43,7 +43,7 @@ export default class GoodsList extends React.PureComponent {
   }
 
   _renderItem = ({item}) => (
-    <SectionListItem navigation={this.props.navigation} product={item}/>
+    <SectionListItem navigation={this.props.navigation} product={item} loggedIn={this.props.loggedIn}/>
   )
 
   /**
@@ -82,7 +82,7 @@ export default class GoodsList extends React.PureComponent {
     this.initDatas()
   }
 
-  initDatas () {
+  initDatas() {
     let data = this._sort(this.props.data)
     this.setState({data: data})
   }
@@ -109,7 +109,7 @@ export default class GoodsList extends React.PureComponent {
 
   }
 
-  render () {
+  render() {
     return (
       <View style={styles.container}>
         <FlatList

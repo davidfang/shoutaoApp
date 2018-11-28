@@ -24,7 +24,7 @@ import {OrderTypes} from '../Redux/OrderRedux'
 /* ------------- Sagas ------------- */
 
 import {startup} from './StartupSagas'
-import {getAppSet, getAppSetUpgrade,getAppSetNotice} from './AppSetSagas'
+import {getAppSet, getAppSetUpgrade, getAppSetNotice} from './AppSetSagas'
 import {getRegister} from './RegisterSagas'
 import {login, autoLogin, loginByMobileVerifyCode} from './LoginSagas'
 import {getVerifyCode} from './VerifyCodeSagas'
@@ -41,7 +41,15 @@ import {
 import {getQiniuAvatarToken, getQiniuFeedbackToken} from './QiniuSagas'
 import {getAccount, getBankInfo, setBankInfo, withdrawal} from './AccountSagas'
 import {getBanner, postFeedBack} from './BannerSagas'
-import {getTbIndexRecommend, getTbChannelProduct, getTbSearch, setTbDetail, getTbDetail, getTpwd} from './TbSagas'
+import {
+  getTbIndexRecommend,
+  getTbChannelProduct,
+  getTbSearch,
+  setTbDetail,
+  getTbDetail,
+  getTpwd,
+  getBuy
+} from './TbSagas'
 import {getGoodsCategory} from './GoodsCategorySagas'
 import {getCircle} from './CircleSagas'
 import {postShare, thirdLogin, thirdBind} from './ShareSagas'
@@ -98,6 +106,7 @@ export default function* root() {
     takeLatest(TbTypes.TB_SET_DETAIL_REQUEST, setTbDetail, api),
     takeLatest(TbTypes.TB_DETAIL_REQUEST, getTbDetail, api),
     takeLatest(TbTypes.TB_TPWD_REQUEST, getTpwd, api),
+    takeLatest(TbTypes.TB_BUY_REQUEST, getBuy, api),
     takeLatest(CircleTypes.CIRCLE_REQUEST, getCircle, api),
     takeLatest(ShareTypes.SHARE_REQUEST, postShare, api),
     takeLatest(ShareTypes.SHARE_LOGIN_REQUEST, thirdLogin, api),

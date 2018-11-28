@@ -2,8 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Image, View, Text, TextInput, TouchableOpacity, Keyboard, TouchableWithoutFeedback} from 'react-native'
 import {connect} from 'react-redux'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import styles from './Styles/LoginScreenStyle'
-import {Images, Colors} from '../Themes'
+import {Images, Colors, ScreenUtil} from '../Themes'
 import LoginActions, {LoginSelector} from '../Redux/LoginRedux'
 import ThirdLogin from './ThirdLogin'
 
@@ -37,6 +38,7 @@ class LoginScreen extends React.Component {
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <View contentContainerStyle={{justifyContent: 'center'}}
               style={styles.container} keyboardShouldPersistTaps='always'>
+          <Icon name='close-circle-outline' size={ScreenUtil.scaleSize(25)} color={Colors.steel}   onPress={()=>this.props.navigation.goBack()} style={styles.loginCancel}/>
           <Image source={Images.logoLogin} style={styles.topLogo}/>
           <View style={styles.form}>
             <View style={styles.formRow}>

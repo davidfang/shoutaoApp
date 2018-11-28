@@ -32,7 +32,8 @@ export default class Notice extends Component {
           toValue: -this.state.translateY,                   // 透明度最终变为1，即完全不透明
           duration: 8000,              // 让动画持续一段时间
           useNativeDriver: true,
-          easing: Easing.linear
+          easing: Easing.linear,
+          isInteraction: false
         }
       )
     ]).start(() => {

@@ -1,5 +1,6 @@
 import React from 'react'
 import {StackNavigator} from 'react-navigation'
+import ProductShare from '../Containers/ProductShare'
 import ThirdLogin from '../Containers/ThirdLogin'
 import FeedbackScreen from '../Containers/FeedbackScreen'
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -18,8 +19,18 @@ import styles from './Styles/NavigationStyles'
 import SetPasswordScreen from "../Containers/SetPasswordScreen";
 import {ScreenUtil} from '../Themes'
 import InviteScreen from "../Containers/InviteScreen";
+import LoginScreen from "../Containers/LoginScreen";
+import RegisterScreen from "../Containers/RegisterScreen";
+import MobileLoginScreen from "../Containers/MobileLoginScreen";
 // Manifest of possible screens
 const PrimaryNav = StackNavigator({
+  ProductShare: {
+    screen: ProductShare,
+    navigationOptions: {
+      title: '分享赚钱',
+      // header: null
+    }
+  },
   ThirdLogin: {screen: ThirdLogin},
   InviteScreen: {
     screen: InviteScreen,
@@ -88,6 +99,32 @@ const PrimaryNav = StackNavigator({
       }
     }
   },
+  LoginScreen: {
+    screen: LoginScreen,
+    navigationOptions: ({navigation}) => {
+      const {state} = navigation
+      return {
+        title: '登录',
+        header: null
+      }
+    }
+  },
+  RegisterScreen: {
+    screen: RegisterScreen,
+    navigationOptions: ({navigation}) => {
+      const {state} = navigation
+      return {
+        title: '注册'
+      }
+    }
+  },
+  MobileLoginScreen: {
+    screen: MobileLoginScreen,
+    navigationOptions: {
+      title: '短信登录',
+      header: null
+    }
+  },
 }, {
   // Default config for all screens
   headerMode: 'screen',
@@ -100,11 +137,11 @@ const PrimaryNav = StackNavigator({
       headerTitleStyle: styles.headerTitleStyle,
       headerLeft: <Icon name='chevron-left' onPress={() => {
         goBack()
-      }} size={ScreenUtil.scaleSize(24)} color='#fff'
+      }} size={ScreenUtil.scaleSize(18)} color='#fff'
                         style={{marginLeft: ScreenUtil.scaleSize(10)}}/>,
       headerRight: <Icon name='home' onPress={() => {
         navigate('MainStack')
-      }} size={ScreenUtil.scaleSize(24)} color='#fff'
+      }} size={ScreenUtil.scaleSize(18)} color='#fff'
                          style={{marginRight: ScreenUtil.scaleSize(20)}}/>,
       headerTitleAllowFontScaling: false
     }

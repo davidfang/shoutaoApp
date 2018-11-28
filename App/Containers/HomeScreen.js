@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Component,PureComponent} from 'react'
 import {View, FlatList, RefreshControl, Text, Image, Linking, TouchableOpacity, Platform} from 'react-native'
 import {connect} from 'react-redux'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
@@ -18,12 +18,13 @@ import Upgrade from '../Components/Upgrade'
 
 // Styles
 import styles from './Styles/HomeScreenStyle'
-import {Colors, Metrics} from "../Themes";
+import {Colors, Metrics,ScreenUtil} from "../Themes";
 import BestSelling from "../Components/BestSelling";
+import {LoginSelector} from "../Redux/LoginRedux";
 
-const itemHeight = 50
+const itemHeight = ScreenUtil.scaleHeight(130)
 
-class HomeScreen extends Component {
+class HomeScreen extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
@@ -98,7 +99,7 @@ class HomeScreen extends Component {
     }
   }
 
-  _renderItem = ({item}) => <SectionListItem navigation={this.props.navigation} product={item}/>
+  _renderItem = ({item}) => <SectionListItem navigation={this.props.navigation} product={item} loggedIn={this.props.loggedIn}/>
 
   componentWillMount() {
     if (this.props.tbIndexRecommend.length == 0) {
@@ -125,7 +126,7 @@ class HomeScreen extends Component {
           data={this.props.tbIndexRecommend}
           initialNumToRender={10}
           maxToRenderPerBatch={10}
-          onEndReachedThreshold={0.1}
+          onEndReachedThreshold={0.3}
           ref={flat => (this._flatList = flat)}
           keyExtractor={(item, index) => index.toString()}
           ListEmptyComponent={<Empty/>}
@@ -193,6 +194,7 @@ const mapStateToProps = (state) => {
   let tbIndexRecommend = TbSelectors.getIndexRecommendPrds(state.tb)
   //console.log(tbIndexRecommend)
   return {
+    loggedIn: LoginSelector.isLoggedIn(state.login),
     swiper,
     recommend,
     bestSelling,

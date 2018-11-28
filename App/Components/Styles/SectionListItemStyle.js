@@ -9,7 +9,7 @@ export default StyleSheet.create({
     backgroundColor: Colors.white,
     borderBottomWidth: ScreenUtil.scaleHeight(1),
     borderBottomColor: Colors.border,
-    alignItems:'flex-start'
+    alignItems: 'flex-start'
   },
   zhutu: {
     width: ScreenUtil.scaleSize(120),
@@ -28,6 +28,27 @@ export default StyleSheet.create({
     fontSize: ScreenUtil.setSpText(10),
     alignItems: 'center'
   },
+  infoOther: {
+    display: 'flex',
+    flexDirection: 'row',
+    // width: Metrics.screenWidth - ScreenUtil.scaleSize(130),
+    height:ScreenUtil.scaleHeight(100),
+    justifyContent: 'space-around',
+    alignItems:'center'
+  },
+  infoOtherLeft:{
+    flex:4,
+    borderColor: Colors.orange,
+    borderRightWidth: ScreenUtil.scaleSize(1),
+    paddingRight: Metrics.baseMargin,
+    marginVertical: Metrics.baseMargin
+  },
+  share: {
+    //flex: 1,
+    alignItems:'center',
+    paddingLeft: ScreenUtil.scaleSize(1),
+    width:ScreenUtil.scaleSize(50),
+  },
   coupon: {
     flexDirection: 'row',
     flex: 1,
@@ -39,14 +60,14 @@ export default StyleSheet.create({
     paddingHorizontal: ScreenUtil.scaleSize(3),
     borderWidth: 1,
     borderColor: Colors.orange,
-    fontSize: ScreenUtil.setSpText(10),
+    fontSize: ScreenUtil.setSpText(8),
     textAlign: 'center'
   },
   couponInfo: {
     borderWidth: 1,
     borderColor: Colors.orange,
     paddingHorizontal: ScreenUtil.scaleSize(5),
-    fontSize: ScreenUtil.setSpText(10)
+    fontSize: ScreenUtil.setSpText(8)
   },
   sale: {
     flexDirection: 'row',
@@ -64,16 +85,16 @@ export default StyleSheet.create({
   },
   price: {
     flexDirection: 'row',
-    // flex: 1,
-    //alignItems: 'center',
-    justifyContent: 'space-around',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'space-around'
     // paddingLeft: ScreenUtil.scaleSize(5),
     // paddingRight: ScreenUtil.scaleSize(5),
 
   },
   cprice: {
     color: Colors.selected,
-    fontSize: ScreenUtil.setSpText(12),
+    fontSize: ScreenUtil.setSpText(10),
     fontWeight: 'bold'
   },
   rprice: {
@@ -81,6 +102,10 @@ export default StyleSheet.create({
     textDecorationLine: 'line-through',
     //flex: 1,
     fontSize: ScreenUtil.setSpText(9)
+  },
+  zprice:{
+    color:Colors.fire,
+    fontSize:ScreenUtil.setSpText(8)
   },
   priceLabel: {
     fontSize: ScreenUtil.setSpText(8),

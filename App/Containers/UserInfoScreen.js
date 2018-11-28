@@ -45,7 +45,10 @@ class UserInfoScreen extends Component {
     if (this.props.loggedIn) {
       this.props.getAccountInfo()
       this.props.getBankInfo()
+    }else{
+      this.props.navigation.navigate('LoginScreen')
     }
+
   }
 
   _setting = () => {

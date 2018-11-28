@@ -5,10 +5,11 @@ export default StyleSheet.create({
   ...ApplicationStyles.screen,
   ...ApplicationStyles.form,
   container: {
-    paddingTop: ScreenUtil.scaleHeight(70),
+    paddingTop: ScreenUtil.scaleHeight(30),
     // marginTop: Metrics.doubleBaseMargin,
     height: Metrics.screenHeight,
-    backgroundColor: Colors.white
+    backgroundColor: Colors.white,
+    justifyContent:'flex-start'
   },
   loginRow: {
     paddingBottom: Metrics.doubleBaseMargin,
@@ -41,13 +42,13 @@ export default StyleSheet.create({
     flexDirection:'row'
   },
   button: {
-    height: ScreenUtil.scaleHeight(26),
+    height: ScreenUtil.scaleHeight(30),
     flex:1,
     backgroundColor: Colors.button,
     borderColor: Colors.button,
     borderRadius: ScreenUtil.scaleSize(8),
-    marginBottom: ScreenUtil.scaleHeight(10),
-    marginHorizontal: ScreenUtil.scaleSize(10),
+    // marginBottom: ScreenUtil.scaleHeight(10),
+    marginHorizontal: ScreenUtil.scaleSize(5),
     alignSelf: 'stretch',
     justifyContent: 'center'
   },

@@ -100,6 +100,8 @@ const create = (baseURL = AppConfig.apiUrl) => {
   const getInvite = () => api.get('invite')//获得邀请模板信息
   const getTpwd = (goodsId)=> api.get('product/tpwd/'+ goodsId)//获得淘口令
   const getDTpwd = (goodsId)=> api.get('product/dtpwd/'+ goodsId)//获得淘口令
+  const getBuy = (goodsId)=> api.get('product/buy/'+ goodsId)//购买产品记录
+  const getBuyNo = (goodsId)=> api.get('product/buy-no/'+ goodsId)//未登录购买产品
   const postTpwdBuy = (tpwd) => api.post('product/tpwd-buy',{tpwd})//提交淘口令购买
   // ------
   // STEP 3
@@ -171,6 +173,8 @@ const create = (baseURL = AppConfig.apiUrl) => {
     getInvite,
     getTpwd,
     getDTpwd,
+    getBuy,
+    getBuyNo,
     postTpwdBuy
   }
 }
