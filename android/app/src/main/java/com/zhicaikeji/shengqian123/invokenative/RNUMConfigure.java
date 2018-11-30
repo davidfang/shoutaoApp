@@ -1,4 +1,4 @@
-package com.zhicaikeji.quanzhenduo.invokenative;
+package com.zhicaikeji.shengqian123.invokenative;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

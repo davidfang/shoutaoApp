@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.zhicaikeji.quanzhenduo">
+    package="com.zhicaikeji.shengqian123">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
@@ -55,7 +55,7 @@
         android:theme="@android:style/Theme.Translucent.NoTitleBar"
         android:configChanges="orientation|keyboardHidden|screenSize"/>
 
-      <meta-data android:value="5b8e30c48f4a9d1bc6000082" android:name="UMENG_APPKEY"/>
+      <meta-data android:value="5bfd61c1b465f5737d000094" android:name="UMENG_APPKEY"/>
       <meta-data android:value="guanwang" android:name="UMENG_CHANNEL"/>
     </application>
 

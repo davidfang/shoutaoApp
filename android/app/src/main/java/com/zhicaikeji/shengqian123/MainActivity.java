@@ -1,11 +1,11 @@
-package com.zhicaikeji.quanzhenduo;
+package com.zhicaikeji.shengqian123;
 
 import android.content.Intent;
 import android.os.Bundle; // here
 import com.facebook.react.ReactActivity;
 import org.devio.rn.splashscreen.SplashScreen; // here
 
-import com.zhicaikeji.quanzhenduo.invokenative.ShareModule;
+import com.zhicaikeji.shengqian123.invokenative.ShareModule;
 import com.umeng.analytics.MobclickAgent;
 import  com.umeng.analytics.MobclickAgent.EScenarioType;
 import com.umeng.socialize.UMShareAPI;

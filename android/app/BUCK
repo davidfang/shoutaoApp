@@ -45,12 +45,12 @@ android_library(
 
 android_build_config(
     name = "build_config",
-    package = "com.zhicaikeji.quanzhenduo",
+    package = "com.zhicaikeji.shengqian123",
 )
 
 android_resource(
     name = "res",
-    package = "com.zhicaikeji.quanzhenduo",
+    package = "com.zhicaikeji.shengqian123",
     res = "src/main/res",
 )
 

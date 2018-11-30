@@ -111,7 +111,7 @@ android {
     buildToolsVersion "27.0.3"
 
     defaultConfig {
-        applicationId "com.zhicaikeji.quanzhenduo"
+        applicationId "com.zhicaikeji.shengqian123"
         minSdkVersion 16
         targetSdkVersion 27
         versionCode 6

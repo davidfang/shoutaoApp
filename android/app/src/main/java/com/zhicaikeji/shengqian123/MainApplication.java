@@ -1,4 +1,4 @@
-package com.zhicaikeji.quanzhenduo;
+package com.zhicaikeji.shengqian123;
 
 import android.app.Application;
 
@@ -12,8 +12,8 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 
-import com.zhicaikeji.quanzhenduo.invokenative.DplusReactPackage;
-import com.zhicaikeji.quanzhenduo.invokenative.RNUMConfigure;
+import com.zhicaikeji.shengqian123.invokenative.DplusReactPackage;
+import com.zhicaikeji.shengqian123.invokenative.RNUMConfigure;
 import com.umeng.commonsdk.UMConfigure;
 import com.umeng.socialize.PlatformConfig;
 
@@ -55,11 +55,11 @@ public class MainApplication extends Application implements ReactApplication {
   public void onCreate() {
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
-    RNUMConfigure.init(this, "5b8e30c48f4a9d1bc6000082", "guanwang", UMConfigure.DEVICE_TYPE_PHONE,"");
+    RNUMConfigure.init(this, "5bfd61c1b465f5737d000094", "guanwang", UMConfigure.DEVICE_TYPE_PHONE,"");
   }
 
   {
-      PlatformConfig.setWeixin("wx817233cd6c70c0e3", "5754d2d653951cd068113a4d0cdbd65f");
+      PlatformConfig.setWeixin("wx817233cd6c70c0e3", "afa1c4fb866366d181dbb503bcc31f60");
       //PlatformConfig.setQQZone("qqid", "");
   }
 

@@ -263,7 +263,7 @@ class UserInfoScreen extends Component {
                    onPress={() => this._webPress('article-category/4', '官方公告')}/>
           <RowItem title='意见反馈' icon={require('../Images/feedback.png')} iconColor={Colors.blue}
                    onPress={() => this._press('FeedbackScreen', {title: '意见反馈'})}/>
-          <RowItem title='分享' icon={require('../Images/share.png')} iconColor={Colors.fire} onPress={this._copyInvitationCode}/>
+          <RowItem title='分享' icon={require('../Images/share.png')} iconColor={Colors.fire} onPress={this._share}/>
 
         </View>
         <View/>

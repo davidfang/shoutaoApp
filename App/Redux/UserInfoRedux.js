@@ -38,7 +38,7 @@ export const INITIAL_STATE = Immutable({
   gender: "0",
   avatar: null,
   grade: "0",
-  invitation_code: '0000001',
+  invitation_code: '000000k',
   fans: [],
   fansMore: true,
   fansNextPage: 1,
