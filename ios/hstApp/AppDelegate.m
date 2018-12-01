@@ -24,7 +24,7 @@
   [MobClick setScenarioType:E_UM_GAME|E_UM_DPLUS];
   [RNUMConfigure initWithAppkey:@"5bfd6269b465f5f4970004bc" channel:@"App Store"];
   // U-Share 平台设置
-  [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:@"wx817233cd6c70c0e3" appSecret:@"5754d2d653951cd068113a4d0cdbd65f" redirectURL:@"url"];
+  [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:@"wx817233cd6c70c0e3" appSecret:@"afa1c4fb866366d181dbb503bcc31f60" redirectURL:@"url"];
   //关闭强制验证https，可允许http图片分享，但需要在info.plist设置安全域名
   [UMSocialGlobal shareInstance].isUsingHttpsWhenShareContent = NO;
   
