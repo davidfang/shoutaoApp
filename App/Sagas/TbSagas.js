@@ -152,7 +152,8 @@ export function* getTpwd(api, action) {
     // located in ../Transforms/. Otherwise, just pass the data back from the api.
     // yield put(TbActions.tbSuccess(response.data))
     if (response.data.status) {
-      yield put(TbActions.tbTpwdSuccess(num_iid, response.data.data.tpwd))
+      // yield put(TbActions.tbTpwdSuccess(num_iid, response.data.data.tpwd))
+      yield put(TbActions.tbTpwdSuccess(num_iid, response.data.data))
     } else {
       yield requestFaild(response, TbActions.tbFailure)
     }

@@ -56,7 +56,7 @@
         android:configChanges="orientation|keyboardHidden|screenSize"/>
 
       <meta-data android:value="5bfd61c1b465f5737d000094" android:name="UMENG_APPKEY"/>
-      <meta-data android:value="guanwang" android:name="UMENG_CHANNEL"/>
+      <meta-data android:value="gruanwang" android:name="UMENG_CHANNEL"/>
     </application>
 
 </manifest>

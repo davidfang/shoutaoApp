@@ -12,6 +12,7 @@ import TbActions from "../Redux/TbRedux";
 import UMShare from "../Lib/UMShareUtil";
 import ShareActions from "../Redux/ShareRedux";
 import {LoginSelector} from "../Redux/LoginRedux";
+import Toast from "../Lib/Toast";
 
 class ProductShare extends Component {
   constructor(props) {
@@ -19,11 +20,16 @@ class ProductShare extends Component {
     const {productInfo} = props
 
     this.state = {
-      sharePic: productInfo.share_pict_url,
+      sharePic: productInfo.hasOwnProperty('share_pict_url') && productInfo.share_pict_url,
       modalVisible: false
     }
     if (!props.loggedIn) {
       this.props.navigation.navigate('LoginScreen')
+    }
+  }
+  componentWillReceiveProps(nextProps){
+    if(nextProps.productInfo.share_pict_url != this.props.productInfo.share_pict_url && this.state.sharePic == false){
+      this.setState({sharePic:nextProps.productInfo.share_pict_url})
     }
   }
 
@@ -55,20 +61,24 @@ ${productInfo.title}
     })
   }
   _shareProdutPic = () => {
-    const {productInfo, uid} = this.props
-    let shareTitle = '分享产品图片 ' + productInfo.num_iid;
-    let shareText = ''//shareContent;
-    let shareImage = this.state.sharePic;
-    let shareUrl = '';
+    if(this.state.sharePic) {
+      const {productInfo, uid} = this.props
+      let shareTitle = '分享产品图片 ' + productInfo.num_iid;
+      let shareText = ''//shareContent;
+      let shareImage = this.state.sharePic;
+      let shareUrl = '';
 
-    //调用模板分享
-    UMShare.shareboard(shareText, shareImage, shareUrl, shareTitle,
-      (code, message) => {
-        console.warn(code, message);
-        //console.warn(uid, shareText, shareImage, shareUrl, shareTitle)
-        this.props.postShare(uid, shareText, shareImage, shareUrl, shareTitle, 2, 2, code, message, '{}')
-      });
-    //console.log('分享结束')
+      //调用模板分享
+      UMShare.shareboard(shareText, shareImage, shareUrl, shareTitle,
+        (code, message) => {
+          console.warn(code, message);
+          //console.warn(uid, shareText, shareImage, shareUrl, shareTitle)
+          this.props.postShare(uid, shareText, shareImage, shareUrl, shareTitle, 2, 2, code, message, '{}')
+        });
+      //console.log('分享结束')
+    }else{
+      Toast.showError('分享图片正在加载中，请稍后分享',{})
+    }
   }
 
   render() {
@@ -110,12 +120,12 @@ ${productInfo.title}
             <Text style={styles.priceText}>打开【手机淘宝】即可查看</Text>
           </View>
           <View style={styles.imageGroup}>
-            <TouchableOpacity onPress={() => this._priceImg(productInfo.share_pict_url)}>
+            {productInfo.hasOwnProperty('share_pict_url') && <TouchableOpacity onPress={() => this._priceImg(productInfo.share_pict_url)}>
               <Icon style={[styles.checkIcon, styles.mainCheckIcon]} name='check-circle' size={ScreenUtil.scaleSize(12)}
                     color={productInfo.share_pict_url == this.state.sharePic ? 'red' : 'black'}/>
               <Image style={styles.shareMainPic} source={{uri: productInfo.share_pict_url}} resizeMode='contain'
                      resizeMethod='resize' loadingIndicatorSource={Images.load} defaultSource={Images.default}/>
-            </TouchableOpacity>
+            </TouchableOpacity>}
             {productInfo.small_images.map((img, key) =>
               <TouchableOpacity key={key} onPress={() => this._priceImg(img)}>
                 <Icon style={styles.checkIcon} name='check-circle'

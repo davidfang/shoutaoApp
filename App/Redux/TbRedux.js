@@ -255,7 +255,8 @@ export const tbTpwdRequest = (state, {num_iid}) =>
 export const tbTpwdSuccess = (state, action) => {
   const {num_iid, tpwd} = action
 
-  const productLists = lodash.defaultsDeep({[num_iid]:{tpwd:tpwd}},state.productLists)
+  // const productLists = lodash.defaultsDeep({[num_iid]:{tpwd:tpwd}},state.productLists)
+  const productLists = lodash.defaultsDeep({[num_iid]:{...tpwd}},state.productLists)
   return state.merge({fetching: false, error: null,productLists})
 }
 // request the data from an api
