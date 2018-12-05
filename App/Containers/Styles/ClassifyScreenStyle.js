@@ -37,7 +37,7 @@ export default StyleSheet.create({
   },
   lText: {
     marginHorizontal: ScreenUtil.scaleSize(10),
-    fontSize: Fonts.size.medium
+    fontSize: ScreenUtil.setSpText(10)
   },
   rightList: {
     width: 3 * Metrics.screenWidth / 4,
@@ -65,7 +65,7 @@ export default StyleSheet.create({
     marginLeft: ScreenUtil.scaleSize(8)
   },
   categoryText: {
-    fontSize: Fonts.size.small,
+    fontSize: ScreenUtil.setSpText(9),
     fontFamily: Fonts.type.base,
     color: Colors.descText
   }
