@@ -57,7 +57,7 @@ ${productInfo.title}
     Clipboard.setString(shareText)
     UMShare.share(shareText, '', '', '', 2, (code, message) => {
       console.warn(code, message)
-      this.props.postShare(uid, shareText, '', '', '', 2, 2, code, message, '{}')
+      this.props.postShare(uid, shareText, '', '', '', 2, 3, code, message, '{}')
     })
   }
   _shareProdutPic = () => {
@@ -73,7 +73,7 @@ ${productInfo.title}
         (code, message) => {
           console.warn(code, message);
           //console.warn(uid, shareText, shareImage, shareUrl, shareTitle)
-          this.props.postShare(uid, shareText, shareImage, shareUrl, shareTitle, 2, 2, code, message, '{}')
+          this.props.postShare(uid, shareText, shareImage, shareUrl, shareTitle, 2, 3, code, message, '{}')
         });
       //console.log('分享结束')
     }else{

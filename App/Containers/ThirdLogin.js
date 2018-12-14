@@ -26,14 +26,22 @@ class ThirdLogin extends Component {
     });
   }
   render () {
-    return (
-      <TouchableOpacity style={styles.thirdLoginGroup} onPress = {() => this._thirdLogin(2)}>
-        <View style={styles.thirdLogin}>
-          <Image  source={Images.wxLogo} style={styles.thirdLogo} />
-          <Text style={styles.thirdText}>微信登录</Text>
-        </View>
-      </TouchableOpacity>
-    )
+
+    let curTime = new Date();
+//把字符串格式转化为日期类
+    let starttime = new Date(Date.parse('2018-12-25'));
+    if(curTime > starttime) {
+      return (
+        <TouchableOpacity style={styles.thirdLoginGroup} onPress={() => this._thirdLogin(2)}>
+          <View style={styles.thirdLogin}>
+            <Image source={Images.wxLogo} style={styles.thirdLogo}/>
+            <Text style={styles.thirdText}>微信登录</Text>
+          </View>
+        </TouchableOpacity>
+      )
+    }else{
+      return <View/>
+    }
   }
 }
 
