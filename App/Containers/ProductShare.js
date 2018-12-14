@@ -13,6 +13,7 @@ import UMShare from "../Lib/UMShareUtil";
 import ShareActions from "../Redux/ShareRedux";
 import {LoginSelector} from "../Redux/LoginRedux";
 import Toast from "../Lib/Toast";
+import {onEventWithLable} from "../Lib/UMAnalyticsUtil";
 
 class ProductShare extends Component {
   constructor(props) {
@@ -55,6 +56,7 @@ ${productInfo.title}
 打开【手机淘宝】即可查看
 `
     Clipboard.setString(shareText)
+    onEventWithLable('shareProductText', productInfo.num_iid)//友盟统计
     UMShare.share(shareText, '', '', '', 2, (code, message) => {
       console.warn(code, message)
       this.props.postShare(uid, shareText, '', '', '', 2, 3, code, message, '{}')
@@ -67,7 +69,7 @@ ${productInfo.title}
       let shareText = ''//shareContent;
       let shareImage = this.state.sharePic;
       let shareUrl = '';
-
+      onEventWithLable('shareProductPic', productInfo.num_iid)//友盟统计
       //调用模板分享
       UMShare.shareboard(shareText, shareImage, shareUrl, shareTitle,
         (code, message) => {
