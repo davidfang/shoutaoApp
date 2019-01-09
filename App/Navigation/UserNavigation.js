@@ -12,6 +12,7 @@ import BindingBankCardScreen from "../Containers/BindingBankCardScreen";
 import WithdrawalScreen from "../Containers/WithdrawalScreen";
 import BindMobileScreen from "../Containers/BindMobileScreen";
 import OrderScreen from "../Containers/OrderScreen";
+import InputInvitaionCode from "../Containers/InputInvitaionCode";
 
 // Manifest of possible screens
 const UserNav = StackNavigator({
@@ -22,6 +23,12 @@ const UserNav = StackNavigator({
   //     header: null
   //   }
   // },
+  InputInvitaionCode: {
+    screen: InputInvitaionCode,
+    navigationOptions: {
+      title: '输入邀请码'
+    }
+  },
   ChangePasswordScreen: {
     screen: ChangePasswordScreen,
     navigationOptions: {

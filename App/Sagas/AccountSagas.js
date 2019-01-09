@@ -25,6 +25,7 @@ export function * getAccount (api, action) {
   const response = yield call(api.getAccount)
 
   //console.log(response)
+  console.warn(response)
   // success?
   if (response.ok) {
     // You might need to change the response here - do this with a 'transform',

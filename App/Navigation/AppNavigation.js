@@ -1,5 +1,6 @@
 import React from 'react'
 import {StackNavigator} from 'react-navigation'
+import InputInvitaionCode from '../Containers/InputInvitaionCode'
 import ProductShare from '../Containers/ProductShare'
 import ThirdLogin from '../Containers/ThirdLogin'
 import FeedbackScreen from '../Containers/FeedbackScreen'
@@ -32,12 +33,7 @@ const PrimaryNav = StackNavigator({
     }
   },
   ThirdLogin: {screen: ThirdLogin},
-  InviteScreen: {
-    screen: InviteScreen,
-    navigationOptions: {
-      title: '邀请好友'
-    }
-  },
+
   FeedbackScreen: {
     screen: FeedbackScreen,
     navigationOptions: {

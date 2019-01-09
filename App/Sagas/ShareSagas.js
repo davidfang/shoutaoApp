@@ -41,7 +41,7 @@ export function* postShare(api, action) {
 export function* thirdLogin(api, action) {
   const {data} = action
 
-  const response = yield call(api.thirdLogin, data)
+  const response = yield call(api.thirdLoginAndBind, data)
 
 
   console.warn(response)
@@ -56,11 +56,11 @@ export function* thirdLogin(api, action) {
       yield put(UserInfoActions.userInfoRequest())
       //NavigationActions.account()
       console.log('data.password:', loginResult.loginInfo.password)
-      if (loginResult.loginInfo.password) {//已经设置过密码
+      //if (loginResult.loginInfo.password) {//已经设置过密码
         yield put(NavigationActions.navigate({routeName: 'UserInfoScreen'}))
-      } else {//未设置过密码
-        yield put(NavigationActions.navigate({'type': '用户注册', routeName: 'SetPasswordScreen'}))
-      }
+      //} else {//未设置过密码
+       // yield put(NavigationActions.navigate({'type': '用户注册', routeName: 'SetPasswordScreen'}))
+      //}
     } else {//用户未绑定
       yield put(NavigationActions.navigate({
         'type': '三方登录绑定手机',

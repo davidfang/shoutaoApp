@@ -11,7 +11,7 @@
 *************************************************************/
 import {NavigationActions} from 'react-navigation';
 import {call, put} from 'redux-saga/effects'
-import UserInfoActions from '../Redux/UserInfoRedux'
+import UserInfoActions, {invitationCodeSetSuccess} from '../Redux/UserInfoRedux'
 import LoginActions from '../Redux/LoginRedux'
 import Toast from '../Lib/Toast'
 import {requestFaild} from '../Lib/Request'
@@ -33,6 +33,7 @@ export function* getUserInfo(api, action) {
   // make the call to the api
   const response = yield call(api.getUserInfo, data)
 
+  console.warn(response)
   // success?
   if (response.ok) {
     // You might need to change the response here - do this with a 'transform',
@@ -221,5 +222,24 @@ export function* getGrandFans(api, action) {
     yield put(UserInfoActions.grandFansSuccess(data, more))
   } else { // failure
     yield requestFaild(response, UserInfoActions.userInfoFailure)
+  }
+}
+
+export function* invitationCodeSet(api, action) {
+  const {invitationCode} = action
+  const response = yield call(api.invitationCodeSet,invitationCode)
+  console.log(response)
+  if(response.ok){
+    let {data} = response
+    console.log(data)
+    if(data.status){
+      yield put(UserInfoActions.invitationCodeSetSuccess(data.data.parent_id))
+      Toast.showSuccess('绑定成功')
+      yield put(NavigationActions.navigate({routeName: 'UserInfoScreen'}))
+    }else{
+      Toast.showWarning(data.message)
+    }
+  }else{
+    yield requestFaild(response, UserInfoActions.invitationCodeSetFailure)
   }
 }

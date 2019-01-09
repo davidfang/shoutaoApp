@@ -174,6 +174,7 @@ const ApplicationStyles = {
       alignSelf: 'center',
       resizeMode: 'contain',
       width: ScreenUtil.scaleHeight(35),
+      height: ScreenUtil.scaleHeight(35),
     },
     thirdText: {
       fontSize: ScreenUtil.setSpText(11),

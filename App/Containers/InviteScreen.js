@@ -12,6 +12,7 @@ import Toast from "../Lib/Toast";
 import UMShare from "../Lib/UMShareUtil";
 import ShareActions from "../Redux/ShareRedux";
 import ScreenUtil from "../Themes/ScreenUtil";
+import {LoginSelector} from "../Redux/LoginRedux";
 
 class InviteScreen extends Component {
   constructor(props) {
@@ -101,7 +102,7 @@ class InviteScreen extends Component {
   render() {
     let {shareImages,waterMark} = this.props
     return (
-      <View style={styles.mainContainer}>
+      <View style={styles.container}>
         <ScrollView refreshControl={
           <RefreshControl
             onRefresh={this._onRefreshing}
@@ -109,7 +110,10 @@ class InviteScreen extends Component {
             title={this.props.fetching ? '刷新数据中' : '松开立即更新'}
           />
         }>
+          {this.props.loggedIn ?
           <Text style={[styles.description, styles.textCenter]}>分享专属海报，新用户可免邀请码注册，关系自动绑定</Text>
+            :
+          <Text style={[styles.description, styles.textCenter]}>注意:您还未登录，分享默认二维码,登录获得专属二维码</Text>}
           <ScrollView ref={flat => (this._scrollView = flat)}
                       style={{flex: 1}} horizontal={true} pagingEnabled={true} onScroll={this._changePic}>
             {shareImages && shareImages.map((shareImage) => <Image key={shareImage} source={{
@@ -133,10 +137,10 @@ class InviteScreen extends Component {
             2.好友通过您的二维码海报下载APP并注册成为会员后，Ta将永久成为您的粉丝，未来Ta升级超级会员或领券下单时产生的奖励收入均计入您的账户中；
           </Text>
           <Text style={styles.description}>
-            3.您的粉丝领券下单并确认收货后，您将获得100%消费佣金；
+            3.您的粉丝领券下单并确认收货后，Ta将获得80%消费佣金，您将获得12%消费佣金；
           </Text>
           <Text style={styles.description}>
-            4.您的粉丝领券下单并确认收货后，Ta将获得100%消费佣金，APP还将额外奖励您20%消费佣金。
+            4.Ta的粉丝领券下单并确认收货后，Ta的粉丝将获得80%消费佣金，Ta将获得12%消费佣金，APP还将额外奖励您8%消费佣金。
           </Text>
         </ScrollView>
         <View>
@@ -161,6 +165,7 @@ class InviteScreen extends Component {
 const mapStateToProps = (state) => {
   const {shareContent, images, waterMark} = state.invite.payload
   return {
+    loggedIn: LoginSelector.isLoggedIn(state.login),
     invitation_code: state.userInfo.invitation_code,
     uid: state.userInfo.id,
     shareImages: images,

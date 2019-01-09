@@ -12,6 +12,7 @@ import HomeScreen from '../Containers/HomeScreen'
 import CircleScreen from '../Containers/CircleScreen'
 
 import SearchBar from '../Components/SearchBar'
+import InviteScreen from "../Containers/InviteScreen";
 
 
 const TabNav = TabNavigator(
@@ -66,15 +67,12 @@ const TabNav = TabNavigator(
         )
       }
     },
-    circle: {
-      screen: CircleScreen,
+
+    InviteScreen: {
+      screen: InviteScreen,
       navigationOptions: {
-        tabBarLabel: '圈子',
-        title: '圈子',
-        initialRouteParams: {
-          id: 1
-        },
-        headerLeft: <View/>,
+        tabBarLabel: '邀请好友',
+        title: '邀请好友',
         tabBarIcon: ({tintColor, focused}) => (
           <Image
             source={require('../Images/nav_quanzi.png')}
@@ -83,6 +81,25 @@ const TabNav = TabNavigator(
         )
       }
     },
+    // circle: {
+    //   screen: CircleScreen,
+    //
+    //   navigationOptions: {
+    //     tabBarLabel: '圈子',
+    //     title: '圈子',
+    //     initialRouteParams: {
+    //       id: 1
+    //     },
+    //     tabBarVisible:true,
+    //     headerLeft: <View/>,
+    //     tabBarIcon: ({tintColor, focused}) => (
+    //       <Image
+    //         source={require('../Images/nav_quanzi.png')}
+    //         style={[styles.icon, {tintColor: tintColor}]}
+    //       />
+    //     )
+    //   }
+    // },
     userInfo: {
       screen: UserNavigation, //UserInfoScreen,
       navigationOptions: {

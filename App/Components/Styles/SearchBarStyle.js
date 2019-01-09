@@ -28,7 +28,7 @@ export default StyleSheet.create({
   },
   searchInput: {
     flex: 1,
-    padding: 0,
+    padding: 2,
     marginHorizontal: ScreenUtil.scaleSize(5),
     height: ScreenUtil.scaleHeight(32)
   },

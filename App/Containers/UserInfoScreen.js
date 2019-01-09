@@ -30,23 +30,25 @@ import CustomButton from '../Components/CustomButton'
 import LoginScreen from './LoginScreen'
 
 // Styles
-import {Colors, ScreenUtil} from '../Themes'
+import {Colors, Images, ScreenUtil} from '../Themes'
 import styles from './Styles/UserInfoScreenStyle'
 import AppConfig from "../Config/AppConfig";
 import ShareActions from "../Redux/ShareRedux";
 
 class UserInfoScreen extends Component {
 
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {modalVisible: !props.loggedIn}
   }
+
   componentDidMount() {
     if (this.props.loggedIn) {
       this.props.getAccountInfo()
       this.props.getBankInfo()
-    }else{
-      this.props.navigation.navigate('LoginScreen')
+    } else {
+      this._thirdLogin(2)
+      //this.props.navigation.navigate('LoginScreen')
     }
 
   }
@@ -59,13 +61,13 @@ class UserInfoScreen extends Component {
   _share = () => {
     //console.log('分享开始')
     //console.log(UMShare)
-    let {shareTitle,shareText,shareImage,shareUrl,uid,invitation_code} = this.props
+    let {shareTitle, shareText, shareImage, shareUrl, uid, invitation_code} = this.props
     //调用模板分享
-    UMShare.shareboard(shareText+ ' 邀请码:' + invitation_code,shareImage,shareUrl,shareTitle,
-            (code, message) => {
-            //console.warn(code,message);
-            //console.warn(uid, shareText, shareImage, shareUrl, shareTitle)
-            this.props.postShare(uid, shareText , shareImage, shareUrl, shareTitle, 2, 2, code, message,'{}')
+    UMShare.shareboard(shareText + ' 邀请码:' + invitation_code, shareImage, shareUrl, shareTitle,
+      (code, message) => {
+        //console.warn(code,message);
+        //console.warn(uid, shareText, shareImage, shareUrl, shareTitle)
+        this.props.postShare(uid, shareText, shareImage, shareUrl, shareTitle, 2, 2, code, message, '{}')
       });
     // UMShare.shareboard(
     //   '好多优惠券，还能赚钱，真的好实惠呀',
@@ -115,9 +117,6 @@ class UserInfoScreen extends Component {
                     </View>
                   </View>
                 </View>
-                <TouchableOpacity style={styles.setting} onPress={this._setting}>
-                  <Icon name='settings' size={ScreenUtil.scaleSize(30)} color={Colors.text}/>
-                </TouchableOpacity>
               </View>
               <View style={styles.incomeTop}>
                 <Text>可提现金额：￥ {accountInfo.hasOwnProperty('cash_balance') ? accountInfo.cash_balance : 0} </Text>
@@ -154,14 +153,25 @@ class UserInfoScreen extends Component {
         <View style={styles.head}>
           <View style={[styles.intro, styles.headNoLogin]}>
             <Avatar width={ScreenUtil.scaleSize(60)}/>
-            <FullButton text={'登录'} onPress={() => this.props.navigation.navigate('LoginScreen')}/>
-            <FullButton text={'注册'} onPress={() => this.props.navigation.navigate('RegisterScreen')}/>
+            <TouchableOpacity style={styles.weChatButton} onPress={() => this._thirdLogin(2)}>
+              <Image source={Images.wxLogo} style={styles.thirdLogo}/>
+              <Text style={styles.thirdText}>微信登录赚钱</Text>
+            </TouchableOpacity>
           </View>
         </View>
       )
     }
   }
-
+  _thirdLogin = (id) => {
+    UMShare.auth(id, (code, result, message) => {
+      this.setState({result: message});
+      console.warn(code, result, message)
+      if (code == 0) {
+        this.setState({result: result.uid});
+        this.props.thirdLogin(result.uid, id, result.screen_name, result.iconurl, result.accessToken, result.refreshToken, result.gender, result.unionid, result.openid, result.expires_in, JSON.stringify(result))
+      }
+    });
+  }
   /**
    * 提现操作
    * @private
@@ -226,14 +236,16 @@ class UserInfoScreen extends Component {
               <Image style={styles.gridIcon} source={require('../Images/users.png')}/>
               <Text>粉丝</Text>
             </TouchableOpacity>)}
-          {this.props.loggedIn && (<TouchableOpacity style={styles.gridItem} onPress={() => this._press('InviteScreen', {})}>
-            <Image style={styles.gridIcon} source={require('../Images/invite.png')}/>
-            <Text>邀请赚钱</Text>
-          </TouchableOpacity>)}
-          {this.props.loggedIn && (<TouchableOpacity style={styles.gridItem} onPress={() => this._press('OrderScreen', {})}>
-            <Image style={styles.gridIcon} source={require('../Images/dd.png')}/>
-            <Text>订单</Text>
-          </TouchableOpacity>)}
+          {this.props.loggedIn && (
+            <TouchableOpacity style={styles.gridItem} onPress={() => this._press('InviteScreen', {})}>
+              <Image style={styles.gridIcon} source={require('../Images/invite.png')}/>
+              <Text>邀请赚钱</Text>
+            </TouchableOpacity>)}
+          {this.props.loggedIn && (
+            <TouchableOpacity style={styles.gridItem} onPress={() => this._press('OrderScreen', {})}>
+              <Image style={styles.gridIcon} source={require('../Images/dd.png')}/>
+              <Text>订单</Text>
+            </TouchableOpacity>)}
         </View>
         <View style={styles.gridItemGroup}>
           <TouchableOpacity style={styles.gridItem} onPress={() => this._webPress('article-category/1', '新手攻略')}>
@@ -250,9 +262,10 @@ class UserInfoScreen extends Component {
           </TouchableOpacity>
         </View>
         {this.props.loggedIn && (<View style={styles.rowItemGroup}>
-          <RowItem title='修改密码' icon={require('../Images/change-password.png')} iconColor={Colors.blue}
-                   onPress={() => this._press('ChangePasswordScreen',{})}/>
-         <RowItem title='专属邀请码' icon={require('../Images/qrcode-scan.png')} iconColor={Colors.orange}
+          {this.props.parent_id == 0 && (
+          <RowItem title='输入邀请码' icon={require('../Images/invite-code.png')} iconColor={Colors.blue}
+                   onPress={() => this._press('InputInvitaionCode', {})}/>)}
+          <RowItem title='专属邀请码' icon={require('../Images/qrcode-scan.png')} iconColor={Colors.orange}
                    onPress={() => this._press('InviteScreen', {})}/>
 
         </View>)
@@ -274,7 +287,7 @@ class UserInfoScreen extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const {mobile, nickname, invitation_code, grade, avatar, id} = state.userInfo
+  const {mobile, nickname, invitation_code, grade, avatar, id,parent_id} = state.userInfo
   const {accountInfo, bankInfo, fetching} = state.account
   let downloadUrl = AppSetSelectors.get(state.appSet, 'downloadUrl');
   let shareTitle = AppSetSelectors.get(state.appSet, 'shareTitle');
@@ -286,6 +299,7 @@ const mapStateToProps = (state) => {
     loggedIn: LoginSelector.isLoggedIn(state.login),
     grade,
     uid: id,
+    parent_id,
     mobile,
     nickname,
     invitation_code,
@@ -294,7 +308,7 @@ const mapStateToProps = (state) => {
     accountInfo,
     bankInfo,
     fetching,
-    shareTitle,shareText,shareImage,shareUrl
+    shareTitle, shareText, shareImage, shareUrl
   }
 }
 
@@ -310,7 +324,7 @@ const mapDispatchToProps = (dispatch) => {
     uploadAvatar: (fileUrl, fileName) => dispatch(UserInfoActions.uploadAvatarRequest(fileUrl, fileName)),
     getAccountInfo: () => dispatch(AccountActions.accountRequest()),
     getBankInfo: () => dispatch(AccountActions.bankInfoRequest()),
-    postShare: (uid, content, img, url, title, platform, type, code, message,other) => dispatch(ShareActions.shareRequest({
+    postShare: (uid, content, img, url, title, platform, type, code, message, other) => dispatch(ShareActions.shareRequest({
       uid,
       content,
       img,
@@ -320,6 +334,19 @@ const mapDispatchToProps = (dispatch) => {
       type,
       code,
       message,
+      other
+    })),
+    thirdLogin: (uid, platform, screen_name, iconurl, accessToken, refreshToken, gender, unionid, openid, expires_in, other) => dispatch(ShareActions.shareLoginRequest({
+      uid,
+      platform,
+      screen_name,
+      iconurl,
+      accessToken,
+      refreshToken,
+      gender,
+      unionid,
+      openid,
+      expires_in,
       other
     }))
   }

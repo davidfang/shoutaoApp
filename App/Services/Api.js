@@ -2,6 +2,7 @@
 import apisauce from 'apisauce'
 import AppConfig from '../Config/AppConfig'
 import {upgradeRequest} from "../Redux/AppSetRedux";
+import {invitationCodeSetSuccess} from "../Redux/UserInfoRedux";
 
 // our "constructor"
 const create = (baseURL = AppConfig.apiUrl) => {
@@ -56,6 +57,7 @@ const create = (baseURL = AppConfig.apiUrl) => {
 
   const getAccount = () => api.get('account/index') // 用户中心 获得用户帐户信息
   const updateAccount = (user) => api.put('user/update', user) // 更新用户信息
+  const invitationCodeSet = (invitationCode) => api.post('user/invitationCodeSet', {invitationCode}) // 设置用户邀请码
   const getBankInfo = () => api.get('bankcard/show')//获取用户银行卡支付宝绑定信息
   const setBankInfo = (bankInfo) => api.post('bankcard/create',bankInfo)//设置银行卡支付宝绑定信息
   const withdrawal = (withdrawal)=> api.post('account/withdrawal',withdrawal)//提现申请
@@ -95,9 +97,11 @@ const create = (baseURL = AppConfig.apiUrl) => {
   const getAppUpgrade = (platform,name,version) => api.get('app-upgrade',{platform,name,version})//获得系统设置
   const getNotice = () => api.get('notice')//获得系统广播消息
   const postShare = (data) => api.post('share',data)//提交分享信息
+  const thirdLoginAndBind = (data) => api.post('thirdLogin/loginAndBind',data)//三方登录并绑定用户
   const thirdLogin = (data) => api.post('thirdLogin/login',data)//三方登录
   const thirdBind = (data) => api.post('thirdLogin/bind',data)//三方登录绑定用户
   const getInvite = () => api.get('invite')//获得邀请模板信息
+  const getInviteGuest = () => api.get('invite/guest')//获得默认邀请模板信息
   const getTpwd = (goodsId)=> api.get('product/tpwd/'+ goodsId)//获得淘口令
   const getDTpwd = (goodsId)=> api.get('product/dtpwd/'+ goodsId)//获得淘口令
   const getBuy = (goodsId)=> api.get('product/buy/'+ goodsId)//购买产品记录
@@ -143,6 +147,7 @@ const create = (baseURL = AppConfig.apiUrl) => {
 
     getAccount,
     updateAccount,
+    invitationCodeSet,
     getBankInfo,
     setBankInfo,
     withdrawal,
@@ -168,9 +173,11 @@ const create = (baseURL = AppConfig.apiUrl) => {
     getTbDetail,
     setTbDetail,
     postShare,
+    thirdLoginAndBind,
     thirdLogin,
     thirdBind,
     getInvite,
+    getInviteGuest,
     getTpwd,
     getDTpwd,
     getBuy,

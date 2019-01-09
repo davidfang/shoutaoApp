@@ -6,6 +6,10 @@ import {Colors} from "../../Themes";
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
   ...ApplicationStyles.form,
+  container: {
+    ...ApplicationStyles.screen.container,
+    paddingHorizontal: Metrics.smallMargin
+  },
   image:{
     width:Metrics.screenWidth - ScreenUtil.scaleSize(50),
     height:Metrics.screenHeight *2 /3,

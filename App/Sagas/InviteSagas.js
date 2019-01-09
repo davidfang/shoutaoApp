@@ -10,18 +10,26 @@
 *    you'll need to define a constant in that file.
 *************************************************************/
 
-import { call, put } from 'redux-saga/effects'
+import {call, put, select} from 'redux-saga/effects'
 import InviteActions from '../Redux/InviteRedux'
 import {requestFaild} from "../Lib/Request"
+import {LoginSelector} from "../Redux/LoginRedux";
 // import { InviteSelectors } from '../Redux/InviteRedux'
 
-export function * getInvite (api, action) {
+const selectLoggedInStatus = (state) => LoginSelector.isLoggedIn(state.login)
+
+export function* getInvite(api, action) {
   //const { data } = action
   // get current data from Store
   // const currentData = yield select(InviteSelectors.getData)
   // make the call to the api
-  const response = yield call(api.getInvite)
-
+  const isLoggedIn = yield select(selectLoggedInStatus)
+  let response
+  if (isLoggedIn) {//如果登录过了，设置一下token重新访问
+     response = yield call(api.getInvite)
+  } else {
+     response = yield call(api.getInviteGuest)
+  }
   console.log(response)
   // success?
   if (response.ok) {

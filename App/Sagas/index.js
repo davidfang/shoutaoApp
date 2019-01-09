@@ -36,7 +36,8 @@ import {
   uploadAvatar,
   uploadAvatarQiniu,
   getFans,
-  getGrandFans
+  getGrandFans,
+  invitationCodeSet
 } from './UserInfoSagas'
 import {getQiniuAvatarToken, getQiniuFeedbackToken} from './QiniuSagas'
 import {getAccount, getBankInfo, setBankInfo, withdrawal} from './AccountSagas'
@@ -85,6 +86,7 @@ export default function* root() {
     takeLatest(UserInfoTypes.USER_INFO_SET_PASSWORD_REQUEST, setPassword, api),
     takeLatest(UserInfoTypes.UPLOAD_AVATAR_REQUEST, uploadAvatar, api),
     takeLatest(UserInfoTypes.UPLOAD_AVATAR_QINIU_REQUEST, uploadAvatarQiniu, apiQiniu),
+    takeLatest(UserInfoTypes.INVITATION_CODE_SET_REQUEST, invitationCodeSet, api),
 
     takeLatest(QiniuTypes.QINIU_AVATAR_REQUEST, getQiniuAvatarToken, api),
     takeLatest(QiniuTypes.QINIU_FEEDBACK_REQUEST, getQiniuFeedbackToken, api),

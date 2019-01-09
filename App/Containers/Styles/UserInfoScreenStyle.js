@@ -26,7 +26,7 @@ export default StyleSheet.create({
   headNoLogin: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    alignItems: 'flex-end'
+    alignItems: 'center'
   },
   incomeTop: {
     marginHorizontal: ScreenUtil.scaleSize(10),
@@ -131,5 +131,24 @@ export default StyleSheet.create({
   },
   title: {
     color: Colors.silver
+  },
+  thirdLogo: {
+    alignSelf: 'center',
+    //resizeMode: 'contain',
+    width: ScreenUtil.scaleHeight(30),
+    height: ScreenUtil.scaleHeight(30),
+    marginRight: Metrics.smallMargin
+  },
+  thirdText: {
+    fontSize: ScreenUtil.setSpText(13),
+    color: Colors.green,
+    marginVertical: Metrics.smallMargin
+  },
+  weChatButton: {
+    backgroundColor: Colors.silver,
+    borderRadius: ScreenUtil.scaleSize(5),
+    padding: Metrics.smallMargin,
+    justifyContent: 'center',
+    flexDirection: 'row'
   }
 })

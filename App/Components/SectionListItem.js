@@ -99,7 +99,7 @@ export default class SectionListItem extends Component {
             </View>
             <TouchableOpacity  style={styles.share} onPress={this._onShareInfo} >
               <Icon name='export' size={ScreenUtil.scaleSize(14)} color={Colors.fire}/>
-              <Text style={styles.zprice}>赚￥{product.commission_amount }</Text>
+              <Text style={styles.zprice}>分享赚佣金￥{product.commission_amount }</Text>
             </TouchableOpacity>
           </View>
         </View>

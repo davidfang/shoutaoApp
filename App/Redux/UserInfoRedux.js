@@ -18,7 +18,11 @@ const {Types, Creators} = createActions({
   fansRequest: ['page'],
   fansSuccess: ['fans', 'more'],
   grandFansRequest: ['page'],
-  grandFansSuccess: ['fans', 'more']
+  grandFansSuccess: ['fans', 'more'],
+  invitationCodeSetRequest: ['invitationCode'],
+  invitationCodeSetSuccess: ['parent_id'],
+  invitationCodeSetFailure: ['error'],
+
 })
 
 export const UserInfoTypes = Types
@@ -85,6 +89,11 @@ export const grandFansSuccess = (state, {fans, more}) => state.merge({
   grandFansNextPage: more ? state.grandFansNextPage + 1 : state.grandFansNextPage,
   grandFans: unionBy(state.grandFans, fans, 'id')
 })
+
+export const invitationCodeSetRequest = (state,{invitationCode}) => state.merge({fetching: true})
+export const invitationCodeSetSuccess = (state,{parent_id}) => state.merge({
+  parent_id:parent_id
+})
 /* ------------- Hookup Reducers To Types ------------- */
 
 export const reducer = createReducer(INITIAL_STATE, {
@@ -103,5 +112,8 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.FANS_SUCCESS]: fansSuccess,
   [Types.GRAND_FANS_REQUEST]: request,
   [Types.GRAND_FANS_SUCCESS]: grandFansSuccess,
+  [Types.INVITATION_CODE_SET_REQUEST]: invitationCodeSetRequest,
+  [Types.INVITATION_CODE_SET_SUCCESS]: invitationCodeSetSuccess,
+  [Types.INVITATION_CODE_SET_FAILURE]: failure
 
 })
