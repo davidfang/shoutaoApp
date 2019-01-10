@@ -17,7 +17,7 @@ import {Colors} from "../Themes";
 class BindingBankCardScreen extends Component {
   constructor(props) {
     super(props)
-    let mobile = props.mobile.substr(0, 3) + '****' + props.mobile.substr(-4)
+    let mobile = props.mobile // props.mobile.substr(0, 3) + '****' + props.mobile.substr(-4)
     this.state = {
       name: '',
       bank_card_no: '',
@@ -34,6 +34,7 @@ class BindingBankCardScreen extends Component {
       let bankInfo = {
         name: this.state.name,
         bank_card_no: this.state.bank_card_no,
+        mobile: this.state.mobile,
         verifyCode: this.state.verifyCode
       }
       this.props.setBankInfo(bankInfo)
@@ -77,10 +78,14 @@ class BindingBankCardScreen extends Component {
               <TextInput style={styles.formTextInput}
                          placeholder='请输入手机号码'
                          placeholderTextColor={Colors.steel}
-                         editable={false}
+                //editable={false}
                          keyboardType='numeric'
                          returnKeyType='next'
                          value={this.state.mobile}
+                         onChangeText={text => {
+                           text = text.replace(/ /g, '')
+                           this.setState({mobile: text})
+                         }}
                          underlineColorAndroid='transparent'
               />
             </View>
@@ -101,7 +106,7 @@ class BindingBankCardScreen extends Component {
                 timerCount={120}
                 enable={true}
                 onClick={(shouldStartCounting) => {
-                  this.props.getVerifyCode(this.props.mobile)
+                  this.props.getVerifyCode(this.state.mobile)
                   shouldStartCounting && shouldStartCounting(true)
                 }}
                 // timerEnd={()=>{

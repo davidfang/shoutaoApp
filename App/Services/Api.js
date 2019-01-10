@@ -59,7 +59,7 @@ const create = (baseURL = AppConfig.apiUrl) => {
   const updateAccount = (user) => api.put('user/update', user) // 更新用户信息
   const invitationCodeSet = (invitationCode) => api.post('user/invitationCodeSet', {invitationCode}) // 设置用户邀请码
   const getBankInfo = () => api.get('bankcard/show')//获取用户银行卡支付宝绑定信息
-  const setBankInfo = (bankInfo) => api.post('bankcard/create',bankInfo)//设置银行卡支付宝绑定信息
+  const setBankInfo = (bankInfo) => api.post('bankcard/create2',bankInfo)//设置银行卡支付宝绑定信息
   const withdrawal = (withdrawal)=> api.post('account/withdrawal',withdrawal)//提现申请
   const getUserInfo = () => api.get('user/info') // 用户中心 获得用户信息
   const updateUserInfo = (user) => api.post('user/update', user) // 更新用户信息

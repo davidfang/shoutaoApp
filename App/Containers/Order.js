@@ -56,17 +56,22 @@ export default class Order extends React.PureComponent {
 
       <View style={styles.row}>
         <View style={styles.rowItem}>
-          <Image source={Images.default_middle} resizeMode='contain'
+          <Image style={styles.image} source={{uri:item.pic}} resizeMode='contain'
                  resizeMethod='resize' loadingIndicatorSource={Images.load} defaultSource={Images.default}/>
+          <View style={{marginLeft:3}}>
+          <View style={styles.rowItem}>
           <Text style={styles.productTitle} numberOfLines={2}>{item.item_title}</Text>
           {renderStatus}
+          </View>
+          <View style={styles.rowItem}>
+            <View style={styles.priceGroup}><Text style={styles.priceLabel}>付款金额</Text><Text
+              style={styles.price}>{item.alipay_total_price}</Text></View>
+            <View style={styles.priceGroup}><Text style={styles.priceLabel}>预估佣金</Text><Text
+              style={styles.price}>{item.pub_share_pre_fee}</Text></View>
+          </View>
+          </View>
         </View>
-        <View style={styles.rowItem}>
-          <View style={styles.priceGroup}><Text style={styles.priceLabel}>付款金额</Text><Text
-            style={styles.price}>{item.alipay_total_price}</Text></View>
-          <View style={styles.priceGroup}><Text style={styles.priceLabel}>预估佣金</Text><Text
-            style={styles.price}>{item.pub_share_pre_fee}</Text></View>
-        </View>
+
 
 
         <View style={styles.rowItem}><Text

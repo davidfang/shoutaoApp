@@ -6,6 +6,7 @@ import {View, Text, FlatList, Image, RefreshControl} from 'react-native'
 // Styles
 import styles from './Styles/FansListStyle'
 import Empty from "../Components/Empty";
+import {Images} from "../Themes";
 
 export default class FansList extends React.PureComponent {
   // // Prop type warnings
@@ -31,8 +32,8 @@ export default class FansList extends React.PureComponent {
     return (
       <View style={styles.row}>
         <View style={styles.avatarLabel}>
-          <Image source={{uri: item.avatar}}
-                 style={styles.avatar}
+          <Image source={{uri: item.avatar}}  resizeMode='contain'
+                 resizeMethod='resize' loadingIndicatorSource={Images.load} defaultSource={Images.default} style={styles.avatar}
           />
         </View>
         <Text style={styles.boldLabel}>{item.nickname}</Text>

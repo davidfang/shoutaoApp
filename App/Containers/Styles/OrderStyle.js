@@ -94,5 +94,9 @@ export default StyleSheet.create({
     color:Colors.white,
     fontSize:ScreenUtil.setSpText(8),
     alignSelf: 'center'
+  },
+  image:{
+    width:ScreenUtil.scaleSize(80),
+    height:ScreenUtil.scaleHeight(80)
   }
 })

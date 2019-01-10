@@ -10,12 +10,13 @@
 *    you'll need to define a constant in that file.
 *************************************************************/
 import {NavigationActions} from 'react-navigation';
-import {call, put} from 'redux-saga/effects'
+import {call, put,select} from 'redux-saga/effects'
 import UserInfoActions, {invitationCodeSetSuccess} from '../Redux/UserInfoRedux'
-import LoginActions from '../Redux/LoginRedux'
+import LoginActions,{LoginSelector} from '../Redux/LoginRedux'
 import Toast from '../Lib/Toast'
 import {requestFaild} from '../Lib/Request'
-
+const selectLoggedInStatus = (state) => LoginSelector.isLoggedIn(state.login)
+const getTokenInfo = (state) => LoginSelector.tokenInfo(state.login)
 import {callApi} from './CallApiSaga'
 // import { UserInfoSelectors } from '../Redux/UserInfoRedux'
 
@@ -31,6 +32,12 @@ export function* getUserInfo(api, action) {
   // get current data from Store
   // const currentData = yield select(UserInfoSelectors.getData)
   // make the call to the api
+  const isLoggedIn = yield select(selectLoggedInStatus)
+  if(isLoggedIn){
+    const tokenInfo = yield select(getTokenInfo)
+    yield call(api.setAuthToken, tokenInfo)//获取用户token设置
+  }
+
   const response = yield call(api.getUserInfo, data)
 
   console.warn(response)

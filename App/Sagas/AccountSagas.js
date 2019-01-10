@@ -50,7 +50,7 @@ export function * getBankInfo(api, action) {
 export function * setBankInfo(api, action) {
   const {bankInfo} = action
   const response = yield call(api.setBankInfo,bankInfo)
-  //console.log(response)
+  console.log(response)
   if(response.ok){
     yield put(AccountActions.bankInfoSuccess(bankInfo))
     Toast.showSuccess('绑定成功,可以提现了')
