@@ -17,7 +17,7 @@ export default Creators
 export const INITIAL_STATE = Immutable({
   data: [],
   fetching: false,
-  payload: null,
+  payload: {},
   error: null
 })
 
@@ -31,7 +31,7 @@ export const GoodsCategorySelectors = {
 
 // request the data from an api
 export const request = state =>
-  state.merge({fetching: true, payload: null})
+  state.merge({fetching: true, payload: {}})
 
 // successful api lookup
 export const success = (state, action) => {

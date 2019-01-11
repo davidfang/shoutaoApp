@@ -53,7 +53,7 @@ export const INITIAL_STATE = Immutable({
   searchPageNo: 1, // 搜索页码
   searchMore: true, // 搜索更多
   fetching: false,
-  payload: null,
+  payload: {},
   error: null
 })
 
@@ -106,7 +106,7 @@ export const TbSelectors = {
 /* ------------- Reducers ------------- */
 
 // request the data from an api
-export const request = (state, {data}) => state.merge({fetching: true, data, payload: null})
+export const request = (state, {data}) => state.merge({fetching: true, data, payload: {}})
 
 // successful api lookup
 export const success = (state, action) => {
@@ -121,7 +121,7 @@ export const failure = (state, { error}) =>
 
 // request the data from an api
 export const indexRecommendRequest = (state) =>
-  state.merge({fetching: true, payload: null})
+  state.merge({fetching: true, payload: {}})
 
 // successful api lookup
 export const indexRecommendSuccess = (state, action) => {
@@ -144,7 +144,7 @@ export const indexRecommendSuccess = (state, action) => {
 
 // request the data from an api
 export const channelProductRequest = (state, {channelId, sortId}) =>
-  state.merge({fetching: true, payload: null})
+  state.merge({fetching: true, payload: {}})
 
 // successful api lookup
 export const channelProductSuccess = (state, action) => {
@@ -178,10 +178,10 @@ export const searchRequest = (state, {keyWord, sortId}) => {
       searchPageNo: 1,
       searchMore: true,
       searchResult: [],
-      payload: null
+      payload: {}
     })
   } else {
-    return state.merge({fetching: true, payload: null})
+    return state.merge({fetching: true, payload: {}})
   }
 }
 // successful api lookup
@@ -208,7 +208,7 @@ export const indexRecommendFailure = (state, {payload, error}) =>
 
 // request the data from an api
 export const tbDetailRequest = (state, {num_iid}) =>
-  state.merge({fetching: true, payload: null})
+  state.merge({fetching: true, payload: {}})
 
 // successful api lookup
 export const tbDetailSuccess = (state, action) => {
@@ -249,7 +249,7 @@ export const tbDetailFailure = state =>
   state.merge({fetching: false, error: true, payload: null})
 // request the data from an api
 export const tbTpwdRequest = (state, {num_iid}) =>
-  state.merge({fetching: true, payload: null})
+  state.merge({fetching: true, payload: {}})
 
 // successful api lookup
 export const tbTpwdSuccess = (state, action) => {
@@ -261,7 +261,7 @@ export const tbTpwdSuccess = (state, action) => {
 }
 // request the data from an api
 export const tbBuyRequest = (state, {num_iid}) =>
-  state.merge({fetching: true, payload: null})
+  state.merge({fetching: true, payload: {}})
 
 // successful api lookup
 export const tbBuySuccess = (state, action) => state.merge({fetching: false, error: null})

@@ -19,7 +19,7 @@ export default Creators
 export const INITIAL_STATE = Immutable({
   data: [],
   fetching: false,
-  payload: null,
+  payload: {},
   status: 1,//订单状态 默认为1
   pageNo: {'1': 1, '12': 1, '3': 1, '13': 1},
   more: {'1': true, '12': true, '3': true, '13': true},
@@ -36,7 +36,7 @@ export const OrderSelectors = {
 
 // request the data from an api
 export const request = (state, {status, page}) =>
-  state.merge({fetching: true, status,  payload: null})
+  state.merge({fetching: true, status,  payload: {}})
 
 // successful api lookup
 export const success = (state, action) => {
@@ -51,7 +51,7 @@ return state.merge({fetching: false, error: null, status, more: newMore, pageNo:
 
 // Something went wrong somewhere.
 export const failure = state =>
-  state.merge({fetching: false, error: true, payload: null})
+  state.merge({fetching: false, error: true, payload: {}})
 export const logout =  state => INITIAL_STATE
 /* ------------- Hookup Reducers To Types ------------- */
 

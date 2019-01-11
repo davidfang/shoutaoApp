@@ -20,7 +20,7 @@ export const INITIAL_STATE = Immutable({
   data: null,
   token: {},
   fetching: null,
-  payload: null,
+  payload: {},
   error: null
 })
 

@@ -21,7 +21,7 @@ export const INITIAL_STATE = Immutable({
   recommend: [],
   bestSelling:[],
   fetching: false,
-  payload: null,
+  payload: {},
   error: null
 })
 

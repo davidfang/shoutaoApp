@@ -18,7 +18,7 @@ export default Creators
 export const INITIAL_STATE = Immutable({
   data: null,
   fetching: false,
-  payload: null,
+  payload: {},
   error: null,
   invitation_code:''
 })
@@ -35,7 +35,7 @@ export const RegisterSelectors = {
 export const setInvitationCode = (state,{code}) => state.merge({invitation_code:code})
 // request the data from an api
 export const request = (state, {user}) =>
-  state.merge({fetching: true, data:user, payload: null})
+  state.merge({fetching: true, data:user, payload: {}})
 
 // successful api lookup
 export const success = (state, action) => {
@@ -45,7 +45,7 @@ export const success = (state, action) => {
 
 // Something went wrong somewhere.
 export const failure = (state, {error}) =>
-  state.merge({fetching: false, error, payload: null})
+  state.merge({fetching: false, error, payload: {}})
 
 /* ------------- Hookup Reducers To Types ------------- */
 
